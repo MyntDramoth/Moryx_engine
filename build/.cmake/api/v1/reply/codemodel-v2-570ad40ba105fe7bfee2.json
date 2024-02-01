@@ -1,0 +1,552 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.11.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						4
+					]
+				},
+				{
+					"build" : "lib/FastNoise2",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-lib.FastNoise2-Debug-08ee8b2d0f85aa29336c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "lib/FastNoise2",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "lib/FastNoise2/src",
+					"jsonFile" : "directory-lib.FastNoise2.src-Debug-3bfb2677a70acfaf659f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "lib/FastNoise2/src",
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Moryx_Engine",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						4
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "FastNoise2",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Debug-228ad1df613571480040.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ALL_BUILD::@1b47d1e38ac2f6846072",
+					"jsonFile" : "target-ALL_BUILD-Debug-6b72c7b4df9017acb6f1.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "FastNoise::@db431847d84473d01def",
+					"jsonFile" : "target-FastNoise-Debug-83648adeae0667f9d4b1.json",
+					"name" : "FastNoise",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Moryx_Engine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Moryx_Engine-Debug-ae994aa2520582b4cc51.json",
+					"name" : "Moryx_Engine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Debug-4826cfb290426bc1ee7d.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.11.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						4
+					]
+				},
+				{
+					"build" : "lib/FastNoise2",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-lib.FastNoise2-Release-0282e2db32feca38e90a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "lib/FastNoise2",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "lib/FastNoise2/src",
+					"jsonFile" : "directory-lib.FastNoise2.src-Release-3bfb2677a70acfaf659f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "lib/FastNoise2/src",
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Moryx_Engine",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						4
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "FastNoise2",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Release-228ad1df613571480040.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ALL_BUILD::@1b47d1e38ac2f6846072",
+					"jsonFile" : "target-ALL_BUILD-Release-6b72c7b4df9017acb6f1.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "FastNoise::@db431847d84473d01def",
+					"jsonFile" : "target-FastNoise-Release-211a742d608d505ac9a7.json",
+					"name" : "FastNoise",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Moryx_Engine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Moryx_Engine-Release-db88efa772e7ffdc9cac.json",
+					"name" : "Moryx_Engine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Release-4826cfb290426bc1ee7d.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-MinSizeRel-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.11.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						4
+					]
+				},
+				{
+					"build" : "lib/FastNoise2",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-lib.FastNoise2-MinSizeRel-d044aed5efa693ca8bd1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "lib/FastNoise2",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "lib/FastNoise2/src",
+					"jsonFile" : "directory-lib.FastNoise2.src-MinSizeRel-3bfb2677a70acfaf659f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "lib/FastNoise2/src",
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"name" : "MinSizeRel",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Moryx_Engine",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						4
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "FastNoise2",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-228ad1df613571480040.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ALL_BUILD::@1b47d1e38ac2f6846072",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-6b72c7b4df9017acb6f1.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "FastNoise::@db431847d84473d01def",
+					"jsonFile" : "target-FastNoise-MinSizeRel-7720fb0609c9fe28800f.json",
+					"name" : "FastNoise",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Moryx_Engine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Moryx_Engine-MinSizeRel-646111ce38215c53de15.json",
+					"name" : "Moryx_Engine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-MinSizeRel-4826cfb290426bc1ee7d.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-RelWithDebInfo-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.11.0"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						4
+					]
+				},
+				{
+					"build" : "lib/FastNoise2",
+					"childIndexes" : 
+					[
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-lib.FastNoise2-RelWithDebInfo-665a0e5e8b552c74c5c1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7.1"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 1,
+					"source" : "lib/FastNoise2",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "lib/FastNoise2/src",
+					"jsonFile" : "directory-lib.FastNoise2.src-RelWithDebInfo-3bfb2677a70acfaf659f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.7.1"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "lib/FastNoise2/src",
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1
+					],
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Moryx_Engine",
+					"targetIndexes" : 
+					[
+						0,
+						3,
+						4
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						1,
+						2
+					],
+					"name" : "FastNoise2",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-228ad1df613571480040.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "ALL_BUILD::@1b47d1e38ac2f6846072",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-6b72c7b4df9017acb6f1.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "FastNoise::@db431847d84473d01def",
+					"jsonFile" : "target-FastNoise-RelWithDebInfo-409bfc81783b5c06dce1.json",
+					"name" : "FastNoise",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Moryx_Engine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Moryx_Engine-RelWithDebInfo-34d4bb683e47094d0b52.json",
+					"name" : "Moryx_Engine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-RelWithDebInfo-4826cfb290426bc1ee7d.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build",
+		"source" : "C:/Users/zachm/OneDrive/Desktop/Moryx_engine"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
