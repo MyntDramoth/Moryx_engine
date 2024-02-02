@@ -1,0 +1,10 @@
+^C:\USERS\ZACHM\ONEDRIVE\DESKTOP\MORYX_ENGINE\LIB\FASTNOISE2\SRC\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/zachm/OneDrive/Desktop/Moryx_engine -BC:/Users/zachm/OneDrive/Desktop/Moryx_engine/build --check-stamp-file C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2/src/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

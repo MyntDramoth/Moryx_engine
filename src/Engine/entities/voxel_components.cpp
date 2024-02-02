@@ -1,6 +1,6 @@
 #include "voxel_components.h"
 
-
+/*
 glm::mat4 Transform_3D_Comp::mat4() {
 	
 	const float c3 = glm::cos(rotation.z);
@@ -62,4 +62,4 @@ glm::mat3 Transform_3D_Comp::normal_matrix() {
 		}
 	};
 	
-}
+}*/

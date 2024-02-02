@@ -2,19 +2,19 @@
 
 
 
-#include "..\types.h"
-#include "ce_entity.h"
-#include "..\ce_model.h"
+#include "..\..\App\types.h"
+#include "entity.h"
+//#include "..\ce_model.h"
 
 //libs
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/glm.hpp>
+//#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/glm.hpp>
 
 //std
 #include <memory>
 #include <unordered_map>
 #include <vector>
-
+/*
 struct Transform_2D_Comp {
 	glm::vec2 translation{};
 	glm::vec2 scale{1.0f,1.0f};
@@ -40,7 +40,7 @@ struct Transform_3D_Comp {
 	glm::mat4 mat4();
 	glm::mat3 normal_matrix();
 };
-
+*/
 struct Point_Light_Comp {
 	float light_intensity{1.0f};
 };
@@ -57,7 +57,7 @@ enum voxel_interactions {
     IS_ROTATABLE = 1<<2,
     IS_AFFECTED_BY_GRAVITY = 1<<3,
 };
-
+/*
 struct Voxel_Base {
     u16 interaction_mask;
     std::shared_ptr<CE_Model> model;
@@ -71,4 +71,4 @@ struct Biome_Base {
     glm::vec2 world_depth_range;
 };
 
-
+*/

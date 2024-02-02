@@ -3,10 +3,13 @@
 #include <Windows.h>
 
 class Window {
-    public:
+public:
     Window();
     bool init();
 
     bool release();
     ~Window();
-}
+
+protected:
+    HWND window;
+};
