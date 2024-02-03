@@ -64,7 +64,7 @@ if (WIN32)
     ${FASTNOISE2_NOISETOOL}
   )
  
-  target_link_libraries(${PROJECT_NAME} FastNoise)
+  target_link_libraries(${PROJECT_NAME} FastNoise d3d11)
 elseif (UNIX)
     message(STATUS "CREATING BUILD FOR UNIX")
     target_include_directories(${PROJECT_NAME} PUBLIC

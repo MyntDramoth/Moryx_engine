@@ -1,2 +1,5 @@
-﻿  main.cpp
+﻿  app_window.cpp
+  main.cpp
+  graphics_engine.cpp
+  Generating Code...
   Moryx_Engine.vcxproj -> C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Release\Moryx_Engine.exe

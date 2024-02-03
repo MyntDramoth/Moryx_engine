@@ -1,0 +1,7 @@
+/build
+.vs
+.cmake
+.lib
+.vcxproj
+.filters
+.user
