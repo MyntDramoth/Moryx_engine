@@ -40,11 +40,21 @@ bool Graphics_Engine::init()
 
     if(FAILED(hres)) {return false;}
 
+    device->QueryInterface(__uuidof(IDXGIDevice),(void**)&dxgi_device);
+    dxgi_device->GetParent(__uuidof(IDXGIAdapter),(void**)&dxgi_adapter);
+    dxgi_adapter->GetParent(__uuidof(IDXGIFactory),(void**)&dxgi_factory);
+
+
+
     return true;
 }
 
 bool Graphics_Engine::release()
 {
+    dxgi_device->Release();
+    dxgi_adapter->Release();
+    dxgi_factory->Release();
+
     m_device_context->Release();
     device->Release();
     return true;
@@ -54,4 +64,9 @@ Graphics_Engine* Graphics_Engine::get_engine()
 {
     static Graphics_Engine engine;
     return &engine;
+}
+
+Swapchain * Graphics_Engine::create_swap_chain()
+{
+    return new Swapchain();
 }

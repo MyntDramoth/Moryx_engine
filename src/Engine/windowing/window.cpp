@@ -16,6 +16,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT msg, WPARAM wparam, LPARAM lparam) {
 
             SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
 
+            window->set_HWND(hwnd);
             window->on_create();
 
             break;
@@ -117,4 +118,16 @@ Window::~Window()
 void Window::on_destroy()
 {
     m_is_running = false;
+}
+
+RECT Window::get_client_window_rect()
+{
+    RECT rc;
+    ::GetClientRect(this->window_handle,&rc);
+    return rc;
+}
+
+void Window::set_HWND(HWND hwnd)
+{
+    this->window_handle = hwnd;
 }
