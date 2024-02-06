@@ -58,6 +58,11 @@ bool Graphics_Engine::release()
     dxgi_adapter->Release();
     dxgi_factory->Release();
 
+    vertex_shader_blob->Release();
+    pixel_shader_blob->Release();
+    vertex_shader->Release();
+    pixel_shader->Release();
+
     device_context->release();
     device->Release();
     return true;
@@ -77,4 +82,32 @@ Device_Context *Graphics_Engine::get_device_context()
 Swapchain * Graphics_Engine::create_swap_chain()
 {
     return new Swapchain();
+}
+
+Vertex_Buffer *Graphics_Engine::create_vertex_buffer()
+{
+    return new Vertex_Buffer();
+}
+
+bool Graphics_Engine::create_shaders() {
+    ID3DBlob* err_blob = nullptr;
+
+    D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "vsmain", "vs_5_0", NULL, NULL, &vertex_shader_blob, &err_blob);
+    D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "psmain", "ps_5_0", NULL, NULL, &pixel_shader_blob, &err_blob);
+    
+    device->CreateVertexShader(vertex_shader_blob->GetBufferPointer(), vertex_shader_blob->GetBufferSize(), nullptr, &vertex_shader);
+    device->CreatePixelShader(pixel_shader_blob->GetBufferPointer(), pixel_shader_blob->GetBufferSize(), nullptr, &pixel_shader);
+    return true;
+    
+}
+
+bool Graphics_Engine::set_shaders() {
+    device_context->VSSetShader(vertex_shader, nullptr, 0);
+    device_context->PSSetShader(pixel_shader, nullptr, 0);
+    return true;
+}
+
+void Graphics_Engine::get_shader_buffer_and_size(void **bytecode, UINT *size) {
+    *bytecode = this->vertex_shader_blob->GetBufferPointer();
+    *size = (UINT)this->vertex_shader_blob->GetBufferSize();
 }

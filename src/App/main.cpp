@@ -6,6 +6,8 @@ int main() {
     App_Window application;
     if(application.init()) {
 
+        
+
         while(application.is_running()) {
             application.broadcast();
             

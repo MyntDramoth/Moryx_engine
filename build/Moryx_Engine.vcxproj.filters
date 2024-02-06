@@ -19,6 +19,9 @@
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\swapchain\swapchain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_buffer\vertex_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\physics\physics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -327,6 +327,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\device_context\device_context.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\graphics_engine.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\swapchain\swapchain.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_buffer\vertex_buffer.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\physics\physics.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\windowing\window.cpp" />
   </ItemGroup>

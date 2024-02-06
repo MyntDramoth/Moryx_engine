@@ -1,4 +1,16 @@
-﻿  swapchain.cpp
-  window.cpp
+﻿  app_window.cpp
+  main.cpp
+  device_context.cpp
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\device_context\device_context.cpp(40,22): warning C4244: '=': conversion from 'UINT' to 'FLOAT', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\device_context\device_context.cpp(41,23): warning C4244: '=': conversion from 'UINT' to 'FLOAT', possible loss of data
+  graphics_engine.cpp
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\graphics_engine.cpp(104,21): error C2039: 'VSSetShader': is not a member of 'Device_Context'
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\graphics_engine.h(12): message : see declaration of 'Device_Context'
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\graphics_engine.cpp(105,21): error C2039: 'PSSetShader': is not a member of 'Device_Context'
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\graphics_engine.h(12): message : see declaration of 'Device_Context'
+  swapchain.cpp
+  vertex_buffer.cpp
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_buffer\vertex_buffer.cpp(50,131): error C2664: 'HRESULT ID3D11Device::CreateInputLayout(const D3D11_INPUT_ELEMENT_DESC *,UINT,const void *,SIZE_T,ID3D11InputLayout **)': cannot convert argument 1 from 'D3D11_INPUT_ELEMENT_DESC (*)[1]' to 'const D3D11_INPUT_ELEMENT_DESC *'
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_buffer\vertex_buffer.cpp(50,69): message : Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or parenthesized function-style cast
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\um\d3d11.h(14179,43): message : see declaration of 'ID3D11Device::CreateInputLayout'
   Generating Code...
-  Moryx_Engine.vcxproj -> C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Release\Moryx_Engine.exe
