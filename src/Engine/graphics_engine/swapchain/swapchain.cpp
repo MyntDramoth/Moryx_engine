@@ -31,12 +31,34 @@ bool Swapchain::init(HWND hwnd,UINT width, UINT height)
     if(FAILED(hres)) {
         return false;
     }
+
+    ID3D11Texture2D* back_buffer = NULL;
+    hres = swapchain->GetBuffer(0,__uuidof(ID3D11Texture2D),(void**)&back_buffer);
+    if(FAILED(hres)) {
+        return false;
+    }
+
+    hres = d3_device->CreateRenderTargetView(back_buffer,NULL,&target_view);
+    back_buffer->Release();
+
+    if(FAILED(hres)) {
+        return false;
+    }
+
+    return true;
+}
+
+bool Swapchain::present(bool vsync)
+{
+    swapchain->Present(vsync,NULL);
+
     return true;
 }
 
 bool Swapchain::release()
 {
     swapchain->Release();
+    target_view->Release();
     delete this;
     return true;
 }

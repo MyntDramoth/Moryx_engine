@@ -3,6 +3,7 @@
 #include "../Engine/windowing/window.h"
 #include "../Engine/graphics_engine/graphics_engine.h"
 #include "../Engine/graphics_engine/swapchain/swapchain.h"
+#include "../Engine/graphics_engine/device_context/device_context.h"
 
 class App_Window : public Window {
 public:

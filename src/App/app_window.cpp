@@ -21,6 +21,8 @@ void App_Window::on_create()
 
 void App_Window::on_update() {
 
+    Graphics_Engine::get_engine()->get_device_context()->clear_render_target_color(this->swapchain,1,0,0,1);
+    swapchain->present(true);
 }
 
 void App_Window::on_destroy() {
