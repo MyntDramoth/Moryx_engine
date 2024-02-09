@@ -1,3 +1,2 @@
 ﻿  app_window.cpp
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\app_window.cpp(54,111): warning C4305: 'argument': truncation from 'double' to 'float'
   Moryx_Engine.vcxproj -> C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Release\Moryx_Engine.exe

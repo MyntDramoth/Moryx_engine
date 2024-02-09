@@ -20,13 +20,13 @@ void App_Window::on_create()
     swapchain->init(this->window_handle,width,height);
 
     Vertex vertices[] = {
-        {-0.5f,-0.5f,0.0f},
-        {0.0f,0.5f,0.0f},
-        {0.5f,-0.5f,0.0f},
+        {-0.5f,-0.5f,0.0f,  1.0f,0.0f,0.0f},
+        {0.0f,0.5f,0.0f,  0.0f,1.0f,0.0f},
+        {0.5f,-0.5f,0.0f,  0.0f,0.0f,1.0f},
 
-        {0.5f,0.5f,0.0f},
-        {0.5f,-0.5f,0.0f},
-        {-0.5f,-0.5f,0.0f}
+        {0.5f,0.5f,0.0f,  1.0f,0.0f,1.0f},
+        {0.5f,-0.5f,0.0f,  1.0f,1.0f,0.0f},
+        {-0.5f,-0.5f,0.0f,  0.0f,1.0f,1.0f}
     };
 
     vertex_buffer = Graphics_Engine::get_engine()->create_vertex_buffer();
@@ -51,7 +51,7 @@ void App_Window::on_create()
 
 void App_Window::on_update() {
 
-    Graphics_Engine::get_engine()->get_device_context()->clear_render_target_color(this->swapchain,0,0.3,0.4,1);
+    Graphics_Engine::get_engine()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
     
 
     RECT rc = this->get_client_window_rect();
@@ -71,5 +71,7 @@ void App_Window::on_destroy() {
     Window::on_destroy();
     swapchain->release();
     vertex_buffer->release();
+    vertex_shader->release();
+    pixel_shader->release();
     Graphics_Engine::get_engine()->release();
 }

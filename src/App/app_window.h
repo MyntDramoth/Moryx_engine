@@ -12,7 +12,7 @@ struct Vec3 {
 
 struct Vertex {
     Vec3 position;
-
+    Vec3 color;
 };
 
 class App_Window : public Window {
