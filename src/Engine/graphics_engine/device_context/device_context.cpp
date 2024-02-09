@@ -35,6 +35,11 @@ void Device_Context::draw_triangle_list(UINT vertex_count, UINT start_index) {
     device_context->Draw(vertex_count,start_index);
 }
 
+void Device_Context::draw_triangle_strip(UINT vertex_count, UINT start_index) {
+    device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+    device_context->Draw(vertex_count,start_index);
+}
+
 void Device_Context::set_viewport_size(UINT width, UINT height) {
     D3D11_VIEWPORT viewport = {};
     viewport.Width = width;
@@ -44,6 +49,14 @@ void Device_Context::set_viewport_size(UINT width, UINT height) {
     
 
     device_context->RSSetViewports(1,&viewport);
+}
+
+void Device_Context::set_vertex_shader(Vertex_Shader *vertex_shader) {
+    device_context->VSSetShader(vertex_shader->vertex_shader,nullptr,0);
+}
+
+void Device_Context::set_pixel_shader(Pixel_Shader *pixel_shader) {
+    device_context->PSSetShader(pixel_shader->pixel_shader,nullptr,0);
 }
 
 bool Device_Context::release() {

@@ -47,7 +47,7 @@ bool Vertex_Buffer::load(void *vertices, UINT vertex_size, UINT vertex_num, void
 
     UINT layout_size = ARRAYSIZE(layout);
 
-    hres = Graphics_Engine::get_engine()->device->CreateInputLayout(&layout,layout_size,shader_byte_code,shader_size,&input_layout);
+    hres = Graphics_Engine::get_engine()->device->CreateInputLayout(layout,layout_size,shader_byte_code,shader_size,&input_layout);
     if(FAILED(hres)) {
         return false;
     }

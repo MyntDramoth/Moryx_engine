@@ -28,4 +28,6 @@ public:
 private:
     Swapchain* swapchain;
     Vertex_Buffer* vertex_buffer;
+    Vertex_Shader* vertex_shader;
+    Pixel_Shader* pixel_shader;
 };

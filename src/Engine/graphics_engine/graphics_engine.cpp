@@ -58,11 +58,8 @@ bool Graphics_Engine::release()
     dxgi_adapter->Release();
     dxgi_factory->Release();
 
-    vertex_shader_blob->Release();
-    pixel_shader_blob->Release();
-    vertex_shader->Release();
-    pixel_shader->Release();
-
+    shader_blob->Release();
+    
     device_context->release();
     device->Release();
     return true;
@@ -89,25 +86,55 @@ Vertex_Buffer *Graphics_Engine::create_vertex_buffer()
     return new Vertex_Buffer();
 }
 
-bool Graphics_Engine::create_shaders() {
+Vertex_Shader *Graphics_Engine::create_vertex_shader(const void *shader_byte_code, size_t byte_code_size) {
+    Vertex_Shader* shader = new Vertex_Shader();
+    if(!shader->init(shader_byte_code,byte_code_size)) {
+        shader->release();
+        return nullptr;
+    }
+
+    return shader;
+}
+
+Pixel_Shader *Graphics_Engine::create_pixel_shader(const void *shader_byte_code, size_t byte_code_size)
+{
+    Pixel_Shader* shader = new Pixel_Shader();
+    if(!shader->init(shader_byte_code,byte_code_size)) {
+        shader->release();
+        return nullptr;
+    }
+
+    return shader;
+    
+}
+
+bool Graphics_Engine::compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size) {
     ID3DBlob* err_blob = nullptr;
 
-    D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "vsmain", "vs_5_0", NULL, NULL, &vertex_shader_blob, &err_blob);
-    D3DCompileFromFile(L"shader.fx", nullptr, nullptr, "psmain", "ps_5_0", NULL, NULL, &pixel_shader_blob, &err_blob);
-    
-    device->CreateVertexShader(vertex_shader_blob->GetBufferPointer(), vertex_shader_blob->GetBufferSize(), nullptr, &vertex_shader);
-    device->CreatePixelShader(pixel_shader_blob->GetBufferPointer(), pixel_shader_blob->GetBufferSize(), nullptr, &pixel_shader);
-    return true;
-    
-}
-
-bool Graphics_Engine::set_shaders() {
-    device_context->VSSetShader(vertex_shader, nullptr, 0);
-    device_context->PSSetShader(pixel_shader, nullptr, 0);
+    HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, shader_main_funtion_name, "vs_5_0", 0,0, &shader_blob, &err_blob);
+    if(FAILED(hres)) {
+        if(err_blob) {err_blob->Release();}
+        return false;
+    }
+    *shader_byte_code = shader_blob->GetBufferPointer();
+    *byte_code_size = shader_blob->GetBufferSize();
     return true;
 }
 
-void Graphics_Engine::get_shader_buffer_and_size(void **bytecode, UINT *size) {
-    *bytecode = this->vertex_shader_blob->GetBufferPointer();
-    *size = (UINT)this->vertex_shader_blob->GetBufferSize();
+bool Graphics_Engine::compile_pixel_shader(const wchar_t *file_name, const char *shader_main_funtion_name, void **shader_byte_code, size_t *byte_code_size)
+{
+    ID3DBlob* err_blob = nullptr;
+
+    HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, shader_main_funtion_name, "ps_5_0", 0,0, &shader_blob, &err_blob);
+    if(FAILED(hres)) {
+        if(err_blob) {err_blob->Release();}
+        return false;
+    }
+    *shader_byte_code = shader_blob->GetBufferPointer();
+    *byte_code_size = shader_blob->GetBufferSize();
+    return true;
+}
+
+void Graphics_Engine::release_compiled_shader() {
+    if(shader_blob) {shader_blob->Release();}
 }
