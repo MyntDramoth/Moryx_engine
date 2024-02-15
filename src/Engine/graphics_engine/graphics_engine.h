@@ -8,12 +8,14 @@
 #include "vertex_buffer/vertex_buffer.h"
 #include "vertex_shader/vertex_shader.h"
 #include "pixel_shader/pixel_shader.h"
+#include "constant_buffer/constant_buffer.h"
 
 class Swapchain;
+class Constant_Buffer;
 class Vertex_Buffer;
-class Device_Context;
 class Vertex_Shader;
 class Pixel_Shader;
+class Device_Context;
 
 class Graphics_Engine {
 public:
@@ -26,6 +28,7 @@ public:
     Device_Context* get_device_context();
 
     Swapchain * create_swap_chain();
+    Constant_Buffer* create_constant_buffer();
     Vertex_Buffer* create_vertex_buffer();
     Vertex_Shader* create_vertex_shader(const void* shader_byte_code, size_t byte_code_size);
     Pixel_Shader* create_pixel_shader(const void* shader_byte_code, size_t byte_code_size);
@@ -48,7 +51,9 @@ private:
     ID3DBlob* shader_blob = nullptr;
     
     friend class Swapchain;
+    friend class Constant_Buffer;
     friend class Vertex_Buffer;
     friend class Vertex_Shader;
     friend class Pixel_Shader;
+   
 };

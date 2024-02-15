@@ -1,5 +1,6 @@
 #include "app_window.h"
 #include <iostream>
+#include <chrono>
 
 App_Window::App_Window()
 {
@@ -46,13 +47,31 @@ void App_Window::on_create()
     pixel_shader = Graphics_Engine::get_engine()->create_pixel_shader(shader_byte_code,shader_size);
 
     Graphics_Engine::get_engine()->release_compiled_shader();
+
+    Constant con;
+
+    con.time = 0;
+    constant_buffer = Graphics_Engine::get_engine()->create_constant_buffer();
+    constant_buffer->load(&con,sizeof(Constant));
      
 }
 
 void App_Window::on_update() {
+    /*
+    auto new_time = std::chrono::high_resolution_clock::now();
+    float frame_time = std::chrono::duration<float, std::chrono::seconds::period>(new_time - current_time).count();
+    current_time = new_time;*/
+
+     Constant con;
+
+    con.time = ::GetTickCount();
+
+    constant_buffer->update( Graphics_Engine::get_engine()->get_device_context(),&con);
 
     Graphics_Engine::get_engine()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
     
+    Graphics_Engine::get_engine()->get_device_context()->set_constant_buffer(vertex_shader, constant_buffer);
+    Graphics_Engine::get_engine()->get_device_context()->set_constant_buffer(pixel_shader, constant_buffer);
 
     RECT rc = this->get_client_window_rect();
     UINT width = rc.right - rc.left;
@@ -61,6 +80,8 @@ void App_Window::on_update() {
     Graphics_Engine::get_engine()->get_device_context()->set_viewport_size(width,height);
     Graphics_Engine::get_engine()->get_device_context()->set_vertex_shader(vertex_shader);
     Graphics_Engine::get_engine()->get_device_context()->set_pixel_shader(pixel_shader);
+
+
     Graphics_Engine::get_engine()->get_device_context()->set_vertex_buffer(vertex_buffer);
     Graphics_Engine::get_engine()->get_device_context()->draw_triangle_list(vertex_buffer->get_num_vertices(),0);
   
@@ -70,6 +91,7 @@ void App_Window::on_update() {
 void App_Window::on_destroy() {
     Window::on_destroy();
     swapchain->release();
+    constant_buffer->release();
     vertex_buffer->release();
     vertex_shader->release();
     pixel_shader->release();

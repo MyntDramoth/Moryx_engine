@@ -59,6 +59,14 @@ void Device_Context::set_pixel_shader(Pixel_Shader *pixel_shader) {
     device_context->PSSetShader(pixel_shader->pixel_shader,nullptr,0);
 }
 
+void Device_Context::set_constant_buffer(Vertex_Shader *vertex_shader, Constant_Buffer *const_buffer) {
+    device_context->VSSetConstantBuffers(0,1,&const_buffer->buffer);
+}
+
+void Device_Context::set_constant_buffer(Pixel_Shader *pixel_shader, Constant_Buffer *const_buffer) {
+    device_context->PSSetConstantBuffers(0,1,&const_buffer->buffer);
+}
+
 bool Device_Context::release() {
     device_context->Release();
     delete this;

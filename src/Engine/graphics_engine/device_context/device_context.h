@@ -5,11 +5,15 @@
 #include "../vertex_buffer/vertex_buffer.h"
 #include"../vertex_shader/vertex_shader.h"
 #include"../pixel_shader/pixel_shader.h"
+#include "../constant_buffer/constant_buffer.h"
+
 
 class Swapchain;
+class Constant_Buffer;
 class Vertex_Buffer;
 class Vertex_Shader;
 class Pixel_Shader;
+
 
 class Device_Context
 {
@@ -26,9 +30,14 @@ public:
     void set_vertex_shader(Vertex_Shader* vertex_shader);
     void set_pixel_shader(Pixel_Shader* pixel_shader);
 
+    void set_constant_buffer(Vertex_Shader* vertex_shader, Constant_Buffer* const_buffer);
+    void set_constant_buffer(Pixel_Shader* pixel_shader, Constant_Buffer* const_buffer);
+
     bool release();
 
 private:
     ID3D11DeviceContext* device_context;
+
+    friend class Constant_Buffer;
     
 };

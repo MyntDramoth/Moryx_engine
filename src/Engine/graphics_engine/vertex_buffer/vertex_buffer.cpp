@@ -40,6 +40,8 @@ bool Vertex_Buffer::load(void *vertices, UINT vertex_size, UINT vertex_num, void
         return false;
     }
 
+    //that 12 is the size of 3 32bit floats, 1 32bit float being 4 bytes.
+
     D3D11_INPUT_ELEMENT_DESC layout[] = {
         //SEMANTIC NAME - SEMANTIC INDEX - FORMAT - INPUT SLOT - ALLIGNED BYTE OFFSET - INPUT SLOT CLASS - INSTANCE DATA STEP RATE
         {"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
