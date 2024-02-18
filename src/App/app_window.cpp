@@ -1,6 +1,6 @@
 #include "app_window.h"
 #include <iostream>
-#include <chrono>
+
 
 App_Window::App_Window()
 {
@@ -8,6 +8,40 @@ App_Window::App_Window()
 
 App_Window::~App_Window()
 {
+}
+
+void App_Window::update_constant_buffer()
+{
+    Const_Buff con;
+    Matrix4x4 temp;
+    
+    d_pos += (delta_time / 2.0f);
+    if(d_pos > 1.0f) {
+        d_pos = 0.0f;
+    }
+
+    //con.world_space.set_translation(Vector3D::lerp(Vector3D(-2.0f,-2.0f,0.0f), Vector3D(2.0f,2.0f,0.0f), d_pos));
+    //con.world_space.set_scale(Vector3D(1.0f,1.0f,0.0f));
+    d_scale += (delta_time / 2.0f);
+    
+    con.world_space.set_scale(Vector3D::lerp(Vector3D(0.5f,0.5f,0.0f), Vector3D(2.0f,2.0f,0.0f), ((sin((float)d_scale)+1.0f) / 2.0f)));
+    temp.set_translation(Vector3D::lerp(Vector3D(-2.0f,-2.0f,0.0f), Vector3D(2.0f,2.0f,0.0f), d_pos));
+    
+    con.world_space *= temp;
+
+    con.view_space.set_identity();
+    con.projection.set_orthogonal_matrix(
+        (this->get_client_window_rect().right - this->get_client_window_rect().left)/400.0f,
+        (this->get_client_window_rect().bottom - this->get_client_window_rect().top)/400.0f,
+        -4.0f,
+        4.0f
+    );
+
+    con.time = ::GetTickCount64();
+
+    constant_buffer->update( Graphics_Engine::get_engine()->get_device_context(),&con);
+
+
 }
 
 void App_Window::on_create()
@@ -21,13 +55,13 @@ void App_Window::on_create()
     swapchain->init(this->window_handle,width,height);
 
     Vertex vertices[] = {
-        {-0.5f,-0.5f,0.0f,  1.0f,0.0f,0.0f},
-        {0.0f,0.5f,0.0f,  0.0f,1.0f,0.0f},
-        {0.5f,-0.5f,0.0f,  0.0f,0.0f,1.0f},
+        {Vector3D(-0.5f,-0.5f,0.0f),  Vector3D(1.0f,0.0f,0.0f)},
+        {Vector3D(0.0f,0.5f,0.0f),  Vector3D(0.0f,1.0f,0.0f)},
+        {Vector3D(0.5f,-0.5f,0.0f),  Vector3D(0.0f,0.0f,1.0f)},
 
-        {0.5f,0.5f,0.0f,  1.0f,0.0f,1.0f},
-        {0.5f,-0.5f,0.0f,  1.0f,1.0f,0.0f},
-        {-0.5f,-0.5f,0.0f,  0.0f,1.0f,1.0f}
+        {Vector3D(0.5f,0.5f,0.0f),  Vector3D(1.0f,0.0f,1.0f)},
+        {Vector3D(0.5f,-0.5f,0.0f),  Vector3D(1.0f,1.0f,0.0f)},
+        {Vector3D(-0.5f,-0.5f,0.0f),  Vector3D(0.0f,1.0f,1.0f)}
     };
 
     vertex_buffer = Graphics_Engine::get_engine()->create_vertex_buffer();
@@ -48,25 +82,19 @@ void App_Window::on_create()
 
     Graphics_Engine::get_engine()->release_compiled_shader();
 
-    Constant con;
+    Const_Buff con;
 
     con.time = 0;
     constant_buffer = Graphics_Engine::get_engine()->create_constant_buffer();
-    constant_buffer->load(&con,sizeof(Constant));
-     
+    constant_buffer->load(&con,sizeof(Const_Buff));
+    current_time = std::chrono::high_resolution_clock::now();
 }
 
 void App_Window::on_update() {
-    /*
-    auto new_time = std::chrono::high_resolution_clock::now();
-    float frame_time = std::chrono::duration<float, std::chrono::seconds::period>(new_time - current_time).count();
-    current_time = new_time;*/
+    
+    
 
-     Constant con;
-
-    con.time = ::GetTickCount();
-
-    constant_buffer->update( Graphics_Engine::get_engine()->get_device_context(),&con);
+    update_constant_buffer();
 
     Graphics_Engine::get_engine()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
     
@@ -86,6 +114,16 @@ void App_Window::on_update() {
     Graphics_Engine::get_engine()->get_device_context()->draw_triangle_list(vertex_buffer->get_num_vertices(),0);
   
     swapchain->present(true);
+
+   
+
+    new_time = std::chrono::high_resolution_clock::now();
+    float frame_time = std::chrono::duration<float, std::chrono::seconds::period>(new_time - current_time).count();
+    current_time = new_time;
+    delta_time = (float)frame_time / 1.0f;
+    FPS = (float)frame_time * 100000.0f;
+    //std::cout<<(float)delta_time<<std::endl;
+
 }
 
 void App_Window::on_destroy() {
