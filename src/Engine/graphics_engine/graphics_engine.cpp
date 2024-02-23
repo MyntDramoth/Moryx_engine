@@ -81,6 +81,11 @@ Swapchain * Graphics_Engine::create_swap_chain()
     return new Swapchain();
 }
 
+Index_Buffer *Graphics_Engine::create_index_buffer()
+{
+    return new Index_Buffer();
+}
+
 Constant_Buffer *Graphics_Engine::create_constant_buffer()
 {
     return new Constant_Buffer();

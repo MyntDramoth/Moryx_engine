@@ -37,6 +37,27 @@ public:
         matrix[2][2] = scale.z;
     };
 
+    void set_rotation_x (float x) {
+        matrix[1][1] = cos(x);
+        matrix[1][2] = sin(x);
+        matrix[2][1] = -sin(x);
+        matrix[2][2] = cos(x);
+    };
+
+    void set_rotation_y (float y) {
+        matrix[0][0] = cos(y);
+        matrix[0][2] = -sin(y);
+        matrix[2][0] = sin(y);
+        matrix[2][2] = cos(y);
+    };
+
+    void set_rotation_z (float z) {
+        matrix[0][0] = cos(z);
+        matrix[0][1] = sin(z);
+        matrix[1][0] = -sin(z);
+        matrix[1][1] = cos(z);
+    };
+
     void operator *=(const Matrix4x4 &in_matrix) {
         Matrix4x4 out;
         for(int i = 0;i<4;i++) {

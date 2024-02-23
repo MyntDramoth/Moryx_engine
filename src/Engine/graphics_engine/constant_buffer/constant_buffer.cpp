@@ -1,12 +1,10 @@
 #include "constant_buffer.h"
 
-Constant_Buffer::Constant_Buffer()
-{
+Constant_Buffer::Constant_Buffer() : buffer(0) {
 
 }
 
-Constant_Buffer::~Constant_Buffer()
-{
+Constant_Buffer::~Constant_Buffer() {
 
 }
 

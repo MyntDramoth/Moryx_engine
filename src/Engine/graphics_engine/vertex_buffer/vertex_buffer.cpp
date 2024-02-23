@@ -1,22 +1,18 @@
 #include "vertex_buffer.h"
 
-Vertex_Buffer::Vertex_Buffer() : input_layout(0), buffer(0)
-{
+Vertex_Buffer::Vertex_Buffer() : input_layout(0), buffer(0) {
 
 }
 
-Vertex_Buffer::~Vertex_Buffer()
-{
+Vertex_Buffer::~Vertex_Buffer() {
 
 }
 
-UINT Vertex_Buffer::get_num_vertices()
-{
+UINT Vertex_Buffer::get_num_vertices() {
     return this->vert_num;
 }
 
-bool Vertex_Buffer::load(void *vertices, UINT vertex_size, UINT vertex_num, void *shader_byte_code, UINT shader_size)
-{
+bool Vertex_Buffer::load(void *vertices, UINT vertex_size, UINT vertex_num, void *shader_byte_code, UINT shader_size) {
     if(input_layout) {input_layout->Release();}
     if(buffer) {buffer->Release();}
 
@@ -57,8 +53,7 @@ bool Vertex_Buffer::load(void *vertices, UINT vertex_size, UINT vertex_num, void
     return true;
 }
 
-bool Vertex_Buffer::release()
-{
+bool Vertex_Buffer::release() {
     input_layout->Release();
     buffer->Release();
     delete this;

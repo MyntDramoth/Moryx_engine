@@ -13,6 +13,7 @@
 #include "../Engine/graphics_engine/device_context/device_context.h"
 #include "../Engine/graphics_engine/vertex_buffer/vertex_buffer.h"
 #include "../Engine/graphics_engine/constant_buffer/constant_buffer.h"
+#include "../Engine/graphics_engine/index_buffer/index_buffer.h"
 /*
 struct Vec3 {
     float x,y,z;
@@ -44,15 +45,17 @@ public:
     virtual void on_destroy() override;
 
 private:
-    std::chrono::steady_clock::time_point current_time;
+    std::chrono::high_resolution_clock::time_point current_time;
     float delta_time;
-    std::chrono::steady_clock::time_point new_time;
+    std::chrono::high_resolution_clock::time_point new_time;
+    
 
     float FPS;
     float d_pos = 0.01f;
     float d_scale = 0.01f;
 
     Swapchain* swapchain;
+    Index_Buffer* index_buffer;
     Constant_Buffer* constant_buffer;
     Vertex_Buffer* vertex_buffer;
     Vertex_Shader* vertex_shader;

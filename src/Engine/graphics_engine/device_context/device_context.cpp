@@ -35,6 +35,11 @@ void Device_Context::draw_triangle_list(UINT vertex_count, UINT start_index) {
     device_context->Draw(vertex_count,start_index);
 }
 
+void Device_Context::draw_indexed_triangle_list(UINT index_count, UINT start_index, UINT vert_start_index) {
+    device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    device_context->DrawIndexed(index_count,start_index,vert_start_index);
+}
+
 void Device_Context::draw_triangle_strip(UINT vertex_count, UINT start_index) {
     device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
     device_context->Draw(vertex_count,start_index);
@@ -49,6 +54,10 @@ void Device_Context::set_viewport_size(UINT width, UINT height) {
     
 
     device_context->RSSetViewports(1,&viewport);
+}
+
+void Device_Context::set_index_buffer(Index_Buffer *index_buffer) {
+    device_context->IASetIndexBuffer(index_buffer->buffer,DXGI_FORMAT_R32_UINT,0);
 }
 
 void Device_Context::set_vertex_shader(Vertex_Shader *vertex_shader) {
