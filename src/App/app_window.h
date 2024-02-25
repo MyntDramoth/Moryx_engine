@@ -44,10 +44,18 @@ public:
     virtual void on_create() override;
     virtual void on_update() override;
     virtual void on_destroy() override;
+    virtual void on_focus() override;
+    virtual void on_kill_focus() override;
 
     //Inherited via Input_Listener
     virtual void on_key_down(int key) override;
     virtual void on_key_up(int key) override;
+
+    virtual void on_mouse_move(const Point &delta_mouse_pos) override;
+    virtual void on_left_mouse_down(const Point &mouse_pos) override;
+    virtual void on_left_mouse_up(const Point &mouse_pos) override;
+    virtual void on_right_mouse_down(const Point &mouse_pos) override;
+    virtual void on_right_mouse_up(const Point &mouse_pos) override;
 
 private:
     std::chrono::high_resolution_clock::time_point current_time;

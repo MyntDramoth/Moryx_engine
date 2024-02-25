@@ -17,6 +17,9 @@ public:
     virtual void on_update() = 0;
     virtual void on_destroy();
 
+    virtual void on_focus() = 0;
+    virtual void on_kill_focus() = 0;
+
     RECT get_client_window_rect();
     void set_HWND(HWND hwnd);
 

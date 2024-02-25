@@ -11,13 +11,45 @@ Input_System::~Input_System() {
 }
 
 void Input_System::update() {
+
+    POINT current_mouse_pos = {};
+    GetCursorPos(&current_mouse_pos);
+
+    if(is_first_time) {
+        old_mouse_pos = Point(current_mouse_pos.x,current_mouse_pos.y);
+        is_first_time = false;
+    }
+
+    if(current_mouse_pos.x != old_mouse_pos.x || current_mouse_pos.y != old_mouse_pos.y) {
+        //MOUSE MOVED EVENT
+        std::map<Input_Listener*,Input_Listener*>::iterator iterator = map_listeners.begin();
+        while(iterator != map_listeners.end()) {
+            iterator->second->on_mouse_move(Point(current_mouse_pos.x - old_mouse_pos.x, current_mouse_pos.y - old_mouse_pos.y));
+            ++iterator;
+        }
+    }
+    old_mouse_pos = Point(current_mouse_pos.x,current_mouse_pos.y);
+
     if(GetKeyboardState(key_state)) {
         for(unsigned int i = 0; i < 255;i++) {
             // KEY IS DOWN
             if(key_state[i] & 0x80) {
                 std::map<Input_Listener*,Input_Listener*>::iterator iterator = map_listeners.begin();
                 while(iterator != map_listeners.end()) {
-                    iterator->second->on_key_down(i);
+
+                    if(i == VK_LBUTTON) {
+                        if(key_state[i] != old_key_state[i]) {
+                            iterator->second->on_left_mouse_down(Point(current_mouse_pos.x,current_mouse_pos.y));
+                        }
+                    }
+                    else if(i == VK_RBUTTON) {
+                        if(key_state[i] != old_key_state[i]) {
+                            iterator->second->on_right_mouse_down(Point(current_mouse_pos.x,current_mouse_pos.y));
+                        }
+                    }
+                    else {
+                        iterator->second->on_key_down(i);
+                    }
                     ++iterator;
                 }
             // KEY IS UP
@@ -26,7 +58,15 @@ void Input_System::update() {
                 if(key_state[i] != old_key_state[i]) {
                     std::map<Input_Listener*,Input_Listener*>::iterator iterator = map_listeners.begin();
                     while(iterator != map_listeners.end()) {
-                        iterator->second->on_key_up(i);
+                        if(i == VK_LBUTTON) {
+                            iterator->second->on_left_mouse_up(Point(current_mouse_pos.x,current_mouse_pos.y));
+                        }
+                        else if(i == VK_RBUTTON) {
+                            iterator->second->on_right_mouse_up(Point(current_mouse_pos.x,current_mouse_pos.y));
+                        }
+                        else {
+                            iterator->second->on_key_up(i);
+                        }
                         ++iterator;
                     }
                 }

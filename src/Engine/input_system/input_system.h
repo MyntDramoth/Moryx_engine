@@ -1,6 +1,7 @@
 #pragma once
 
 #include "input_listener.h"
+#include "../math/point.h"
 
 #include <map>
 
@@ -19,4 +20,6 @@ private:
     std::map<Input_Listener*,Input_Listener*> map_listeners;
     unsigned char key_state[256] = {};
     unsigned char old_key_state[256] = {};
+    Point old_mouse_pos;
+    bool is_first_time = true;
 };

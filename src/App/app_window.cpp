@@ -196,6 +196,14 @@ void App_Window::on_destroy() {
     Graphics_Engine::get_engine()->release();
 }
 
+void App_Window::on_focus() {
+    Input_System::get_input_system()->add_listener(this);
+}
+
+void App_Window::on_kill_focus() {
+    Input_System::get_input_system()->remove_listener(this);
+}
+
 void App_Window::on_key_down(int key) {
     if(key == 'W') {
         rot_x += 0.7f * delta_time;
@@ -213,4 +221,26 @@ void App_Window::on_key_down(int key) {
 
 void App_Window::on_key_up(int key) {
 
+}
+
+void App_Window::on_mouse_move(const Point &delta_mouse_pos) {
+    rot_x -= delta_mouse_pos.y  * delta_time;
+    rot_y -= delta_mouse_pos.x  * delta_time;
+
+}
+
+void App_Window::on_left_mouse_down(const Point &mouse_pos) {
+    
+}
+
+void App_Window::on_left_mouse_up(const Point &mouse_pos) {
+     
+}
+
+void App_Window::on_right_mouse_down(const Point &mouse_pos) {
+    
+}
+
+void App_Window::on_right_mouse_up(const Point &mouse_pos) {
+     
 }

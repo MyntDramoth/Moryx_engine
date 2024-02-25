@@ -12,4 +12,7 @@ C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(
 C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(57,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(58,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\app_window.cpp(61,32): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned int', possible loss of data
+  main.cpp
+  input_system.cpp
+  Generating Code...
   Moryx_Engine.vcxproj -> C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Release\Moryx_Engine.exe
