@@ -1,4 +1,7 @@
 #include "app_window.h"
+
+#include "../Engine/input_system/input_system.h"
+
 #include <iostream>
 
 using namespace std::chrono_literals;
@@ -33,17 +36,17 @@ void App_Window::update_constant_buffer()
     con.world_space.set_scale(Vector3D(1.0f,1.0f,1.0f));
 
      temp.set_identity();
-    temp.set_rotation_z(d_scale);
+    temp.set_rotation_z(0.0f);
 
     con.world_space *= temp;
 
     temp.set_identity();
-    temp.set_rotation_y(d_scale);
+    temp.set_rotation_y(rot_y);
 
     con.world_space *= temp;
 
     temp.set_identity();
-    temp.set_rotation_x(d_scale);
+    temp.set_rotation_x(rot_x);
 
     con.world_space *= temp;
 
@@ -62,8 +65,9 @@ void App_Window::update_constant_buffer()
 
 }
 
-void App_Window::on_create()
-{
+void App_Window::on_create() {
+    Input_System::get_input_system()->add_listener(this);
+
     Graphics_Engine::get_engine()->init();
     swapchain = Graphics_Engine::get_engine()->create_swap_chain();
 
@@ -139,7 +143,7 @@ void App_Window::on_create()
 }
 
 void App_Window::on_update() {
-    
+    Input_System::get_input_system()->update();
     
 
     update_constant_buffer();
@@ -190,4 +194,23 @@ void App_Window::on_destroy() {
     vertex_shader->release();
     pixel_shader->release();
     Graphics_Engine::get_engine()->release();
+}
+
+void App_Window::on_key_down(int key) {
+    if(key == 'W') {
+        rot_x += 0.7f * delta_time;
+    }
+    if(key == 'A') {
+        rot_y += 0.7f * delta_time;
+    }
+    if(key == 'S') {
+        rot_x -= 0.7f * delta_time;
+    }
+    if(key == 'D') {
+        rot_y -= 0.7f * delta_time;
+    }
+}
+
+void App_Window::on_key_up(int key) {
+
 }

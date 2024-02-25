@@ -8,16 +8,17 @@
 
 
 #include "../Engine/windowing/window.h"
+
+//RENDERING ENGINE
 #include "../Engine/graphics_engine/graphics_engine.h"
 #include "../Engine/graphics_engine/swapchain/swapchain.h"
 #include "../Engine/graphics_engine/device_context/device_context.h"
 #include "../Engine/graphics_engine/vertex_buffer/vertex_buffer.h"
 #include "../Engine/graphics_engine/constant_buffer/constant_buffer.h"
 #include "../Engine/graphics_engine/index_buffer/index_buffer.h"
-/*
-struct Vec3 {
-    float x,y,z;
-};*/
+
+//INPUT SYSTEM
+#include "../Engine/input_system/input_listener.h"
 
 struct Vertex {
     Vector3D position;
@@ -32,7 +33,7 @@ struct Const_Buff {
     unsigned int time;
 };
 
-class App_Window : public Window {
+class App_Window : public Window, public Input_Listener {
 public:
     App_Window();
     ~App_Window();
@@ -44,6 +45,10 @@ public:
     virtual void on_update() override;
     virtual void on_destroy() override;
 
+    //Inherited via Input_Listener
+    virtual void on_key_down(int key) override;
+    virtual void on_key_up(int key) override;
+
 private:
     std::chrono::high_resolution_clock::time_point current_time;
     float delta_time;
@@ -53,6 +58,9 @@ private:
     float FPS;
     float d_pos = 0.01f;
     float d_scale = 0.01f;
+
+    float rot_x = 0.0f;
+    float rot_y = 0.0f;
 
     Swapchain* swapchain;
     Index_Buffer* index_buffer;
