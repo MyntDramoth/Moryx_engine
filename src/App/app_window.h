@@ -38,7 +38,7 @@ public:
     App_Window();
     ~App_Window();
 
-    void update_constant_buffer();
+    void update();
 
     //Inherited via Window
     virtual void on_create() override;
@@ -51,7 +51,7 @@ public:
     virtual void on_key_down(int key) override;
     virtual void on_key_up(int key) override;
 
-    virtual void on_mouse_move(const Point &delta_mouse_pos) override;
+    virtual void on_mouse_move(const Point &mouse_pos) override;
     virtual void on_left_mouse_down(const Point &mouse_pos) override;
     virtual void on_left_mouse_up(const Point &mouse_pos) override;
     virtual void on_right_mouse_down(const Point &mouse_pos) override;
@@ -69,6 +69,10 @@ private:
 
     float rot_x = 0.0f;
     float rot_y = 0.0f;
+
+    Matrix4x4 world_camera;
+    float forward = 0.0f;
+    float rightward = 0.0f;
 
     Swapchain* swapchain;
     Index_Buffer* index_buffer;

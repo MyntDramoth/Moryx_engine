@@ -24,7 +24,7 @@ void Input_System::update() {
         //MOUSE MOVED EVENT
         std::map<Input_Listener*,Input_Listener*>::iterator iterator = map_listeners.begin();
         while(iterator != map_listeners.end()) {
-            iterator->second->on_mouse_move(Point(current_mouse_pos.x - old_mouse_pos.x, current_mouse_pos.y - old_mouse_pos.y));
+            iterator->second->on_mouse_move(Point(current_mouse_pos.x, current_mouse_pos.y));
             ++iterator;
         }
     }
@@ -89,6 +89,14 @@ void Input_System::remove_listener(Input_Listener *listener) {
     if(iterator != map_listeners.end()) {
         map_listeners.erase(iterator);
     }
+}
+
+void Input_System::set_cursor_pos(const Point &pos) {
+    SetCursorPos(pos.x,pos.y);
+}
+
+void Input_System::show_cursor(bool show) {
+    ShowCursor(show);
 }
 
 Input_System *Input_System::get_input_system() {

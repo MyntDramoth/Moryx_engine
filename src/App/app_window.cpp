@@ -14,24 +14,18 @@ App_Window::~App_Window()
 {
 }
 
-void App_Window::update_constant_buffer()
+void App_Window::update()
 {
     Const_Buff con;
     Matrix4x4 temp;
-    
+    /*
     d_pos += (delta_time / 2.0f);
     if(d_pos > 1.0f) {
         d_pos = 0.0f;
     }
-    
-    //con.world_space.set_translation(Vector3D::lerp(Vector3D(-2.0f,-2.0f,0.0f), Vector3D(2.0f,2.0f,0.0f), d_pos));
-    //con.world_space.set_scale(Vector3D(1.0f,1.0f,0.0f));
+    ;
     d_scale += (delta_time / 2.0f);
-    /*
-    con.world_space.set_scale(Vector3D::lerp(Vector3D(0.5f,0.5f,0.0f), Vector3D(2.0f,2.0f,0.0f), ((sin((float)d_scale)+1.0f) / 2.0f)));
-    temp.set_translation(Vector3D::lerp(Vector3D(-2.0f,-2.0f,0.0f), Vector3D(2.0f,2.0f,0.0f), d_pos));
     
-    con.world_space *= temp;*/
 
     con.world_space.set_scale(Vector3D(1.0f,1.0f,1.0f));
 
@@ -48,15 +42,42 @@ void App_Window::update_constant_buffer()
     temp.set_identity();
     temp.set_rotation_x(rot_x);
 
-    con.world_space *= temp;
+    con.world_space *= temp;*/
 
-    con.view_space.set_identity();
+    con.world_space.set_identity();
+
+    Matrix4x4 camera_matrix;
+    camera_matrix.set_identity();
+
+    temp.set_identity();
+    temp.set_rotation_x(rot_x);
+    camera_matrix *= temp;
+    temp.set_identity();
+    temp.set_rotation_y(rot_y);
+    camera_matrix *= temp;
+
+    Vector3D new_pos = world_camera.get_translation() + camera_matrix.get_z_direction() * (forward * 0.3f) + camera_matrix.get_x_direction() * (rightward * 0.3f);
+
+    camera_matrix.set_translation(new_pos);
+
+    world_camera = camera_matrix;
+
+    camera_matrix.inverse(); //turns it into a view matrix
+
+    con.view_space = camera_matrix;
+    /*
     con.projection.set_orthogonal_matrix(
         (this->get_client_window_rect().right - this->get_client_window_rect().left)/400.0f,
         (this->get_client_window_rect().bottom - this->get_client_window_rect().top)/400.0f,
         -4.0f,
         4.0f
-    );
+    );*/
+
+    int width = (this->get_client_window_rect().right - this->get_client_window_rect().left);
+    int height = (this->get_client_window_rect().bottom - this->get_client_window_rect().top);
+
+   
+    con.projection.set_perspective_FOV(1.57f,((float)width/(float)height),0.1f,100.0f);
 
     con.time = ::GetTickCount64();
 
@@ -140,13 +161,16 @@ void App_Window::on_create() {
     constant_buffer = Graphics_Engine::get_engine()->create_constant_buffer();
     constant_buffer->load(&con,sizeof(Const_Buff));
     current_time = std::chrono::high_resolution_clock::now();
+
+    world_camera.set_translation(Vector3D(0.0f,0.0f,-2.0f));
+    Input_System::get_input_system()->show_cursor(false);
 }
 
 void App_Window::on_update() {
     Input_System::get_input_system()->update();
     
 
-    update_constant_buffer();
+    update();
 
     Graphics_Engine::get_engine()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
     
@@ -206,26 +230,40 @@ void App_Window::on_kill_focus() {
 
 void App_Window::on_key_down(int key) {
     if(key == 'W') {
-        rot_x += 0.7f * delta_time;
+        //rot_x += 0.7f * delta_time;
+        forward = 1.0f;
     }
     if(key == 'A') {
-        rot_y += 0.7f * delta_time;
+        //rot_y += 0.7f * delta_time;
+        rightward = -1.0f;
     }
     if(key == 'S') {
-        rot_x -= 0.7f * delta_time;
+        //rot_x -= 0.7f * delta_time;
+        forward = -1.0f;
     }
     if(key == 'D') {
-        rot_y -= 0.7f * delta_time;
+        //rot_y -= 0.7f * delta_time;
+        rightward = 1.0f;
+    }
+    if(key == VK_ESCAPE) {
+        on_destroy();
     }
 }
 
 void App_Window::on_key_up(int key) {
-
+    forward = 0.0f;
+    rightward = 0.0f;
 }
 
-void App_Window::on_mouse_move(const Point &delta_mouse_pos) {
-    rot_x -= delta_mouse_pos.y  * delta_time;
-    rot_y -= delta_mouse_pos.x  * delta_time;
+void App_Window::on_mouse_move(const Point &mouse_pos) {
+
+    int width = (this->get_client_window_rect().right - this->get_client_window_rect().left);
+    int height = (this->get_client_window_rect().bottom - this->get_client_window_rect().top);
+
+    rot_x += (mouse_pos.y - (height/2.0f))  * delta_time * 0.1f;
+    rot_y += (mouse_pos.x - (width/2.0f))  * delta_time * 0.1f;
+
+    Input_System::get_input_system()->set_cursor_pos(Point(width/2.0f,height/2.0f));
 
 }
 

@@ -1,6 +1,5 @@
 #pragma once
 
-
 class Vector3D {
 public:
     Vector3D() : x(0.0f),y(0.0f),z(0.0f)
@@ -17,6 +16,39 @@ public:
         vect.z = (float)((start.z * (1.0f - step)) + (end.z * (step)));
         return vect;
     };
+
+    Vector3D operator +(const Vector3D &in_vect) {
+        //Vector3D vect;
+       
+        return Vector3D( in_vect.x + x,
+       in_vect.y + y,
+        in_vect.z + z);
+    };
+
+    Vector3D operator -(const Vector3D &in_vect) {
+        //Vector3D vect;
+        
+        return Vector3D(x - in_vect.x,
+        y - in_vect.y,
+        z - in_vect.z);
+    };
+
+    Vector3D operator *(float num) {
+        //Vector3D vect;
+        
+        return Vector3D(x * num,
+        y * num,
+        z * num);
+    };
+
+    Vector3D operator *(const Vector3D &in_vect) {
+        //Vector3D vect;
+        
+        return Vector3D(x * in_vect.x,
+        y * in_vect.y,
+        z * in_vect.z);
+    };
+
 
     ~Vector3D() {};
 

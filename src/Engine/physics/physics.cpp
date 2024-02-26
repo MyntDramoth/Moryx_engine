@@ -1,14 +1,15 @@
 #include "physics.h"
-/*
+#include <limits>
+
 static u32 iterations = 4;
 static f32 tick_rate;
 
-void aabb_min_max(glm::vec3 min, glm::vec3 max, AABB aabb) {
-    min = aabb.position - aabb.half_size;
-	max = aabb.position + aabb.half_size;
+void Physics::aabb_min_max(Vector3D min, Vector3D max, AABB aabb) {
+    min = Vector3D(aabb.position - aabb.half_size);
+	max = Vector3D(aabb.position + aabb.half_size);
 }
 
-AABB aabb_minkowski_difference(AABB a, AABB b) {
+AABB Physics::aabb_minkowski_difference(AABB a, AABB b) {
 	AABB result;
 	result.position = a.position - b.position;
 	result.half_size = a.half_size + b.half_size;
@@ -16,14 +17,14 @@ AABB aabb_minkowski_difference(AABB a, AABB b) {
 	return result;
 }
 
-Hit ray_intersect_aabb(glm::vec3 pos, glm::vec3 magnitude, AABB aabb) {
+Hit Physics::ray_intersect_aabb(Vector3D pos, Vector3D magnitude, AABB aabb) {
 	Hit hit = {0};
-	glm::vec3 min, max;
+	Vector3D min, max;
 	aabb_min_max(min, max, aabb);
 
 	f32 last_entry = -INFINITY;
 	f32 first_exit = INFINITY;
-
+	/*
 	for (u8 i = 0; i < 2; ++i) {
 		if (magnitude[i] != 0) {
 			f32 t1 = (min[i] - pos[i]) / magnitude[i];
@@ -34,83 +35,128 @@ Hit ray_intersect_aabb(glm::vec3 pos, glm::vec3 magnitude, AABB aabb) {
 		} else if (pos[i] <= min[i] || pos[i] >= max[i]) {
 			return hit;
 		}
+	}*/
+
+	if (magnitude.x != 0) { 	
+	f32 t1 = (min.x - pos.x) / magnitude.x;
+	f32 t2 = (max.x - pos.x) / magnitude.x;
+	last_entry = fmaxf(last_entry, fminf(t1, t2));
+	first_exit = fminf(first_exit, fmaxf(t1, t2));
+	} else if (pos.x <= min.x || pos.x >= max.x) {
+		return hit; 
 	}
 
+	if (magnitude.y != 0) { 	
+	f32 t1 = (min.y - pos.y) / magnitude.y;
+	f32 t2 = (max.y - pos.y) / magnitude.y;
+	last_entry = fmaxf(last_entry, fminf(t1, t2));
+	first_exit = fminf(first_exit, fmaxf(t1, t2));
+	} else if (pos.y <= min.y || pos.y >= max.y) {
+		return hit; 
+	}
+
+	if (magnitude.z != 0) { 	
+	f32 t1 = (min.z - pos.z) / magnitude.z;
+	f32 t2 = (max.z - pos.z) / magnitude.z;
+	last_entry = fmaxf(last_entry, fminf(t1, t2));
+	first_exit = fminf(first_exit, fmaxf(t1, t2));
+	} else if (pos.z <= min.z || pos.z >= max.z) {
+		return hit; 
+	}
+
+
 	if (first_exit > last_entry && first_exit > 0 && last_entry < 1) {
-		hit.position[0] = pos[0] + magnitude[0] * last_entry;
-		hit.position[1] = pos[1] + magnitude[1] * last_entry;
+		hit.position.x = pos.x + magnitude.x * last_entry;
+		hit.position.y = pos.y + magnitude.y * last_entry;
+		hit.position.z = pos.z + magnitude.z * last_entry;
 
 		hit.is_hit = true;
 		hit.time = last_entry;
 
-		f32 dx = hit.position[0] - aabb.position[0];
-		f32 dy = hit.position[1] - aabb.position[1];
-		f32 px = aabb.half_size[0] - fabsf(dx);
-		f32 py = aabb.half_size[1] - fabsf(dy);
+		f32 dx = hit.position.x - aabb.position.x;
+		f32 dy = hit.position.y - aabb.position.y;
+		f32 dz = hit.position.z - aabb.position.z;
+		f32 px = aabb.half_size.x - fabsf(dx);
+		f32 py = aabb.half_size.y - fabsf(dy);
+		f32 pz = aabb.half_size.z - fabsf(dz);
 
-		if (px < py) {
-			hit.normal[0] = (dx > 0) - (dx < 0);
+		if (px < py && px < pz) {
+			hit.normal.x = (dx > 0) - (dx < 0);
+		} else if (py < pz) {
+			hit.normal.y = (dy > 0) - (dy < 0);
 		} else {
-			hit.normal[1] = (dy > 0) - (dy < 0);
+			hit.normal.z = (dz > 0) - (dz < 0);
 		}
 	}
 
 	return hit;
 }
 
-bool physics_aabb_intersect_aabb(AABB a, AABB b) {
-	glm::vec3 min, max;
+bool Physics::physics_aabb_intersect_aabb(AABB a, AABB b) {
+	Vector3D min, max;
 	aabb_min_max(min, max, aabb_minkowski_difference(a, b));
 
-	return (min[0] <= 0 && max[0] >= 0 && min[1] <= 0 && max[1] >= 0);
+	return (min.x <= 0 && max.x >= 0 && min.y <= 0 && max.y >= 0 && min.z <= 0 && max.z >= 0);
 }
 
-void aabb_penetration_vector(glm::vec3 r, AABB aabb) {
-	glm::vec3 min, max;
+void Physics::aabb_penetration_vector(Vector3D r, AABB aabb) {
+	Vector3D min, max;
 	aabb_min_max(min, max, aabb);
 
-	f32 min_dist = fabsf(min[0]);
-	r[0] = min[0];
-	r[1] = 0;
+	f32 min_dist = fabsf(min.x);
+	r.x = min.x;
+	r.y = 0;
+	r.z = 0;
 
-	if (fabsf(max[0]) < min_dist) {
-		min_dist = fabsf(max[0]);
-		r[0] = max[0];
+	if (fabsf(max.x) < min_dist) {
+		min_dist = fabsf(max.x);
+		r.x = max.x;
 	}
 
-	if (fabsf(min[1]) < min_dist) {
-		min_dist = fabsf(min[1]);
-		r[0] = 0;
-		r[1] = min[1];
+	if (fabsf(min.y) < min_dist) {
+		min_dist = fabsf(min.y);
+		r.x = 0;
+		r.y = min.y;
 	}
 
-	if (fabsf(max[1]) < min_dist) {
-		r[0] = 0;
-		r[1] = max[1];
+	if (fabsf(max.y) < min_dist) {
+		r.x = 0;
+		r.y = max.y;
+	}
+
+	if (fabsf(min.z) < min_dist) {
+		min_dist = fabsf(min.z);
+		r.y = 0;
+		r.z = min.z;
+	}
+
+	if (fabsf(max.z) < min_dist) {
+		r.y = 0;
+		r.z = max.z;
 	}
 }
 
-bool physics_point_intersect_aabb(glm::vec3 point, AABB aabb) {
-	glm::vec3 min, max;
+bool Physics::physics_point_intersect_aabb(Vector3D point, AABB aabb) {
+	Vector3D min, max;
 	aabb_min_max(min, max, aabb);
-	return  point[0] >= min[0] &&
-		point[0] <= max[0] &&
-		point[1] >= min[1] &&
-		point[1] <= max[1];
+	return  point.x >= min.x &&
+		point.x <= max.x &&
+		point.y >= min.y &&
+		point.y <= max.y;
 }
 
 
-void physics_init(void) {
+Physics::Physics() {
 	//state.body_list = array_list_create(sizeof(Body), 0);
 	//state.static_body_list = array_list_create(sizeof(Static_Body), 0);
-	//currently can't have enemies taht move slower than gravity, an event queue can fix this but it's complicated
+	//currently can't have enemies that move slower than gravity, an event queue can fix this but it's complicated
 	//state.gravity = -79;
 	//state.terminal_velocity = -7000;
 
 	tick_rate = 1.f / iterations;
 }
 /*
-static void update_sweep_result(Hit *result, Body *body, usize other_id, glm::vec3 velocity) {
+static void update_sweep_result(Hit *result, Body *body, usize other_id, Vector3D velocity) {
 	Body *other = physics_body_get(other_id);
 
 	if ((body->collision_mask & other->collision_layer) == 0) {
@@ -143,7 +189,7 @@ static void update_sweep_result(Hit *result, Body *body, usize other_id, glm::ve
 	}
 }
 
-static void update_sweep_result_static(Hit *result, Body *body, usize other_id, glm::vec3 velocity) {
+static void update_sweep_result_static(Hit *result, Body *body, usize other_id, Vector3D velocity) {
 	Static_Body *static_body = physics_static_body_get(other_id);
 
 	if ((body->collision_mask & static_body->collision_layer) == 0) {
@@ -172,7 +218,7 @@ static void update_sweep_result_static(Hit *result, Body *body, usize other_id, 
 	}
 }
 /*
-static Hit sweep_static_bodies(Body *body, glm::vec3 velocity) {
+static Hit sweep_static_bodies(Body *body, Vector3D velocity) {
 	Hit result = {.time = 0xBEEF};
 
 	for (u32 i = 0; i < state.static_body_list->len; ++i) {
@@ -182,7 +228,7 @@ static Hit sweep_static_bodies(Body *body, glm::vec3 velocity) {
 	return result;
 }*/
 /*
-static Hit sweep_bodies(Body *body, glm::vec3 velocity) {
+static Hit sweep_bodies(Body *body, Vector3D velocity) {
 	Hit result = {.time = 0xBEEF};
 
 	for (u32 i = 0; i < state.body_list->len; ++i) {
@@ -198,7 +244,7 @@ static Hit sweep_bodies(Body *body, glm::vec3 velocity) {
 	return result;
 }*/
 /*
-static void sweep_response(Body *body, glm::vec3 velocity) {
+static void sweep_response(Body *body, Vector3D velocity) {
 	Hit hit = sweep_static_bodies(body, velocity);
 	Hit hit_moving = sweep_bodies(body, velocity);
 
@@ -238,11 +284,11 @@ static void stationary_response(Body *body) {
 		}
 
 		AABB aabb = aabb_minkowski_difference(static_body->aabb, body->aabb);
-		glm::vec3 min, max;
+		Vector3D min, max;
 		aabb_min_max(min, max, aabb);
 
 		if (min[0] <= 0 && max[0] >= 0 && min[1] <= 0 && max[1] >= 0) {
-			glm::vec3 penetration_vector;
+			Vector3D penetration_vector;
 			aabb_penetration_vector(penetration_vector, aabb);
 
 			body->aabb.position = body->aabb.position + penetration_vector;
@@ -262,7 +308,7 @@ static void stationary_response(Body *body) {
 		}
 
 		AABB aabb = aabb_minkowski_difference(other->aabb, body->aabb);
-		glm::vec3 min, max;
+		Vector3D min, max;
 		aabb_min_max(min, max, aabb);
 
 		if (min[0] <= 0 && max[0] >= 0 && min[1] <= 0 && max[1] >= 0) {
@@ -291,7 +337,7 @@ void physics_update(void) {
 		body->velocity[0] += body->acceleration[0];
 		body->velocity[1] += body->acceleration[1];
 
-		glm::vec3 scaled_velocity;
+		Vector3D scaled_velocity;
 		vec2_scale(scaled_velocity, body->velocity, global.time.delta * tick_rate);
 
 		for (u32 j = 0; j < iterations; ++j) {
@@ -301,7 +347,7 @@ void physics_update(void) {
 	}
 }*/
 /*
-usize physics_body_create(glm::vec3 position, glm::vec3 size, glm::vec3 velocity, u8 collision_layer, u8 collision_mask, bool is_kinematic, On_Hit on_hit, On_Hit_Static on_hit_static, usize entity_id) {
+usize physics_body_create(Vector3D position, Vector3D size, Vector3D velocity, u8 collision_layer, u8 collision_mask, bool is_kinematic, On_Hit on_hit, On_Hit_Static on_hit_static, usize entity_id) {
 	usize id = state.body_list->len;
 
 	// Find inactive Body.
@@ -343,7 +389,7 @@ Body *physics_body_get(usize index) {
 	return array_list_get(state.body_list, index);
 }*/
 /*
-usize physics_static_body_create(glm::vec3 position, glm::vec3 size, u8 collision_layer) {
+usize physics_static_body_create(Vector3D position, Vector3D size, u8 collision_layer) {
 	Static_Body static_body = {
 		.aabb = {
 			.position = { position[0], position[1] },
@@ -358,8 +404,8 @@ usize physics_static_body_create(glm::vec3 position, glm::vec3 size, u8 collisio
 	return state.static_body_list->len - 1;
 }*/
 /*
-usize physics_trigger_create(glm::vec3 position, glm::vec3 size, u8 collision_layer, u8 collision_mask, On_Hit on_hit) {
-    return physics_body_create(position, size, (glm::vec3)(0,0,0), collision_layer, collision_mask, true, on_hit, NULL, (usize)-1);
+usize physics_trigger_create(Vector3D position, Vector3D size, u8 collision_layer, u8 collision_mask, On_Hit on_hit) {
+    return physics_body_create(position, size, (Vector3D)(0,0,0), collision_layer, collision_mask, true, on_hit, NULL, (usize)-1);
 }
 /*
 Static_Body *physics_static_body_get(usize index) {

@@ -14,6 +14,9 @@ public:
     void add_listener(Input_Listener* listener);
     void remove_listener(Input_Listener* listener);
 
+    void set_cursor_pos(const Point &pos);
+    void show_cursor(bool show);
+
     static Input_System* get_input_system();
 
 private:

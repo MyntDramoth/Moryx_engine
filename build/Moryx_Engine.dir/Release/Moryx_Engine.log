@@ -1,18 +1,22 @@
 ﻿  app_window.cpp
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(41,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(42,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(43,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(44,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(48,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(49,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(50,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(51,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(55,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(36,23): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(53,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(54,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(55,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(56,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(57,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(58,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\app_window.cpp(61,32): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned int', possible loss of data
-  main.cpp
-  input_system.cpp
-  Generating Code...
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(60,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(61,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(62,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(63,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(67,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(68,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(69,24): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(70,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(134,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(135,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(136,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\../Engine/math/matrix4x4.h(137,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\app_window.cpp(82,32): warning C4244: '=': conversion from 'ULONGLONG' to 'unsigned int', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\app_window.cpp(266,77): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\app_window.cpp(266,65): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   Moryx_Engine.vcxproj -> C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Release\Moryx_Engine.exe
