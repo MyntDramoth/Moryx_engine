@@ -10,28 +10,13 @@
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\entities\voxel_components.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\constant_buffer\constant_buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\device_context\device_context.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\graphics_engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\index_buffer\index_buffer.cpp">
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\render_system\index_buffer\index_buffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\pixel_shader\pixel_shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\swapchain\swapchain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_buffer\vertex_buffer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_shader\vertex_shader.cpp">
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\render_system\render_system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\input_system\input_system.cpp">

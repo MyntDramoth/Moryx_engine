@@ -73,5 +73,5 @@ elseif (UNIX)
       ${STB_IMAGE_PATH}
       ${FASTNOISE2_NOISETOOL}
     )
-    target_link_libraries(${PROJECT_NAME} FastNoise)
+    target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler)
 endif()

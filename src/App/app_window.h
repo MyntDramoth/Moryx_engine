@@ -11,14 +11,21 @@
 
 //RENDERING ENGINE
 #include "../Engine/graphics_engine/graphics_engine.h"
-#include "../Engine/graphics_engine/swapchain/swapchain.h"
-#include "../Engine/graphics_engine/device_context/device_context.h"
-#include "../Engine/graphics_engine/vertex_buffer/vertex_buffer.h"
-#include "../Engine/graphics_engine/constant_buffer/constant_buffer.h"
-#include "../Engine/graphics_engine/index_buffer/index_buffer.h"
+#include "../Engine/graphics_engine/render_system/swapchain/swapchain.h"
+#include "../Engine/graphics_engine/render_system/device_context/device_context.h"
+#include "../Engine/graphics_engine/render_system/vertex_buffer/vertex_buffer.h"
+#include "../Engine/graphics_engine/render_system/constant_buffer/constant_buffer.h"
+#include "../Engine/graphics_engine/render_system/index_buffer/index_buffer.h"
+#include "../Engine/graphics_engine/render_system/vertex_shader/vertex_shader.h"
+#include "../Engine/graphics_engine/render_system/pixel_shader/pixel_shader.h"
 
 //INPUT SYSTEM
 #include "../Engine/input_system/input_listener.h"
+
+#include "../Engine/input_system/input_system.h"
+
+
+
 
 struct Vertex {
     Vector3D position;
