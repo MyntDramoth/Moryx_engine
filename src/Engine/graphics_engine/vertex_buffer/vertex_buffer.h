@@ -3,7 +3,7 @@
 #include <d3d11.h>
 #include "../device_context/device_context.h"
 
-#include "../../prerequisites.h"
+#include "../prerequisites.h"
 
 
 class Vertex_Buffer
@@ -20,7 +20,7 @@ private:
 
     ID3D11Buffer* buffer;
     ID3D11InputLayout* input_layout;
-    Render_System* system = nullptr;
+    Render_System* render_system {nullptr};
 
     friend class Device_Context;
 };

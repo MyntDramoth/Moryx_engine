@@ -1,14 +1,14 @@
 #include "render_system.h"
 
-#include "swapchain/swapchain.h"
-#include "device_context/device_context.h"
+#include "../swapchain/swapchain.h"
+#include "../device_context/device_context.h"
 
-#include "vertex_buffer/vertex_buffer.h"
-#include "vertex_shader/vertex_shader.h"
-#include "pixel_shader/pixel_shader.h"
+#include "../vertex_buffer/vertex_buffer.h"
+#include "../vertex_shader/vertex_shader.h"
+#include "../pixel_shader/pixel_shader.h"
 
-#include "constant_buffer/constant_buffer.h"
-#include "index_buffer/index_buffer.h"
+#include "../constant_buffer/constant_buffer.h"
+#include "../index_buffer/index_buffer.h"
 
 #include <exception>
 #include <d3dcompiler.h>
@@ -26,7 +26,7 @@ Render_System::~Render_System()
 
 bool Render_System::init()
 {
-    /*
+    
     D3D_DRIVER_TYPE driver_types[] = {
         D3D_DRIVER_TYPE_HARDWARE,
         D3D_DRIVER_TYPE_WARP,
@@ -63,7 +63,7 @@ bool Render_System::init()
     device->QueryInterface(__uuidof(IDXGIDevice),(void**)&dxgi_device);
     dxgi_device->GetParent(__uuidof(IDXGIAdapter),(void**)&dxgi_adapter);
     dxgi_adapter->GetParent(__uuidof(IDXGIFactory),(void**)&dxgi_factory);
-*/
+
 
 
     return true;
@@ -90,7 +90,7 @@ Device_Context* Render_System::get_device_context()
 Swapchain* Render_System::create_swap_chain(HWND hwnd,UINT width, UINT height)
 {
     
-    Swapchain* sc = nullptr;
+    Swapchain* sc {nullptr};
     try {
         sc = new Swapchain(hwnd,width,height,this);
     }
@@ -101,7 +101,7 @@ Swapchain* Render_System::create_swap_chain(HWND hwnd,UINT width, UINT height)
 Index_Buffer* Render_System::create_index_buffer(void* indeces, UINT index_size)
 {
 
-    Index_Buffer* ib = nullptr;
+    Index_Buffer* ib {nullptr};
     try {
         ib = new Index_Buffer(indeces,index_size,this);
     }
@@ -111,7 +111,7 @@ Index_Buffer* Render_System::create_index_buffer(void* indeces, UINT index_size)
 
 Constant_Buffer* Render_System::create_constant_buffer(void* buffer, UINT buffer_size)
 {
-    Constant_Buffer* cb = nullptr;
+    Constant_Buffer* cb {nullptr};
     try {
         cb = new Constant_Buffer(buffer,buffer_size,this);
     }
@@ -121,7 +121,7 @@ Constant_Buffer* Render_System::create_constant_buffer(void* buffer, UINT buffer
 
 Vertex_Buffer* Render_System::create_vertex_buffer(void* vertices, UINT vertex_size, UINT vertex_num, void* shader_byte_code, UINT shader_size)
 {
-    Vertex_Buffer* vb = nullptr;
+    Vertex_Buffer* vb {nullptr};
     try {
        vb = new Vertex_Buffer(vertices,vertex_size,vertex_num,shader_byte_code,shader_size,this);
     }
@@ -130,7 +130,7 @@ Vertex_Buffer* Render_System::create_vertex_buffer(void* vertices, UINT vertex_s
 }
 
 Vertex_Shader* Render_System::create_vertex_shader(const void *shader_byte_code, size_t byte_code_size) {
-    Vertex_Shader* shader = nullptr;
+    Vertex_Shader* shader {nullptr};
     try {
         shader = new Vertex_Shader(shader_byte_code,byte_code_size, this);
     }
@@ -141,7 +141,7 @@ Vertex_Shader* Render_System::create_vertex_shader(const void *shader_byte_code,
 
 Pixel_Shader* Render_System::create_pixel_shader(const void *shader_byte_code, size_t byte_code_size)
 {
-    Pixel_Shader* shader = nullptr;
+    Pixel_Shader* shader{ nullptr};
     try {
         shader = new Pixel_Shader(shader_byte_code,byte_code_size, this);
     }
@@ -152,7 +152,7 @@ Pixel_Shader* Render_System::create_pixel_shader(const void *shader_byte_code, s
 }
 
 bool Render_System::compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size) {
-    ID3DBlob* err_blob = nullptr;
+    ID3DBlob* err_blob {nullptr};
 
     HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, shader_main_funtion_name, "vs_5_0", 0,0, &shader_blob, &err_blob);
     if(FAILED(hres)) {
@@ -166,7 +166,7 @@ bool Render_System::compile_vertex_shader(const wchar_t* file_name, const char* 
 
 bool Render_System::compile_pixel_shader(const wchar_t *file_name, const char *shader_main_funtion_name, void **shader_byte_code, size_t *byte_code_size)
 {
-    ID3DBlob* err_blob = nullptr;
+    ID3DBlob* err_blob {nullptr};
 
     HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, shader_main_funtion_name, "ps_5_0", 0,0, &shader_blob, &err_blob);
     if(FAILED(hres)) {

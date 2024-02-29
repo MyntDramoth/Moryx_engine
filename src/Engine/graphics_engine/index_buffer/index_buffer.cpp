@@ -1,7 +1,7 @@
 #include "index_buffer.h"
 
 #include <exception>
-#include "../render_system.h"
+#include "../render_system/render_system.h"
 
 Index_Buffer::Index_Buffer(void* indeces, UINT index_size, Render_System* system) : buffer(0), render_system(system){
 

@@ -31,7 +31,7 @@ private:
     ID3D11Device* device;
     D3D_FEATURE_LEVEL m_feature_level;
     // or Immediate Device Contact Spider
-    Device_Context* device_context;
+    Device_Context* device_context {nullptr};
 
     IDXGIDevice* dxgi_device;
     IDXGIAdapter* dxgi_adapter;

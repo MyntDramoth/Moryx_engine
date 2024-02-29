@@ -11,13 +11,13 @@
 
 //RENDERING ENGINE
 #include "../Engine/graphics_engine/graphics_engine.h"
-#include "../Engine/graphics_engine/render_system/swapchain/swapchain.h"
-#include "../Engine/graphics_engine/render_system/device_context/device_context.h"
-#include "../Engine/graphics_engine/render_system/vertex_buffer/vertex_buffer.h"
-#include "../Engine/graphics_engine/render_system/constant_buffer/constant_buffer.h"
-#include "../Engine/graphics_engine/render_system/index_buffer/index_buffer.h"
-#include "../Engine/graphics_engine/render_system/vertex_shader/vertex_shader.h"
-#include "../Engine/graphics_engine/render_system/pixel_shader/pixel_shader.h"
+#include "../Engine/graphics_engine/swapchain/swapchain.h"
+#include "../Engine/graphics_engine/device_context/device_context.h"
+#include "../Engine/graphics_engine/vertex_buffer/vertex_buffer.h"
+#include "../Engine/graphics_engine/constant_buffer/constant_buffer.h"
+#include "../Engine/graphics_engine/index_buffer/index_buffer.h"
+#include "../Engine/graphics_engine/vertex_shader/vertex_shader.h"
+#include "../Engine/graphics_engine/pixel_shader/pixel_shader.h"
 
 //INPUT SYSTEM
 #include "../Engine/input_system/input_listener.h"
@@ -81,10 +81,10 @@ private:
     float forward = 0.0f;
     float rightward = 0.0f;
 
-    Swapchain* swapchain;
-    Index_Buffer* index_buffer;
-    Constant_Buffer* constant_buffer;
-    Vertex_Buffer* vertex_buffer;
-    Vertex_Shader* vertex_shader;
-    Pixel_Shader* pixel_shader;
+    Swapchain* swapchain {nullptr};
+    Index_Buffer* index_buffer {nullptr};
+    Constant_Buffer* constant_buffer {nullptr};
+    Vertex_Buffer* vertex_buffer {nullptr};
+    Vertex_Shader* vertex_shader {nullptr};
+    Pixel_Shader* pixel_shader {nullptr};
 };

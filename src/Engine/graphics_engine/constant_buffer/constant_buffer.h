@@ -4,7 +4,7 @@
 
 #include <d3d11.h>
 
-#include "../../prerequisites.h"
+#include "../prerequisites.h"
 
 class Constant_Buffer
 {
@@ -17,7 +17,7 @@ public:
 private:
 
     ID3D11Buffer* buffer;
-    Render_System* render_system = nullptr;
+    Render_System* render_system {nullptr};
 
     friend class Device_Context;
 

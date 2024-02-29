@@ -3,7 +3,7 @@
 #include <d3d11.h>
 #include "../device_context/device_context.h"
 
-#include "../../prerequisites.h"
+#include "../prerequisites.h"
 
 class Vertex_Shader
 {
@@ -14,7 +14,7 @@ public:
 private:
 
     ID3D11VertexShader* vertex_shader;
-    Render_System* render_system = nullptr;
+    Render_System* render_system {nullptr};
 
     friend class Render_System;
     friend class Device_Context;

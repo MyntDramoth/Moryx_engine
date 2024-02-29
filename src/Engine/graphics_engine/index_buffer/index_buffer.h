@@ -4,7 +4,7 @@
 
 #include "../device_context/device_context.h"
 
-#include "../../prerequisites.h"
+#include "../prerequisites.h"
 
 class Index_Buffer
 {
@@ -17,7 +17,7 @@ private:
     UINT indeces_size;
 
     ID3D11Buffer* buffer;
-    Render_System* render_system = nullptr;
+    Render_System* render_system {nullptr};
     
     friend class Device_Context;
 

@@ -1,6 +1,6 @@
 #include "constant_buffer.h"
 
-#include "../render_system.h"
+#include "../render_system/render_system.h"
 #include <exception>
 
 Constant_Buffer::Constant_Buffer(void* buffer, UINT buffer_size, Render_System *system) : buffer(0), render_system(system) {

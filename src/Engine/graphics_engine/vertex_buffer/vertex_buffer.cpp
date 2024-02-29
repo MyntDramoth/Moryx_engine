@@ -2,9 +2,9 @@
 
 #include <exception>
 
-#include "../render_system.h"
+#include "../render_system/render_system.h"
 
-Vertex_Buffer::Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, void* shader_byte_code, UINT shader_size, Render_System* system) : input_layout(0), buffer(0), system(system) {
+Vertex_Buffer::Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, void* shader_byte_code, UINT shader_size, Render_System* system) : input_layout(0), buffer(0), render_system(system) {
     
     D3D11_BUFFER_DESC buffer_desc = {};
     buffer_desc.Usage = D3D11_USAGE_DEFAULT; //default alows read and write operations by both CPU and GPU
