@@ -10,6 +10,9 @@
 #include "../Engine/windowing/window.h"
 
 //RENDERING ENGINE
+
+#include "../Engine/graphics_engine/prerequisites.h"
+
 #include "../Engine/graphics_engine/graphics_engine.h"
 #include "../Engine/graphics_engine/swapchain/swapchain.h"
 #include "../Engine/graphics_engine/device_context/device_context.h"
@@ -23,6 +26,7 @@
 #include "../Engine/input_system/input_listener.h"
 
 #include "../Engine/input_system/input_system.h"
+
 
 
 
@@ -81,10 +85,10 @@ private:
     float forward = 0.0f;
     float rightward = 0.0f;
 
-    Swapchain* swapchain {nullptr};
-    Index_Buffer* index_buffer {nullptr};
-    Constant_Buffer* constant_buffer {nullptr};
-    Vertex_Buffer* vertex_buffer {nullptr};
-    Vertex_Shader* vertex_shader {nullptr};
-    Pixel_Shader* pixel_shader {nullptr};
+    swapchain_sptr swapchain {nullptr};
+    index_buffer_sptr index_buffer {nullptr};
+    const_buffer_sptr constant_buffer {nullptr};
+    vert_buffer_sptr vertex_buffer {nullptr};
+    vert_shader_sptr vertex_shader {nullptr};
+    pix_shader_sptr pixel_shader {nullptr};
 };

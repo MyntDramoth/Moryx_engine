@@ -55,11 +55,7 @@ void App_Window::on_create() {
  
 
     Input_System::get_input_system()->add_listener(this);
-    
-    Graphics_Engine::get_engine()->init();
    
-   
-
     RECT rc = this->get_client_window_rect();
     UINT width = rc.right - rc.left;
     UINT height = rc.bottom - rc.top;
@@ -179,8 +175,6 @@ void App_Window::on_update() {
 
 void App_Window::on_destroy() {
     Window::on_destroy();
-    
-    Graphics_Engine::get_engine()->release();
 }
 
 void App_Window::on_focus() {

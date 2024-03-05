@@ -2,12 +2,14 @@
 
 #include <Windows.h>
 
+Input_System* Input_System::system = nullptr;
+
 Input_System::Input_System() {
 
 }
 
 Input_System::~Input_System() {
-
+    Input_System::system = nullptr;
 }
 
 void Input_System::update() {
@@ -99,7 +101,16 @@ void Input_System::show_cursor(bool show) {
     ShowCursor(show);
 }
 
+void Input_System::create() {
+    if(Input_System::system) {throw std::exception("input system already exists!");}
+    Input_System::system = new Input_System();
+}
+
+void Input_System::release() {
+    if(!Input_System::system) {return;}
+    delete Input_System::system;
+}
+
 Input_System *Input_System::get_input_system() {
-    static Input_System system;
-    return &system;
+    return system;
 }

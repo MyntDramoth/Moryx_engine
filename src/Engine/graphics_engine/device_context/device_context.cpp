@@ -19,14 +19,14 @@ Device_Context::~Device_Context() {
     device_context->Release();
 }
 
-void Device_Context::clear_render_target_color(Swapchain* swapchain,float red, float green, float blue, float alpha) {
+void Device_Context::clear_render_target_color(swapchain_sptr swapchain,float red, float green, float blue, float alpha) {
     FLOAT clear_color[] ={red,green,blue,alpha};
     device_context->ClearRenderTargetView(swapchain->target_view,clear_color);
     device_context->OMSetRenderTargets(1,&swapchain->target_view,NULL);
    
 }
 
-void Device_Context::set_vertex_buffer(Vertex_Buffer *vertex_buffer) {
+void Device_Context::set_vertex_buffer(vert_buffer_sptr vertex_buffer) {
 
     UINT stride = vertex_buffer->vert_size;
     UINT offset = 0;
@@ -67,22 +67,22 @@ void Device_Context::set_viewport_size(UINT width, UINT height) {
     device_context->RSSetViewports(1,&viewport);
 }
 
-void Device_Context::set_index_buffer(Index_Buffer *index_buffer) {
+void Device_Context::set_index_buffer(index_buffer_sptr index_buffer) {
     device_context->IASetIndexBuffer(index_buffer->buffer,DXGI_FORMAT_R32_UINT,0);
 }
 
-void Device_Context::set_vertex_shader(Vertex_Shader *vertex_shader) {
+void Device_Context::set_vertex_shader(vert_shader_sptr vertex_shader) {
     device_context->VSSetShader(vertex_shader->vertex_shader,nullptr,0);
 }
 
-void Device_Context::set_pixel_shader(Pixel_Shader *pixel_shader) {
+void Device_Context::set_pixel_shader(pix_shader_sptr pixel_shader) {
     device_context->PSSetShader(pixel_shader->pixel_shader,nullptr,0);
 }
 
-void Device_Context::set_constant_buffer(Vertex_Shader *vertex_shader, Constant_Buffer *const_buffer) {
+void Device_Context::set_constant_buffer(vert_shader_sptr vertex_shader, const_buffer_sptr const_buffer) {
     device_context->VSSetConstantBuffers(0,1,&const_buffer->buffer);
 }
 
-void Device_Context::set_constant_buffer(Pixel_Shader *pixel_shader, Constant_Buffer *const_buffer) {
+void Device_Context::set_constant_buffer(pix_shader_sptr pixel_shader, const_buffer_sptr const_buffer) {
     device_context->PSSetConstantBuffers(0,1,&const_buffer->buffer);
 }

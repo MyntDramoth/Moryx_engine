@@ -13,20 +13,7 @@
 #include <exception>
 #include <d3dcompiler.h>
 
-Render_System::Render_System()
-{
-
-}
-
-Render_System::~Render_System()
-{
-
-}
-
-
-bool Render_System::init()
-{
-    
+Render_System::Render_System() {
     D3D_DRIVER_TYPE driver_types[] = {
         D3D_DRIVER_TYPE_HARDWARE,
         D3D_DRIVER_TYPE_WARP,
@@ -55,95 +42,89 @@ bool Render_System::init()
         ++driver_index;
     }
 
-    if(FAILED(hres)) {return false;}
+    if(FAILED(hres)) {throw std::exception("failed to create device context!");}
     try {
-        device_context = new Device_Context(context,this);
+        device_context = std::make_shared<Device_Context>(context,this);
     } catch(...){}
 
     device->QueryInterface(__uuidof(IDXGIDevice),(void**)&dxgi_device);
     dxgi_device->GetParent(__uuidof(IDXGIAdapter),(void**)&dxgi_adapter);
     dxgi_adapter->GetParent(__uuidof(IDXGIFactory),(void**)&dxgi_factory);
 
-
-
-    return true;
 }
 
-bool Render_System::release()
-{
+Render_System::~Render_System() {
     dxgi_device->Release();
     dxgi_adapter->Release();
     dxgi_factory->Release();
 
     shader_blob->Release();
-    delete device_context;
     
     device->Release();
-    return true;
 }
 
-Device_Context* Render_System::get_device_context()
+device_context_sptr Render_System::get_device_context()
 {
     return this->device_context;
 }
 
-Swapchain* Render_System::create_swap_chain(HWND hwnd,UINT width, UINT height)
+swapchain_sptr Render_System::create_swap_chain(HWND hwnd,UINT width, UINT height)
 {
     
-    Swapchain* sc {nullptr};
+    swapchain_sptr sc {nullptr};
     try {
-        sc = new Swapchain(hwnd,width,height,this);
+        sc = std::make_shared<Swapchain>(hwnd,width,height,this);
     }
     catch(...) {}
     return sc;
 }
 
-Index_Buffer* Render_System::create_index_buffer(void* indeces, UINT index_size)
+index_buffer_sptr Render_System::create_index_buffer(void* indeces, UINT index_size)
 {
 
-    Index_Buffer* ib {nullptr};
+   index_buffer_sptr ib {nullptr};
     try {
-        ib = new Index_Buffer(indeces,index_size,this);
+        ib = std::make_shared<Index_Buffer>(indeces,index_size,this);
     }
     catch (...) {}
     return ib;
 }
 
-Constant_Buffer* Render_System::create_constant_buffer(void* buffer, UINT buffer_size)
+const_buffer_sptr Render_System::create_constant_buffer(void* buffer, UINT buffer_size)
 {
-    Constant_Buffer* cb {nullptr};
+    const_buffer_sptr cb {nullptr};
     try {
-        cb = new Constant_Buffer(buffer,buffer_size,this);
+        cb = std::make_shared<Constant_Buffer>(buffer,buffer_size,this);
     }
     catch (...) {}
     return cb;
 }
 
-Vertex_Buffer* Render_System::create_vertex_buffer(void* vertices, UINT vertex_size, UINT vertex_num, void* shader_byte_code, UINT shader_size)
+vert_buffer_sptr Render_System::create_vertex_buffer(void* vertices, UINT vertex_size, UINT vertex_num, void* shader_byte_code, UINT shader_size)
 {
-    Vertex_Buffer* vb {nullptr};
+    vert_buffer_sptr vb {nullptr};
     try {
-       vb = new Vertex_Buffer(vertices,vertex_size,vertex_num,shader_byte_code,shader_size,this);
+       vb = std::make_shared<Vertex_Buffer>(vertices,vertex_size,vertex_num,shader_byte_code,shader_size,this);
     }
     catch (...) {}
     return vb;
 }
 
-Vertex_Shader* Render_System::create_vertex_shader(const void *shader_byte_code, size_t byte_code_size) {
-    Vertex_Shader* shader {nullptr};
+vert_shader_sptr Render_System::create_vertex_shader(const void *shader_byte_code, size_t byte_code_size) {
+    vert_shader_sptr shader {nullptr};
     try {
-        shader = new Vertex_Shader(shader_byte_code,byte_code_size, this);
+        shader = std::make_shared<Vertex_Shader>(shader_byte_code,byte_code_size, this);
     }
      catch (...) {}
 
     return shader;
 }
 
-Pixel_Shader* Render_System::create_pixel_shader(const void *shader_byte_code, size_t byte_code_size)
+pix_shader_sptr Render_System::create_pixel_shader(const void *shader_byte_code, size_t byte_code_size)
 {
-    Pixel_Shader* shader{ nullptr};
+    pix_shader_sptr shader{ nullptr};
     try {
-        shader = new Pixel_Shader(shader_byte_code,byte_code_size, this);
+        shader = std::make_shared<Pixel_Shader>(shader_byte_code,byte_code_size, this);
     }
      catch (...) {}
 

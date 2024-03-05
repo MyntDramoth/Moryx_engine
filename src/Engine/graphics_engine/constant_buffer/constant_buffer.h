@@ -12,7 +12,7 @@ public:
     Constant_Buffer(void* buffer, UINT buffer_size, Render_System *system);
     ~Constant_Buffer();
     
-    void update(Device_Context* context, void* buffer);
+    void update(device_context_sptr context, void* buffer);
 
 private:
 

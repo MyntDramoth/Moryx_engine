@@ -31,6 +31,6 @@ Constant_Buffer::~Constant_Buffer()
     if(buffer) {buffer->Release();}
 }
 
-void Constant_Buffer::update(Device_Context *context, void *buffer) {
+void Constant_Buffer::update(device_context_sptr context, void *buffer) {
     context->device_context->UpdateSubresource(this->buffer,NULL,NULL,buffer,NULL,NULL);
 }

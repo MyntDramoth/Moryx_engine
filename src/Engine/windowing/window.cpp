@@ -1,24 +1,12 @@
 #include "window.h"
 #include <exception>
 
-Window::Window()
-{
-}
 
 LRESULT CALLBACK WndProc(HWND hwnd,UINT msg, WPARAM wparam, LPARAM lparam) {
     switch(msg) {
         case WM_CREATE:
         {
-            //happens when the window is created
-            Window* window = (Window*)((LPCREATESTRUCT)lparam)->lpCreateParams;
-
-            // .. and then stored for later lookup
-
-            SetWindowLongPtr(hwnd, GWLP_USERDATA, (LONG_PTR)window);
-
-            window->set_HWND(hwnd);
-            window->on_create();
-
+           
             break;
         }
         case WM_SETFOCUS:
@@ -26,8 +14,9 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT msg, WPARAM wparam, LPARAM lparam) {
             //happens when the window gets focus
 
             Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
-
-            window->on_focus();
+            if(window) {
+                window->on_focus();
+            }
 
             break;
         }
@@ -63,9 +52,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT msg, WPARAM wparam, LPARAM lparam) {
     
 }
 
-bool Window::init()
-{
-   
+Window::Window() {
     const char* window_name = "Moryx Engine";
     int width,height;
     width = 1024;
@@ -86,10 +73,10 @@ bool Window::init()
     window_class.lpfnWndProc = &WndProc;
 
     if(!::RegisterClassEx(&window_class)) {
-        return false;
+       throw std::exception("failed to create Window!");
     }
 
-    window_handle = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW,window_class.lpszClassName,(LPCSTR)window_name,WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,width,height,NULL,NULL,NULL,this);
+    window_handle = ::CreateWindowEx(WS_EX_OVERLAPPEDWINDOW,window_class.lpszClassName,(LPCSTR)window_name,WS_OVERLAPPEDWINDOW,CW_USEDEFAULT,CW_USEDEFAULT,width,height,NULL,NULL,NULL,NULL);
 
 
     ::ShowWindow(window_handle,SW_SHOW);
@@ -98,12 +85,21 @@ bool Window::init()
     //if(!window_handle) {return false;}
 
     m_is_running = true;
-    return true;
 }
+
 
 bool Window::broadcast()
 {
     MSG msg;
+
+    if(!this->is_initialized) {
+         //happens when the window is created
+        
+        SetWindowLongPtr(window_handle, GWLP_USERDATA, (LONG_PTR)this);
+        
+        this->on_create();
+        this->is_initialized = true;
+    }
 
     this->on_update();
 
@@ -120,22 +116,19 @@ bool Window::broadcast()
     return true;
 }
 
-bool Window::release()
-{
-
-    if(!::DestroyWindow(window_handle)) {
-        return false;
-    }
-    return true;
-}
-
 bool Window::is_running()
 {
+    if(m_is_running) {
+        broadcast();
+    }
     return m_is_running;
 }
 
-Window::~Window()
-{
+Window::~Window() {
+    if(!::DestroyWindow(window_handle)) {
+       
+    }
+   
 }
 
 void Window::on_destroy()
@@ -148,9 +141,4 @@ RECT Window::get_client_window_rect()
     RECT rc;
     ::GetClientRect(this->window_handle,&rc);
     return rc;
-}
-
-void Window::set_HWND(HWND hwnd)
-{
-    this->window_handle = hwnd;
 }
