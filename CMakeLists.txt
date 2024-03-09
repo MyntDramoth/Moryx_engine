@@ -32,6 +32,8 @@ if (NOT TINYOBJ_PATH)
 endif()
  
 set(STB_IMAGE_PATH include/STB_Image)
+set(DIRECTX_TEX_PATH lib/DirectXTex)
+set(DIRECTX_TK_PATH lib/DirectXTK)
 
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
  
@@ -40,7 +42,7 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
  
 set_property(TARGET ${PROJECT_NAME} PROPERTY VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/build")
- 
+
 if (WIN32)
   message(STATUS "CREATING BUILD FOR WINDOWS")
  
@@ -58,13 +60,17 @@ if (WIN32)
     ${TINYOBJ_PATH}
     ${FASTNOISE2_NOISETOOL}
     ${STB_IMAGE_PATH}
+    ${DIRECTX_TEX_PATH}/include
+    
     )
  
   target_link_directories(${PROJECT_NAME} PUBLIC
     ${FASTNOISE2_NOISETOOL}
+    ${DIRECTX_TEX_PATH}/bin
+    
   )
  
-  target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler)
+  target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex)
 elseif (UNIX)
     message(STATUS "CREATING BUILD FOR UNIX")
     target_include_directories(${PROJECT_NAME} PUBLIC
@@ -72,6 +78,7 @@ elseif (UNIX)
       ${TINYOBJ_PATH}
       ${STB_IMAGE_PATH}
       ${FASTNOISE2_NOISETOOL}
+      ${DIRECTX_TEX_PATH}/include
     )
-    target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler)
+    target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex)
 endif()

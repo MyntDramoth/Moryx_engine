@@ -42,7 +42,7 @@ struct hit {
 	Vector3D normal;
 	bool is_hit;
 };
-
+/*
 class Physics {
 public:
 	Physics();
@@ -63,4 +63,4 @@ public:
 	void physics_reset();
 
 	//void physics_body_destroy(usize body_id);
-};
+};*/

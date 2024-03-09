@@ -4,48 +4,48 @@
     <PreferredToolArchitecture>x64</PreferredToolArchitecture>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|win32">
+    <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
-      <Platform>win32</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|win32">
+    <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
-      <Platform>win32</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="MinSizeRel|win32">
+    <ProjectConfiguration Include="MinSizeRel|x64">
       <Configuration>MinSizeRel</Configuration>
-      <Platform>win32</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="RelWithDebInfo|win32">
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
       <Configuration>RelWithDebInfo</Configuration>
-      <Platform>win32</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{88B5EC47-0CA4-3FF7-98BC-30128DD8F5E5}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <WindowsTargetPlatformVersion>10.0.22621.0</WindowsTargetPlatformVersion>
-    <Platform>win32</Platform>
+    <Platform>x64</Platform>
     <ProjectName>Moryx_Engine</ProjectName>
     <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v143</PlatformToolset>
@@ -59,38 +59,38 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">Moryx_Engine.dir\Debug\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">Moryx_Engine</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">true</GenerateManifest>
-    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build</LocalDebuggerWorkingDirectory>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|win32'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|win32'">Moryx_Engine.dir\Release\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|win32'">Moryx_Engine</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|win32'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|win32'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|win32'">true</GenerateManifest>
-    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Release|win32'">C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build</LocalDebuggerWorkingDirectory>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\MinSizeRel\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">Moryx_Engine.dir\MinSizeRel\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">Moryx_Engine</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">false</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">true</GenerateManifest>
-    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build</LocalDebuggerWorkingDirectory>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\RelWithDebInfo\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">Moryx_Engine.dir\RelWithDebInfo\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">Moryx_Engine</TargetName>
-    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">true</LinkIncremental>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">true</GenerateManifest>
-    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moryx_Engine.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moryx_Engine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moryx_Engine.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moryx_Engine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Moryx_Engine.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Moryx_Engine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build</LocalDebuggerWorkingDirectory>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Moryx_Engine.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Moryx_Engine</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build</LocalDebuggerWorkingDirectory>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -108,10 +108,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;FASTNOISE_STATIC_LIB;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -119,9 +119,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>lib\FastNoise2\src\Debug\FastNoiseD.lib;d3d11.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalDependencies>lib\FastNoise2\src\Debug\FastNoiseD.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/Debug/Moryx_Engine.lib</ImportLibrary>
@@ -132,9 +132,9 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -152,10 +152,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FASTNOISE_STATIC_LIB;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -163,9 +163,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>lib\FastNoise2\src\Release\FastNoise.lib;d3d11.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalDependencies>lib\FastNoise2\src\Release\FastNoise.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/Release/Moryx_Engine.lib</ImportLibrary>
@@ -176,9 +176,9 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -196,10 +196,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FASTNOISE_STATIC_LIB;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -207,9 +207,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>lib\FastNoise2\src\MinSizeRel\FastNoise.lib;d3d11.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalDependencies>lib\FastNoise2\src\MinSizeRel\FastNoise.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/MinSizeRel/Moryx_Engine.lib</ImportLibrary>
@@ -220,9 +220,9 @@
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -239,10 +239,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FASTNOISE_STATIC_LIB;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -250,9 +250,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>lib\FastNoise2\src\RelWithDebInfo\FastNoise.lib;d3d11.lib;d3dcompiler.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <AdditionalDependencies>lib\FastNoise2\src\RelWithDebInfo\FastNoise.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/RelWithDebInfo/Moryx_Engine.lib</ImportLibrary>
@@ -266,8 +266,8 @@
   <ItemGroup>
     <CustomBuild Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\CMakeLists.txt">
       <UseUtf8Encoding>Always</UseUtf8Encoding>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">Building Custom Rule C:/Users/zachm/OneDrive/Desktop/Moryx_engine/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">setlocal
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/zachm/OneDrive/Desktop/Moryx_engine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/zachm/OneDrive/Desktop/Moryx_engine -BC:/Users/zachm/OneDrive/Desktop/Moryx_engine/build --check-stamp-file C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
@@ -276,11 +276,11 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\.env.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCXXCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeRCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|win32'">Building Custom Rule C:/Users/zachm/OneDrive/Desktop/Moryx_engine/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|win32'">setlocal
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\.env.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCXXCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeRCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/zachm/OneDrive/Desktop/Moryx_engine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/zachm/OneDrive/Desktop/Moryx_engine -BC:/Users/zachm/OneDrive/Desktop/Moryx_engine/build --check-stamp-file C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
@@ -289,11 +289,11 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\.env.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCXXCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeRCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|win32'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">Building Custom Rule C:/Users/zachm/OneDrive/Desktop/Moryx_engine/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">setlocal
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\.env.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCXXCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeRCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/zachm/OneDrive/Desktop/Moryx_engine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/zachm/OneDrive/Desktop/Moryx_engine -BC:/Users/zachm/OneDrive/Desktop/Moryx_engine/build --check-stamp-file C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
@@ -302,11 +302,11 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\.env.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCXXCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeRCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|win32'">false</LinkObjects>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">Building Custom Rule C:/Users/zachm/OneDrive/Desktop/Moryx_engine/CMakeLists.txt</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">setlocal
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\.env.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCXXCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeRCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/zachm/OneDrive/Desktop/Moryx_engine/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/zachm/OneDrive/Desktop/Moryx_engine -BC:/Users/zachm/OneDrive/Desktop/Moryx_engine/build --check-stamp-file C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/CMakeFiles/generate.stamp
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
@@ -315,9 +315,9 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\.env.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCXXCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeRCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\generate.stamp</Outputs>
-      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|win32'">false</LinkObjects>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.28\Modules\Platform\WindowsPaths.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\.env.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeCXXCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeRCCompiler.cmake;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\3.28.0-rc3\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +330,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\index_buffer\index_buffer.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\pixel_shader\pixel_shader.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\render_system\render_system.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\resource.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\resource_manager.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\texture_manager\texture.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\texture_manager\texture_manager.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\swapchain\swapchain.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_buffer\vertex_buffer.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_shader\vertex_shader.cpp" />

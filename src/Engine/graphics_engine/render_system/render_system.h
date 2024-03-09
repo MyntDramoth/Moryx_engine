@@ -42,4 +42,5 @@ private:
     friend class Vertex_Buffer;
     friend class Vertex_Shader;
     friend class Pixel_Shader;
+    friend class Texture;
 };

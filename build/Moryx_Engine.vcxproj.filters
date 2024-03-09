@@ -28,6 +28,18 @@
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\render_system\render_system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\resource.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\resource_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\texture_manager\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\texture_manager\texture_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\swapchain\swapchain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

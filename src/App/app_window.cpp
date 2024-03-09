@@ -55,26 +55,73 @@ void App_Window::on_create() {
  
 
     Input_System::get_input_system()->add_listener(this);
+
+    wood_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/wood.jpg");
    
+    if(wood_tex == nullptr) {throw std::exception("failed top load tex.");}
+
     RECT rc = this->get_client_window_rect();
     UINT width = rc.right - rc.left;
     UINT height = rc.bottom - rc.top;
 
     swapchain = Graphics_Engine::get_engine()->get_render_system()->create_swap_chain(this->window_handle, width, height);
 
-    Vertex vertices[] = {
+   
+
+    Vector3D vert_pos[] = {
         //front face
-        {Vector3D(-0.5f,-0.5f,-0.5f),  Vector3D(1.0f,0.0f,0.0f)},
-        {Vector3D(-0.5f, 0.5f,-0.5f),  Vector3D(0.0f,1.0f,0.0f)},
-        {Vector3D( 0.5f, 0.5f,-0.5f),  Vector3D(0.0f,0.0f,1.0f)},
-        {Vector3D( 0.5f,-0.5f,-0.5f),  Vector3D(1.0f,0.0f,1.0f)},
+        {Vector3D(-0.5f,-0.5f,-0.5f)},
+        {Vector3D(-0.5f, 0.5f,-0.5f)},
+        {Vector3D( 0.5f, 0.5f,-0.5f)},
+        {Vector3D( 0.5f,-0.5f,-0.5f)},
         //back face
-        {Vector3D( 0.5f,-0.5f, 0.5f),  Vector3D(1.0f,1.0f,0.0f)},
-        {Vector3D( 0.5f, 0.5f, 0.5f),  Vector3D(1.0f,1.0f,0.0f)},
-        {Vector3D(-0.5f, 0.5f, 0.5f),  Vector3D(0.0f,1.0f,1.0f)},
-        {Vector3D(-0.5f,-0.5f, 0.5f),  Vector3D(0.0f,1.0f,1.0f)}
+        {Vector3D( 0.5f,-0.5f, 0.5f)},
+        {Vector3D( 0.5f, 0.5f, 0.5f)},
+        {Vector3D(-0.5f, 0.5f, 0.5f)},
+        {Vector3D(-0.5f,-0.5f, 0.5f)}
     };
 
+    Vector2D vert_uvs[] = {
+         //front face
+        {Vector2D(0.0f,0.0f)},
+        {Vector2D(0.0f,1.0f)},
+        {Vector2D(1.0f,0.0f)},
+        {Vector2D(1.0f,1.0f)} 
+    };
+
+     Vertex vertices[] = {
+        //Front Face
+        {vert_pos[0],vert_uvs[1]},
+        {vert_pos[1],vert_uvs[0]},
+        {vert_pos[2],vert_uvs[2]},
+        {vert_pos[3],vert_uvs[3]},
+        //Back Face
+        {vert_pos[4],vert_uvs[1]},
+        {vert_pos[5],vert_uvs[0]},
+        {vert_pos[6],vert_uvs[2]},
+        {vert_pos[7],vert_uvs[3]},
+         //Top Face
+        {vert_pos[1],vert_uvs[1]},
+        {vert_pos[6],vert_uvs[0]},
+        {vert_pos[5],vert_uvs[2]},
+        {vert_pos[2],vert_uvs[3]},
+        //Bottom Face
+        {vert_pos[7],vert_uvs[1]},
+        {vert_pos[0],vert_uvs[0]},
+        {vert_pos[3],vert_uvs[2]},
+        {vert_pos[4],vert_uvs[3]},
+        //Right Face
+        {vert_pos[3],vert_uvs[1]},
+        {vert_pos[2],vert_uvs[0]},
+        {vert_pos[5],vert_uvs[2]},
+        {vert_pos[4],vert_uvs[3]},
+        //Left Face
+        {vert_pos[7],vert_uvs[1]},
+        {vert_pos[6],vert_uvs[0]},
+        {vert_pos[1],vert_uvs[2]},
+        {vert_pos[0],vert_uvs[3]}
+        
+    };
   
     UINT num_vertices = ARRAYSIZE(vertices);
 
@@ -87,17 +134,17 @@ void App_Window::on_create() {
         4,5,6,
         6,7,4,
         //TOP
-        1,6,5,
-        5,2,1,
+        8,9,10,
+        10,11,8,
         //BOTTOM
-        7,0,3,
-        3,4,7,
+        12,13,14,
+        14,15,12,
         //RIGHT
-        3,2,5,
-        5,4,3,
+        16,17,18,
+        18,19,16,
         //LEFT
-        7,6,1,
-        1,0,7
+        20,21,22,
+        22,23,20
     };
 
     UINT num_indeces = ARRAYSIZE(indeces);
@@ -134,21 +181,27 @@ void App_Window::on_update() {
     Input_System::get_input_system()->update();
     
 
-    update();
+    
 
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
     
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(vertex_shader, constant_buffer);
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(pixel_shader, constant_buffer);
 
     RECT rc = this->get_client_window_rect();
     UINT width = rc.right - rc.left;
     UINT height = rc.bottom - rc.top;
 
+
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);
+    
+    update();
+
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(vertex_shader, constant_buffer);
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(pixel_shader, constant_buffer);
+    
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_shader(vertex_shader);
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_pixel_shader(pixel_shader);
 
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_texture(pixel_shader,wood_tex);
     
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_buffer(vertex_buffer);
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_index_buffer(index_buffer);

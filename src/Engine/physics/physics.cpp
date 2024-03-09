@@ -1,6 +1,6 @@
 #include "physics.h"
 #include <limits>
-
+/*
 static u32 iterations = 4;
 static f32 tick_rate;
 
@@ -35,7 +35,7 @@ Hit Physics::ray_intersect_aabb(Vector3D pos, Vector3D magnitude, AABB aabb) {
 		} else if (pos[i] <= min[i] || pos[i] >= max[i]) {
 			return hit;
 		}
-	}*/
+	}
 
 	if (magnitude.x != 0) { 	
 	f32 t1 = (min.x - pos.x) / magnitude.x;
@@ -154,7 +154,7 @@ Physics::Physics() {
 	//state.terminal_velocity = -7000;
 
 	tick_rate = 1.f / iterations;
-}
+}*/
 /*
 static void update_sweep_result(Hit *result, Body *body, usize other_id, Vector3D velocity) {
 	Body *other = physics_body_get(other_id);

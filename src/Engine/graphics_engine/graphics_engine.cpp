@@ -7,16 +7,26 @@ Graphics_Engine* Graphics_Engine::engine = nullptr;
 Graphics_Engine::Graphics_Engine() {
     try {
         render_system = new Render_System();
-    } catch(...){throw std::exception("Failed to create graphics engine!");}
+    } catch(...){throw std::exception("Failed to create render system!");}
+
+    try {
+        texture_manager = new Texture_Manager();
+    } catch(...){throw std::exception("Failed to create texture manager!");}
 }
 
 Graphics_Engine::~Graphics_Engine() {
+    delete texture_manager;
     delete render_system;
     Graphics_Engine::engine = nullptr;
 }
 
 Render_System *Graphics_Engine::get_render_system() {
     return render_system;
+}
+
+Texture_Manager *Graphics_Engine::get_texture_manager()
+{
+    return texture_manager;
 }
 
 Graphics_Engine *Graphics_Engine::get_engine() {

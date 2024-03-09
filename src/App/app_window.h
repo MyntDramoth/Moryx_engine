@@ -4,6 +4,7 @@
 #include <chrono>
 
 #include "../Engine/math/vector3D.h"
+#include "../Engine/math/vector2D.h"
 #include "../Engine/math/matrix4x4.h"
 
 
@@ -33,7 +34,7 @@
 
 struct Vertex {
     Vector3D position;
-    Vector3D color;
+    Vector2D uv;
 };
 
 __declspec(align(16))
@@ -91,4 +92,6 @@ private:
     vert_buffer_sptr vertex_buffer {nullptr};
     vert_shader_sptr vertex_shader {nullptr};
     pix_shader_sptr pixel_shader {nullptr};
+
+    texture_sptr wood_tex {nullptr};
 };
