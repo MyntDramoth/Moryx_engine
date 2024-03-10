@@ -23,7 +23,8 @@ Device_Context::~Device_Context() {
 void Device_Context::clear_render_target_color(const swapchain_sptr& swapchain,float red, float green, float blue, float alpha) {
     FLOAT clear_color[] ={red,green,blue,alpha};
     device_context->ClearRenderTargetView(swapchain->target_view,clear_color);
-    device_context->OMSetRenderTargets(1,&swapchain->target_view,NULL);
+    device_context->ClearDepthStencilView(swapchain->stencil_view,D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,1,0);
+    device_context->OMSetRenderTargets(1,&swapchain->target_view,swapchain->stencil_view);
    
 }
 

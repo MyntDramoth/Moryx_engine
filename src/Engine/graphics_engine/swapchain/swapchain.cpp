@@ -40,13 +40,34 @@ Swapchain::Swapchain(HWND hwnd,UINT width, UINT height, Render_System* system) :
         throw std::exception("Failed to create Render Target View!");
     }
 
+    D3D11_TEXTURE2D_DESC tex_desc = {};
+    tex_desc.Width = width;
+    tex_desc.Height = height;
+    tex_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+    tex_desc.Usage = D3D11_USAGE_DEFAULT;
+    tex_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+    tex_desc.MipLevels = 1;
+    tex_desc.SampleDesc.Count = 1;
+    tex_desc.SampleDesc.Quality = 0;
+    tex_desc.MiscFlags = 0;
+    tex_desc.ArraySize = 1;
+    tex_desc.CPUAccessFlags = 0;
+
+    hres = d3_device->CreateTexture2D(&tex_desc,nullptr,&back_buffer);
+    if(FAILED(hres)) {
+        throw std::exception("Failed to create Depth Buffer!");
+    }
+
    
+    hres = d3_device->CreateDepthStencilView(back_buffer,NULL,&stencil_view);
+    back_buffer->Release();
 }
 
 Swapchain::~Swapchain()
 {
     swapchain->Release();
     target_view->Release();
+    stencil_view->Release();
 }
 
 

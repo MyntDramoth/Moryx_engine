@@ -15,6 +15,8 @@ class Resource;
 class Resource_Manager;
 class Texture_Manager;
 class Texture;
+class Mesh_Manager;
+class Mesh;
 
 typedef std::shared_ptr<Swapchain> swapchain_sptr;
 typedef std::shared_ptr<Index_Buffer> index_buffer_sptr;
@@ -25,3 +27,4 @@ typedef std::shared_ptr<Pixel_Shader> pix_shader_sptr;
 typedef std::shared_ptr<Device_Context> device_context_sptr;
 typedef std::shared_ptr<Resource> resource_sptr;
 typedef std::shared_ptr<Texture> texture_sptr;
+typedef std::shared_ptr<Mesh> mesh_sptr;

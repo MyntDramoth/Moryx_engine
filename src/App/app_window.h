@@ -23,6 +23,8 @@
 #include "../Engine/graphics_engine/vertex_shader/vertex_shader.h"
 #include "../Engine/graphics_engine/pixel_shader/pixel_shader.h"
 
+#include "../Engine/graphics_engine/resource_manager/mesh_manager/mesh.h"
+
 //INPUT SYSTEM
 #include "../Engine/input_system/input_listener.h"
 
@@ -94,4 +96,5 @@ private:
     pix_shader_sptr pixel_shader {nullptr};
 
     texture_sptr wood_tex {nullptr};
+    mesh_sptr teapot_mesh {nullptr};
 };

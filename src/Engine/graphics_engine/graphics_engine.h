@@ -4,18 +4,19 @@
 
 #include "render_system/render_system.h"
 #include "resource_manager/texture_manager/texture_manager.h"
-
+#include "resource_manager/mesh_manager/mesh_manager.h"
 
 class Graphics_Engine {
 public:
     
     Render_System* get_render_system();
     Texture_Manager* get_texture_manager();
+    Mesh_Manager* get_mesh_manager();
     static Graphics_Engine* get_engine();
     static void create();
     static void release();
     
-    //default simple shaders
+    void get_vert_mesh_layout_shader_data(void** byte_code, size_t* size);
     
 private:
     //these are private because the class is a singleton
@@ -23,6 +24,10 @@ private:
     ~Graphics_Engine();
     Render_System* render_system = nullptr;
     Texture_Manager* texture_manager = nullptr;
+    Mesh_Manager* mesh_manager = nullptr;
     static Graphics_Engine* engine;
+
+    unsigned char layout_byte_code[1024];
+    size_t layout_size = 0;
     
 };

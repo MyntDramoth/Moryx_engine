@@ -13,8 +13,9 @@ public:
     bool present(bool vsync);
 
 private:
-    IDXGISwapChain* swapchain;
-    ID3D11RenderTargetView* target_view;
+    IDXGISwapChain* swapchain = nullptr;
+    ID3D11RenderTargetView* target_view = nullptr;
+    ID3D11DepthStencilView* stencil_view = nullptr;
     Render_System* render_system {nullptr};
 
     friend class Device_Context;

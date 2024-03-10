@@ -57,7 +57,8 @@ void App_Window::on_create() {
     Input_System::get_input_system()->add_listener(this);
 
     wood_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/wood.jpg");
-   
+    teapot_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/teapot.obj");
+
     if(wood_tex == nullptr) {throw std::exception("failed top load tex.");}
 
     RECT rc = this->get_client_window_rect();
@@ -149,21 +150,15 @@ void App_Window::on_create() {
 
     UINT num_indeces = ARRAYSIZE(indeces);
 
-    index_buffer = Graphics_Engine::get_engine()->get_render_system()->create_index_buffer(indeces, num_indeces);
-
     void* shader_byte_code = nullptr;
     size_t shader_size = 0;
-    Graphics_Engine::get_engine()->get_render_system()->compile_vertex_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/vertex.hlsl","main",&shader_byte_code,&shader_size);
-     
-    vertex_shader = Graphics_Engine::get_engine()->get_render_system()->create_vertex_shader(shader_byte_code,shader_size);
     
-    vertex_buffer = Graphics_Engine::get_engine()->get_render_system()->create_vertex_buffer(vertices, sizeof(Vertex), num_vertices, shader_byte_code, shader_size);
-
+    Graphics_Engine::get_engine()->get_render_system()->compile_vertex_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/vertex.hlsl","main",&shader_byte_code,&shader_size);
+    vertex_shader = Graphics_Engine::get_engine()->get_render_system()->create_vertex_shader(shader_byte_code,shader_size);
     Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
 
     Graphics_Engine::get_engine()->get_render_system()->compile_pixel_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/fragment.hlsl", "main", &shader_byte_code, &shader_size);
     pixel_shader = Graphics_Engine::get_engine()->get_render_system()->create_pixel_shader(shader_byte_code,shader_size);
-
     Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
 
     Const_Buff con;
@@ -203,10 +198,10 @@ void App_Window::on_update() {
 
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_texture(pixel_shader,wood_tex);
     
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_buffer(vertex_buffer);
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_index_buffer(index_buffer);
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_buffer(teapot_mesh->get_vert_buffer());
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_index_buffer(teapot_mesh->get_index_buffer());
 
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->draw_indexed_triangle_list(index_buffer->get_size_index_list(),0,0);
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->draw_indexed_triangle_list(teapot_mesh->get_index_buffer()->get_size_index_list(),0,0);
     //Graphics_Engine::get_engine()->get_render_system()->get_device_context()->draw_triangle_list(vertex_buffer->get_num_vertices(),0);
   
     swapchain->present(true);
