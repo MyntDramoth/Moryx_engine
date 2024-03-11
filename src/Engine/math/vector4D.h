@@ -1,5 +1,7 @@
 #pragma once
 
+#include "vector3D.h"
+
 class Vector4D {
 public:
     Vector4D() : x(0.0f),y(0.0f),z(0.0f),w(0.0f)
@@ -8,6 +10,9 @@ public:
     {};
     Vector4D(const Vector4D &vector) : x(vector.x),y(vector.y),z(vector.z),w(vector.w)
     {};
+    Vector4D(const Vector3D &vector) : x(vector.x),y(vector.y),z(vector.z),w(1.0f)
+    {};
+
 
     static Vector4D lerp(const Vector4D &start,const Vector4D &end, float step) {
         Vector4D vect;

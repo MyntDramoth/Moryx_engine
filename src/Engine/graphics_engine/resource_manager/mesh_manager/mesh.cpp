@@ -51,7 +51,11 @@ Mesh::Mesh(const wchar_t* full_path):Resource(full_path) {
                 tinyobj::real_t tex_Xpos = attribs.texcoords[index.texcoord_index * 2 + 0];
                 tinyobj::real_t tex_Ypos = attribs.texcoords[index.texcoord_index * 2 + 1];
 
-                Vertex_Mesh vertex(Vector3D(vert_Xpos,vert_Ypos,vert_Zpos),Vector2D(tex_Xpos,tex_Ypos));
+                tinyobj::real_t norm_Xpos = attribs.normals[index.normal_index * 3 + 0];
+                tinyobj::real_t norm_Ypos = attribs.normals[index.normal_index * 3 + 1];
+                tinyobj::real_t norm_Zpos = attribs.normals[index.normal_index * 3 + 2];
+
+                Vertex_Mesh vertex(Vector3D(vert_Xpos,vert_Ypos,vert_Zpos),Vector2D(tex_Xpos,tex_Ypos),Vector3D(norm_Xpos,norm_Ypos,norm_Zpos));
                 vertices.push_back(vertex);
                 indeces.push_back((unsigned int)index_offset + verts);
             }

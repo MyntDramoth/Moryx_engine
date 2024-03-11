@@ -44,7 +44,8 @@ struct Const_Buff {
     Matrix4x4 world_space;
     Matrix4x4 view_space;
     Matrix4x4 projection;
-    unsigned int time;
+    Vector4D light_dir;
+    Vector4D cam_pos;
 };
 
 class App_Window : public Window, public Input_Listener {
@@ -83,6 +84,7 @@ private:
 
     float rot_x = 0.0f;
     float rot_y = 0.0f;
+    float light_rot_y = 0.0f;
 
     Matrix4x4 world_camera;
     float forward = 0.0f;

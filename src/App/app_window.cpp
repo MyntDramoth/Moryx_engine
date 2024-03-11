@@ -14,6 +14,12 @@ void App_Window::update()
 {
     Const_Buff con;
     Matrix4x4 temp;
+    Matrix4x4 light_rot;
+    light_rot_y += sin(delta_time);
+    light_rot.set_identity();
+    light_rot.set_rotation_y(light_rot_y);
+
+    con.light_dir = light_rot.get_z_direction();
 
     con.world_space.set_identity();
 
@@ -31,6 +37,8 @@ void App_Window::update()
 
     camera_matrix.set_translation(new_pos);
 
+    con.cam_pos = new_pos;
+
     world_camera = camera_matrix;
 
     camera_matrix.inverse(); //turns it into a view matrix
@@ -44,7 +52,8 @@ void App_Window::update()
    
     con.projection.set_perspective_FOV(1.57f,((float)width/(float)height),0.1f,100.0f);
 
-    con.time = ::GetTickCount64();
+    //con.time = ::GetTickCount64();
+    
     constant_buffer->update( Graphics_Engine::get_engine()->get_render_system()->get_device_context(), &con);
 
 
@@ -163,7 +172,7 @@ void App_Window::on_create() {
 
     Const_Buff con;
 
-    con.time = 0;
+    //con.time = 0;
     constant_buffer = Graphics_Engine::get_engine()->get_render_system()->create_constant_buffer(&con, sizeof(Const_Buff));
     current_time = std::chrono::high_resolution_clock::now();
 
