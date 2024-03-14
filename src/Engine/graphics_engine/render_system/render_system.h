@@ -22,17 +22,26 @@ public:
     bool compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
     bool compile_pixel_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
     void release_compiled_shader();
+    void set_rasterizer_sate(bool front_culling);
     //default simple shaders
     
 private:
-    ID3D11Device* device;
+
+    void intit_rasterizer_state();
+
+
+    ID3D11Device* device = nullptr;
+    ID3D11DeviceContext* context = nullptr;
+    ID3D11RasterizerState* front_face_culling = nullptr;
+    ID3D11RasterizerState* back_face_culling = nullptr;
+
     D3D_FEATURE_LEVEL m_feature_level;
     // or Immediate Device Contact Spider
     device_context_sptr device_context {nullptr};
 
-    IDXGIDevice* dxgi_device;
-    IDXGIAdapter* dxgi_adapter;
-    IDXGIFactory* dxgi_factory;
+    IDXGIDevice* dxgi_device = nullptr;
+    IDXGIAdapter* dxgi_adapter = nullptr;
+    IDXGIFactory* dxgi_factory = nullptr;
 
     ID3DBlob* shader_blob = nullptr;
     

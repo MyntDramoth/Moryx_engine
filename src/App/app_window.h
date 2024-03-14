@@ -54,6 +54,10 @@ public:
     ~App_Window();
 
     void update();
+    void update_camera();
+    void update_model();
+    void update_skybox();
+    void draw_mesh(const mesh_sptr& mesh,const vert_shader_sptr& vert_shader,const pix_shader_sptr& pix_shader, const const_buffer_sptr& buffer, const texture_sptr& texture);
 
     //Inherited via Window
     virtual void on_create() override;
@@ -93,10 +97,19 @@ private:
     swapchain_sptr swapchain {nullptr};
     index_buffer_sptr index_buffer {nullptr};
     const_buffer_sptr constant_buffer {nullptr};
+    const_buffer_sptr sky_constant_buffer {nullptr};
     vert_buffer_sptr vertex_buffer {nullptr};
     vert_shader_sptr vertex_shader {nullptr};
     pix_shader_sptr pixel_shader {nullptr};
 
+    pix_shader_sptr skybox_shader {nullptr};
+
     texture_sptr wood_tex {nullptr};
     mesh_sptr teapot_mesh {nullptr};
+
+    texture_sptr sky_tex {nullptr};
+    mesh_sptr skybox_mesh {nullptr};
+
+    Matrix4x4 cam_view;
+    Matrix4x4 cam_projection;
 };

@@ -12,18 +12,13 @@ App_Window::~App_Window()
 
 void App_Window::update()
 {
-    Const_Buff con;
-    Matrix4x4 temp;
-    Matrix4x4 light_rot;
-    light_rot_y += sin(delta_time);
-    light_rot.set_identity();
-    light_rot.set_rotation_y(light_rot_y);
+    update_camera();
+    update_model();
+    update_skybox();
+}
 
-    con.light_dir = light_rot.get_z_direction();
-
-    con.world_space.set_identity();
-
-    Matrix4x4 camera_matrix;
+void App_Window::update_camera() {
+    Matrix4x4 camera_matrix, temp;
     camera_matrix.set_identity();
 
     temp.set_identity();
@@ -37,26 +32,71 @@ void App_Window::update()
 
     camera_matrix.set_translation(new_pos);
 
-    con.cam_pos = new_pos;
-
     world_camera = camera_matrix;
 
     camera_matrix.inverse(); //turns it into a view matrix
 
-    con.view_space = camera_matrix;
+    cam_view = camera_matrix;
    
 
     int width = (this->get_client_window_rect().right - this->get_client_window_rect().left);
     int height = (this->get_client_window_rect().bottom - this->get_client_window_rect().top);
 
    
-    con.projection.set_perspective_FOV(1.57f,((float)width/(float)height),0.1f,100.0f);
+    cam_projection.set_perspective_FOV(1.57f,((float)width/(float)height),0.1f,100.0f);
 
-    //con.time = ::GetTickCount64();
+}
+
+void App_Window::update_model() {
+    
+    Const_Buff con;
+    
+    Matrix4x4 light_rot;
+    light_rot_y += sin(delta_time);
+    light_rot.set_identity();
+    light_rot.set_rotation_y(light_rot_y);
+
+  
+    con.world_space.set_identity();
+
+    con.view_space = cam_view;
+    con.projection = cam_projection;
+    con.cam_pos = world_camera.get_translation();
+
+    con.light_dir = light_rot.get_z_direction();
     
     constant_buffer->update( Graphics_Engine::get_engine()->get_render_system()->get_device_context(), &con);
+}
 
+void App_Window::update_skybox() {
+   
+    Const_Buff con;
+    
+    con.world_space.set_identity();
 
+    con.world_space.set_scale(Vector3D(100.0f,100.0f,100.0f));
+
+    con.world_space.set_translation(world_camera.get_translation());
+
+    con.view_space = cam_view;
+    con.projection = cam_projection;
+
+    sky_constant_buffer->update( Graphics_Engine::get_engine()->get_render_system()->get_device_context(), &con);
+}
+
+void App_Window::draw_mesh(const mesh_sptr &mesh, const vert_shader_sptr &vert_shader, const pix_shader_sptr &pix_shader, const const_buffer_sptr &buffer, const texture_sptr &texture) {
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(vert_shader, buffer);
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(pix_shader, buffer);
+    
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_shader(vert_shader);
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_pixel_shader(pix_shader);
+
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_texture(pix_shader,texture);
+    
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_buffer(mesh->get_vert_buffer());
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_index_buffer(mesh->get_index_buffer());
+
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->draw_indexed_triangle_list(mesh->get_index_buffer()->get_size_index_list(),0,0);
 }
 
 void App_Window::on_create() {
@@ -66,9 +106,9 @@ void App_Window::on_create() {
     Input_System::get_input_system()->add_listener(this);
 
     wood_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/wood.jpg");
+    sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/sky.jpg");
     teapot_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/teapot.obj");
-
-    if(wood_tex == nullptr) {throw std::exception("failed top load tex.");}
+    skybox_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/sphere.obj");
 
     RECT rc = this->get_client_window_rect();
     UINT width = rc.right - rc.left;
@@ -170,10 +210,15 @@ void App_Window::on_create() {
     pixel_shader = Graphics_Engine::get_engine()->get_render_system()->create_pixel_shader(shader_byte_code,shader_size);
     Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
 
+    Graphics_Engine::get_engine()->get_render_system()->compile_pixel_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/skybox.hlsl", "main", &shader_byte_code, &shader_size);
+    skybox_shader = Graphics_Engine::get_engine()->get_render_system()->create_pixel_shader(shader_byte_code,shader_size);
+    Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
+
     Const_Buff con;
 
     //con.time = 0;
     constant_buffer = Graphics_Engine::get_engine()->get_render_system()->create_constant_buffer(&con, sizeof(Const_Buff));
+    sky_constant_buffer = Graphics_Engine::get_engine()->get_render_system()->create_constant_buffer(&con, sizeof(Const_Buff));
     current_time = std::chrono::high_resolution_clock::now();
 
     world_camera.set_translation(Vector3D(0.0f,0.0f,-2.0f));
@@ -198,20 +243,11 @@ void App_Window::on_update() {
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);
     
     update();
-
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(vertex_shader, constant_buffer);
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(pixel_shader, constant_buffer);
-    
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_shader(vertex_shader);
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_pixel_shader(pixel_shader);
-
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_texture(pixel_shader,wood_tex);
-    
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_buffer(teapot_mesh->get_vert_buffer());
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_index_buffer(teapot_mesh->get_index_buffer());
-
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->draw_indexed_triangle_list(teapot_mesh->get_index_buffer()->get_size_index_list(),0,0);
-    //Graphics_Engine::get_engine()->get_render_system()->get_device_context()->draw_triangle_list(vertex_buffer->get_num_vertices(),0);
+    Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(false);
+    draw_mesh(teapot_mesh,vertex_shader,pixel_shader,constant_buffer,wood_tex);
+    //SKYBOX/SPHERE
+    Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(true);
+    draw_mesh(skybox_mesh,vertex_shader,skybox_shader,sky_constant_buffer,sky_tex);
   
     swapchain->present(true);
 
