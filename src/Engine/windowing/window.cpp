@@ -26,7 +26,15 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT msg, WPARAM wparam, LPARAM lparam) {
 
             Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 
-            window->on_kill_focus();
+            if(window) {window->on_kill_focus();}
+
+            break;
+        }
+        case WM_SIZE:
+        {
+            Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+
+            if(window) {window->on_resize();}
 
             break;
         }
@@ -36,7 +44,7 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT msg, WPARAM wparam, LPARAM lparam) {
 
             Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
 
-            window->on_destroy();
+            if(window) {window->on_destroy();}
 
             PostQuitMessage(0);
             break;
@@ -140,5 +148,14 @@ RECT Window::get_client_window_rect()
 {
     RECT rc;
     ::GetClientRect(this->window_handle,&rc);
+    return rc;
+}
+
+RECT Window::get_screen_size() {
+    RECT rc;
+
+    rc.right = GetSystemMetrics(SM_CXSCREEN);
+    rc.bottom = GetSystemMetrics(SM_CYSCREEN);
+    
     return rc;
 }

@@ -17,6 +17,42 @@ void App_Window::update()
     update_skybox();
 }
 
+void App_Window::render() {
+
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
+    
+
+    RECT rc = this->get_client_window_rect();
+    UINT width = rc.right - rc.left;
+    UINT height = rc.bottom - rc.top;
+
+
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);
+    
+    update();
+    Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(false);
+    draw_mesh(teapot_mesh,vertex_shader,pixel_shader,constant_buffer,wood_tex);
+    //SKYBOX/SPHERE
+    Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(true);
+    draw_mesh(skybox_mesh,vertex_shader,skybox_shader,sky_constant_buffer,sky_tex);
+  
+    swapchain->present(true);
+
+   
+
+    new_time = std::chrono::high_resolution_clock::now();
+
+    float frame_time = std::chrono::duration<float, std::milli>(new_time - current_time).count();
+    
+    current_time = new_time;
+    
+    delta_time = (float)frame_time / 1000.0f;
+    
+    FPS = (float)frame_time * 1000.0f;
+    //std::cout<<(float)FPS<<std::endl;
+
+}
+
 void App_Window::update_camera() {
     Matrix4x4 camera_matrix, temp;
     camera_matrix.set_identity();
@@ -101,9 +137,10 @@ void App_Window::draw_mesh(const mesh_sptr &mesh, const vert_shader_sptr &vert_s
 
 void App_Window::on_create() {
 
- 
+    is_camera_locked_to_mouse = true;
 
     Input_System::get_input_system()->add_listener(this);
+    Input_System::get_input_system()->show_cursor(false);
 
     wood_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/wood.jpg");
     sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/sky.jpg");
@@ -222,56 +259,30 @@ void App_Window::on_create() {
     current_time = std::chrono::high_resolution_clock::now();
 
     world_camera.set_translation(Vector3D(0.0f,0.0f,-2.0f));
-    Input_System::get_input_system()->show_cursor(false);
+    
 }
 
 void App_Window::on_update() {
-    
+
     Input_System::get_input_system()->update();
+    this->render();
     
-
-    
-
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
-    
-
-    RECT rc = this->get_client_window_rect();
-    UINT width = rc.right - rc.left;
-    UINT height = rc.bottom - rc.top;
-
-
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);
-    
-    update();
-    Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(false);
-    draw_mesh(teapot_mesh,vertex_shader,pixel_shader,constant_buffer,wood_tex);
-    //SKYBOX/SPHERE
-    Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(true);
-    draw_mesh(skybox_mesh,vertex_shader,skybox_shader,sky_constant_buffer,sky_tex);
-  
-    swapchain->present(true);
-
-   
-
-    new_time = std::chrono::high_resolution_clock::now();
-
-    float frame_time = std::chrono::duration<float, std::milli>(new_time - current_time).count();
-    
-    current_time = new_time;
-    
-    delta_time = (float)frame_time / 1000.0f;
-    
-    FPS = (float)frame_time * 1000.0f;
-    //std::cout<<(float)FPS<<std::endl;
-
 }
 
 void App_Window::on_destroy() {
     Window::on_destroy();
+    swapchain->set_fullsreen_state(false,1,1);
 }
 
 void App_Window::on_focus() {
     Input_System::get_input_system()->add_listener(this);
+}
+
+void App_Window::on_resize() {
+    RECT rc = this->get_client_window_rect();
+   
+    swapchain->resize_swapchain(rc.right,rc.bottom);
+    this->render();
 }
 
 void App_Window::on_kill_focus() {
@@ -298,6 +309,17 @@ void App_Window::on_key_down(int key) {
     if(key == VK_ESCAPE) {
         on_destroy();
     }
+    if(key == 'K') {
+        is_camera_locked_to_mouse = (is_camera_locked_to_mouse) ? false : true;
+        Input_System::get_input_system()->show_cursor(!is_camera_locked_to_mouse);
+    }
+     if(key == 'F') {
+        is_full_screen_mode = (is_full_screen_mode) ? false : true;
+        RECT rc = this->get_screen_size();
+        swapchain->set_fullsreen_state(is_full_screen_mode,rc.right,rc.bottom);
+        
+       
+    }
 }
 
 void App_Window::on_key_up(int key) {
@@ -307,6 +329,7 @@ void App_Window::on_key_up(int key) {
 
 void App_Window::on_mouse_move(const Point &mouse_pos) {
 
+    if(!is_camera_locked_to_mouse) {return;}
     int width = (this->get_client_window_rect().right - this->get_client_window_rect().left);
     int height = (this->get_client_window_rect().bottom - this->get_client_window_rect().top);
 

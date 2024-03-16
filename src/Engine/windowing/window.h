@@ -17,8 +17,10 @@ public:
 
     virtual void on_focus() = 0;
     virtual void on_kill_focus() = 0;
+    virtual void on_resize() = 0;
 
     RECT get_client_window_rect();
+    RECT get_screen_size();
 
 protected:
     HWND window_handle;

@@ -54,6 +54,7 @@ public:
     ~App_Window();
 
     void update();
+    void render();
     void update_camera();
     void update_model();
     void update_skybox();
@@ -64,6 +65,7 @@ public:
     virtual void on_update() override;
     virtual void on_destroy() override;
     virtual void on_focus() override;
+    virtual void on_resize() override;
     virtual void on_kill_focus() override;
 
     //Inherited via Input_Listener
@@ -81,6 +83,9 @@ private:
     float delta_time;
     std::chrono::high_resolution_clock::time_point new_time;
     
+
+    bool is_camera_locked_to_mouse = false;
+    bool is_full_screen_mode = false;
 
     float FPS;
     float d_pos = 0.01f;
