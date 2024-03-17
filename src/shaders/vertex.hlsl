@@ -18,6 +18,7 @@ cbuffer Constant: register(b0) {
     row_major float4x4 projection;
     float4 light_dir;
     float4 cam_pos;
+    float time;
 };
 
 VS_OUTPUT main(VS_INPUT input) {

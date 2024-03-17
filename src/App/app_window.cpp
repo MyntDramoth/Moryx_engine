@@ -31,10 +31,17 @@ void App_Window::render() {
     
     update();
     Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(false);
-    draw_mesh(teapot_mesh,vertex_shader,pixel_shader,constant_buffer,wood_tex);
+    texture_sptr textures[4];
+    textures[0] = earth_tex;
+    textures[1] = earth_spec_map;
+    textures[2] = clouds_tex;
+    textures[3] = earth_night_tex;
+    draw_mesh(teapot_mesh,vertex_shader,pixel_shader,constant_buffer,textures,4);
     //SKYBOX/SPHERE
+    
+    textures[0] = sky_tex;
     Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(true);
-    draw_mesh(skybox_mesh,vertex_shader,skybox_shader,sky_constant_buffer,sky_tex);
+    draw_mesh(skybox_mesh,vertex_shader,skybox_shader,sky_constant_buffer,textures,1);
   
     swapchain->present(true);
 
@@ -50,6 +57,7 @@ void App_Window::render() {
     
     FPS = (float)frame_time * 1000.0f;
     //std::cout<<(float)FPS<<std::endl;
+    time += delta_time;
 
 }
 
@@ -88,11 +96,11 @@ void App_Window::update_model() {
     Const_Buff con;
     
     Matrix4x4 light_rot;
-    light_rot_y += sin(delta_time);
+    light_rot_y += sin(delta_time) * 0.7f;
     light_rot.set_identity();
     light_rot.set_rotation_y(light_rot_y);
 
-  
+    con.time = time;
     con.world_space.set_identity();
 
     con.view_space = cam_view;
@@ -120,14 +128,14 @@ void App_Window::update_skybox() {
     sky_constant_buffer->update( Graphics_Engine::get_engine()->get_render_system()->get_device_context(), &con);
 }
 
-void App_Window::draw_mesh(const mesh_sptr &mesh, const vert_shader_sptr &vert_shader, const pix_shader_sptr &pix_shader, const const_buffer_sptr &buffer, const texture_sptr &texture) {
+void App_Window::draw_mesh(const mesh_sptr &mesh, const vert_shader_sptr &vert_shader, const pix_shader_sptr &pix_shader, const const_buffer_sptr &buffer, const texture_sptr* texture, UINT num_textures) {
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(vert_shader, buffer);
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(pix_shader, buffer);
     
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_shader(vert_shader);
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_pixel_shader(pix_shader);
 
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_texture(pix_shader,texture);
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_texture(pix_shader,texture,num_textures);
     
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_buffer(mesh->get_vert_buffer());
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_index_buffer(mesh->get_index_buffer());
@@ -142,9 +150,12 @@ void App_Window::on_create() {
     Input_System::get_input_system()->add_listener(this);
     Input_System::get_input_system()->show_cursor(false);
 
-    wood_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/wood.jpg");
-    sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/sky.jpg");
-    teapot_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/teapot.obj");
+    earth_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_night.jpg");
+    earth_night_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_color.jpg");
+    earth_spec_map = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_spec.jpg");
+    clouds_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/clouds.jpg");
+    sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/stars_map.jpg");
+    teapot_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/sphere_hq.obj");
     skybox_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/sphere.obj");
 
     RECT rc = this->get_client_window_rect();

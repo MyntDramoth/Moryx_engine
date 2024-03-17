@@ -46,6 +46,7 @@ struct Const_Buff {
     Matrix4x4 projection;
     Vector4D light_dir;
     Vector4D cam_pos;
+    float time = 0.0f;
 };
 
 class App_Window : public Window, public Input_Listener {
@@ -58,7 +59,7 @@ public:
     void update_camera();
     void update_model();
     void update_skybox();
-    void draw_mesh(const mesh_sptr& mesh,const vert_shader_sptr& vert_shader,const pix_shader_sptr& pix_shader, const const_buffer_sptr& buffer, const texture_sptr& texture);
+    void draw_mesh(const mesh_sptr& mesh,const vert_shader_sptr& vert_shader,const pix_shader_sptr& pix_shader, const const_buffer_sptr& buffer, const texture_sptr* texture, UINT num_textures);
 
     //Inherited via Window
     virtual void on_create() override;
@@ -99,6 +100,8 @@ private:
     float forward = 0.0f;
     float rightward = 0.0f;
 
+    float time = 0.0f;
+
     swapchain_sptr swapchain {nullptr};
     index_buffer_sptr index_buffer {nullptr};
     const_buffer_sptr constant_buffer {nullptr};
@@ -109,7 +112,10 @@ private:
 
     pix_shader_sptr skybox_shader {nullptr};
 
-    texture_sptr wood_tex {nullptr};
+    texture_sptr earth_tex {nullptr};
+    texture_sptr earth_night_tex {nullptr};
+    texture_sptr earth_spec_map {nullptr};
+    texture_sptr clouds_tex {nullptr};
     mesh_sptr teapot_mesh {nullptr};
 
     texture_sptr sky_tex {nullptr};

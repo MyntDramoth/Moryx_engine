@@ -23,8 +23,8 @@ public:
     void set_vertex_shader(const vert_shader_sptr& vertex_shader);
     void set_pixel_shader(const pix_shader_sptr& pixel_shader);
 
-    void set_texture(const vert_shader_sptr& vertex_shader, const texture_sptr& texture);
-    void set_texture(const pix_shader_sptr& pixel_shader, const texture_sptr& texture);
+    void set_texture(const vert_shader_sptr& vertex_shader, const texture_sptr* texture, UINT num_textures);
+    void set_texture(const pix_shader_sptr& pixel_shader, const texture_sptr* texture, UINT num_textures);
 
     void set_constant_buffer(const vert_shader_sptr& vertex_shader, const const_buffer_sptr& const_buffer);
     void set_constant_buffer(const pix_shader_sptr& pixel_shader, const const_buffer_sptr& const_buffer);
