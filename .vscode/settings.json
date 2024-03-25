@@ -82,5 +82,8 @@
         "codecvt": "cpp",
         "set": "cpp"
     },
+    "makefile.makefilePath": "C:\\Users\\zachm\\OneDrive\\Desktop\\Moryx_engine\\Makefile",
+    "makefile.makePath": "C:\\Program Files\\CMake\\bin\\cmake",
+    "makefile.buildLog": "C:\\Users\\zachm\\OneDrive\\Desktop\\Moryx_engine\\CMakeCache.txt",
     
 }

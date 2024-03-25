@@ -46,6 +46,8 @@ struct Const_Buff {
     Matrix4x4 projection;
     Vector4D light_dir;
     Vector4D cam_pos;
+    Vector4D light_pos = Vector4D(0.0f,1.0f,0.0f,0.0f);
+    float light_radius = 2.0f;
     float time = 0.0f;
 };
 

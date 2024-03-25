@@ -97,6 +97,7 @@ void App_Window::update_model() {
     
     Matrix4x4 light_rot;
     light_rot_y += sin(delta_time) * 0.7f;
+    //light_rot_y -= delta_time;
     light_rot.set_identity();
     light_rot.set_rotation_y(light_rot_y);
 
@@ -106,6 +107,11 @@ void App_Window::update_model() {
     con.view_space = cam_view;
     con.projection = cam_projection;
     con.cam_pos = world_camera.get_translation();
+
+    float dist_from_origin = 2.0f;
+    light_rot_y += 0.02f;
+
+    con.light_pos = Vector4D(cos(light_rot_y) * dist_from_origin,1.0f,sin(light_rot_y) * dist_from_origin,0.0f);
 
     con.light_dir = light_rot.get_z_direction();
     
@@ -150,12 +156,12 @@ void App_Window::on_create() {
     Input_System::get_input_system()->add_listener(this);
     Input_System::get_input_system()->show_cursor(false);
 
-    earth_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_night.jpg");
-    earth_night_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_color.jpg");
+    earth_night_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_night.jpg");
+    earth_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_color.jpg");
     earth_spec_map = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_spec.jpg");
     clouds_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/clouds.jpg");
     sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/stars_map.jpg");
-    teapot_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/sphere_hq.obj");
+    teapot_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/scene.obj");
     skybox_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/sphere.obj");
 
     RECT rc = this->get_client_window_rect();
@@ -250,11 +256,11 @@ void App_Window::on_create() {
     void* shader_byte_code = nullptr;
     size_t shader_size = 0;
     
-    Graphics_Engine::get_engine()->get_render_system()->compile_vertex_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/vertex.hlsl","main",&shader_byte_code,&shader_size);
+    Graphics_Engine::get_engine()->get_render_system()->compile_vertex_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/vert_point_light.hlsl","main",&shader_byte_code,&shader_size);
     vertex_shader = Graphics_Engine::get_engine()->get_render_system()->create_vertex_shader(shader_byte_code,shader_size);
     Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
 
-    Graphics_Engine::get_engine()->get_render_system()->compile_pixel_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/fragment.hlsl", "main", &shader_byte_code, &shader_size);
+    Graphics_Engine::get_engine()->get_render_system()->compile_pixel_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/frag_point_light.hlsl", "main", &shader_byte_code, &shader_size);
     pixel_shader = Graphics_Engine::get_engine()->get_render_system()->create_pixel_shader(shader_byte_code,shader_size);
     Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
 
