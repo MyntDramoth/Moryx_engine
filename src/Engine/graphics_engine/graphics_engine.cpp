@@ -66,3 +66,35 @@ void Graphics_Engine::get_vert_mesh_layout_shader_data(void **byte_code, size_t 
     *byte_code = layout_byte_code;
     *size = layout_size;
 }
+
+material_sptr Graphics_Engine::create_material(const wchar_t *vert_shader_path, const wchar_t *pix_shader_path)
+{
+    material_sptr mptr {nullptr};
+    try {
+        mptr = std::make_shared<Material>(vert_shader_path,pix_shader_path);
+    }
+    catch(...) {}
+    return mptr;
+}
+
+material_sptr Graphics_Engine::create_material(const material_sptr &material) {
+
+   material_sptr mptr {nullptr};
+    try {
+        mptr = std::make_shared<Material>(material);
+    }
+    catch(...) {}
+    return mptr;
+}
+
+void Graphics_Engine::set_material(const material_sptr &material) {
+    render_system->set_rasterizer_sate(material->culling_mode == CULL_MODE::FRONT_CULLING);
+
+    render_system->get_device_context()->set_constant_buffer(material->vert_shader, material->const_buffer);
+    render_system->get_device_context()->set_constant_buffer(material->pix_shader, material->const_buffer);
+
+    render_system->get_device_context()->set_vertex_shader(material->vert_shader);
+    render_system->get_device_context()->set_pixel_shader(material->pix_shader);
+
+    render_system->get_device_context()->set_texture(material->pix_shader,&material->textures[0],(UINT)material->textures.size());
+}

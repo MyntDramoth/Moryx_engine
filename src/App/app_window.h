@@ -59,9 +59,10 @@ public:
     void update();
     void render();
     void update_camera();
-    void update_model();
+    void update_model(Vector3D position, const material_sptr& material);
     void update_skybox();
-    void draw_mesh(const mesh_sptr& mesh,const vert_shader_sptr& vert_shader,const pix_shader_sptr& pix_shader, const const_buffer_sptr& buffer, const texture_sptr* texture, UINT num_textures);
+    void update_light();
+    void draw_mesh(const mesh_sptr& mesh,const material_sptr& material);
 
     //Inherited via Window
     virtual void on_create() override;
@@ -115,14 +116,19 @@ private:
     pix_shader_sptr skybox_shader {nullptr};
 
     texture_sptr earth_tex {nullptr};
-    texture_sptr earth_night_tex {nullptr};
+    texture_sptr brick_tex {nullptr};
     texture_sptr earth_spec_map {nullptr};
     texture_sptr clouds_tex {nullptr};
     mesh_sptr teapot_mesh {nullptr};
+    material_sptr earth_material {nullptr};
+    material_sptr bricks_material {nullptr};
 
     texture_sptr sky_tex {nullptr};
     mesh_sptr skybox_mesh {nullptr};
+    material_sptr sky_material {nullptr};
 
     Matrix4x4 cam_view;
     Matrix4x4 cam_projection;
+    Vector4D light_pos;
+    Vector4D light_dir;
 };

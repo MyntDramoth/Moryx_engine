@@ -13,8 +13,10 @@ App_Window::~App_Window()
 void App_Window::update()
 {
     update_camera();
-    update_model();
+    update_light();
+   
     update_skybox();
+
 }
 
 void App_Window::render() {
@@ -30,18 +32,18 @@ void App_Window::render() {
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);
     
     update();
-    Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(false);
-    texture_sptr textures[4];
-    textures[0] = earth_tex;
-    textures[1] = earth_spec_map;
-    textures[2] = clouds_tex;
-    textures[3] = earth_night_tex;
-    draw_mesh(teapot_mesh,vertex_shader,pixel_shader,constant_buffer,textures,4);
-    //SKYBOX/SPHERE
     
-    textures[0] = sky_tex;
-    Graphics_Engine::get_engine()->get_render_system()->set_rasterizer_sate(true);
-    draw_mesh(skybox_mesh,vertex_shader,skybox_shader,sky_constant_buffer,textures,1);
+    update_model(Vector3D(0.0f,0.0f,0.0f),earth_material);
+
+    draw_mesh(teapot_mesh,earth_material);
+
+    update_model(Vector3D(0.0f,2.0f,0.0f),bricks_material);
+
+    draw_mesh(skybox_mesh,bricks_material);
+    //SKYBOX/SPHERE
+
+    
+    draw_mesh(skybox_mesh,sky_material);
   
     swapchain->present(true);
 
@@ -91,31 +93,25 @@ void App_Window::update_camera() {
 
 }
 
-void App_Window::update_model() {
+void App_Window::update_model(Vector3D position, const material_sptr& material) {
     
     Const_Buff con;
     
-    Matrix4x4 light_rot;
-    light_rot_y += sin(delta_time) * 0.7f;
-    //light_rot_y -= delta_time;
-    light_rot.set_identity();
-    light_rot.set_rotation_y(light_rot_y);
+   
 
     con.time = time;
     con.world_space.set_identity();
+    con.world_space.set_translation(position);
 
     con.view_space = cam_view;
     con.projection = cam_projection;
     con.cam_pos = world_camera.get_translation();
 
+    con.light_pos = light_pos;
+    con.light_dir = light_dir;
     float dist_from_origin = 2.0f;
-    light_rot_y += 0.02f;
-
-    con.light_pos = Vector4D(cos(light_rot_y) * dist_from_origin,1.0f,sin(light_rot_y) * dist_from_origin,0.0f);
-
-    con.light_dir = light_rot.get_z_direction();
-    
-    constant_buffer->update( Graphics_Engine::get_engine()->get_render_system()->get_device_context(), &con);
+    con.light_radius = dist_from_origin;
+    material->set_buffer_data( &con,sizeof(Const_Buff));
 }
 
 void App_Window::update_skybox() {
@@ -131,17 +127,27 @@ void App_Window::update_skybox() {
     con.view_space = cam_view;
     con.projection = cam_projection;
 
-    sky_constant_buffer->update( Graphics_Engine::get_engine()->get_render_system()->get_device_context(), &con);
+    sky_material->set_buffer_data( &con,sizeof(Const_Buff));
 }
 
-void App_Window::draw_mesh(const mesh_sptr &mesh, const vert_shader_sptr &vert_shader, const pix_shader_sptr &pix_shader, const const_buffer_sptr &buffer, const texture_sptr* texture, UINT num_textures) {
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(vert_shader, buffer);
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_constant_buffer(pix_shader, buffer);
-    
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_shader(vert_shader);
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_pixel_shader(pix_shader);
+void App_Window::update_light() {
+   
+    Matrix4x4 light_rot;
+    light_rot_y += sin(delta_time) * 0.7f;
+    //light_rot_y -= delta_time;
+    light_rot.set_identity();
+    light_rot.set_rotation_y(light_rot_y);
 
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_texture(pix_shader,texture,num_textures);
+    float dist_from_origin = 2.0f;
+    light_rot_y += 0.02f;
+
+    light_pos = Vector4D(cos(light_rot_y) * dist_from_origin,1.0f,sin(light_rot_y) * dist_from_origin,0.0f);
+
+    light_dir = light_rot.get_z_direction();
+}
+
+void App_Window::draw_mesh(const mesh_sptr &mesh, const material_sptr& material) {
+    Graphics_Engine::get_engine()->set_material(material);
     
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_buffer(mesh->get_vert_buffer());
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_index_buffer(mesh->get_index_buffer());
@@ -156,7 +162,7 @@ void App_Window::on_create() {
     Input_System::get_input_system()->add_listener(this);
     Input_System::get_input_system()->show_cursor(false);
 
-    earth_night_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_night.jpg");
+    brick_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/brick_d.jpg");
     earth_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_color.jpg");
     earth_spec_map = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_spec.jpg");
     clouds_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/clouds.jpg");
@@ -170,113 +176,28 @@ void App_Window::on_create() {
 
     swapchain = Graphics_Engine::get_engine()->get_render_system()->create_swap_chain(this->window_handle, width, height);
 
-   
-
-    Vector3D vert_pos[] = {
-        //front face
-        {Vector3D(-0.5f,-0.5f,-0.5f)},
-        {Vector3D(-0.5f, 0.5f,-0.5f)},
-        {Vector3D( 0.5f, 0.5f,-0.5f)},
-        {Vector3D( 0.5f,-0.5f,-0.5f)},
-        //back face
-        {Vector3D( 0.5f,-0.5f, 0.5f)},
-        {Vector3D( 0.5f, 0.5f, 0.5f)},
-        {Vector3D(-0.5f, 0.5f, 0.5f)},
-        {Vector3D(-0.5f,-0.5f, 0.5f)}
-    };
-
-    Vector2D vert_uvs[] = {
-         //front face
-        {Vector2D(0.0f,0.0f)},
-        {Vector2D(0.0f,1.0f)},
-        {Vector2D(1.0f,0.0f)},
-        {Vector2D(1.0f,1.0f)} 
-    };
-
-     Vertex vertices[] = {
-        //Front Face
-        {vert_pos[0],vert_uvs[1]},
-        {vert_pos[1],vert_uvs[0]},
-        {vert_pos[2],vert_uvs[2]},
-        {vert_pos[3],vert_uvs[3]},
-        //Back Face
-        {vert_pos[4],vert_uvs[1]},
-        {vert_pos[5],vert_uvs[0]},
-        {vert_pos[6],vert_uvs[2]},
-        {vert_pos[7],vert_uvs[3]},
-         //Top Face
-        {vert_pos[1],vert_uvs[1]},
-        {vert_pos[6],vert_uvs[0]},
-        {vert_pos[5],vert_uvs[2]},
-        {vert_pos[2],vert_uvs[3]},
-        //Bottom Face
-        {vert_pos[7],vert_uvs[1]},
-        {vert_pos[0],vert_uvs[0]},
-        {vert_pos[3],vert_uvs[2]},
-        {vert_pos[4],vert_uvs[3]},
-        //Right Face
-        {vert_pos[3],vert_uvs[1]},
-        {vert_pos[2],vert_uvs[0]},
-        {vert_pos[5],vert_uvs[2]},
-        {vert_pos[4],vert_uvs[3]},
-        //Left Face
-        {vert_pos[7],vert_uvs[1]},
-        {vert_pos[6],vert_uvs[0]},
-        {vert_pos[1],vert_uvs[2]},
-        {vert_pos[0],vert_uvs[3]}
-        
-    };
-  
-    UINT num_vertices = ARRAYSIZE(vertices);
-
-    unsigned int indeces[] = {
-
-        //FRONT
-        0,1,2, //tri 1
-        2,3,0, //tri 2
-        //BACK
-        4,5,6,
-        6,7,4,
-        //TOP
-        8,9,10,
-        10,11,8,
-        //BOTTOM
-        12,13,14,
-        14,15,12,
-        //RIGHT
-        16,17,18,
-        18,19,16,
-        //LEFT
-        20,21,22,
-        22,23,20
-    };
-
-    UINT num_indeces = ARRAYSIZE(indeces);
-
-    void* shader_byte_code = nullptr;
-    size_t shader_size = 0;
     
-    Graphics_Engine::get_engine()->get_render_system()->compile_vertex_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/vert_point_light.hlsl","main",&shader_byte_code,&shader_size);
-    vertex_shader = Graphics_Engine::get_engine()->get_render_system()->create_vertex_shader(shader_byte_code,shader_size);
-    Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
+    earth_material = Graphics_Engine::get_engine()->create_material(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/vert_point_light.hlsl",L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/frag_point_light.hlsl");
+    bricks_material = Graphics_Engine::get_engine()->create_material(earth_material);
+    sky_material = Graphics_Engine::get_engine()->create_material(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/vert_point_light.hlsl",L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/skybox.hlsl");
 
-    Graphics_Engine::get_engine()->get_render_system()->compile_pixel_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/frag_point_light.hlsl", "main", &shader_byte_code, &shader_size);
-    pixel_shader = Graphics_Engine::get_engine()->get_render_system()->create_pixel_shader(shader_byte_code,shader_size);
-    Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
-
-    Graphics_Engine::get_engine()->get_render_system()->compile_pixel_shader(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/skybox.hlsl", "main", &shader_byte_code, &shader_size);
-    skybox_shader = Graphics_Engine::get_engine()->get_render_system()->create_pixel_shader(shader_byte_code,shader_size);
-    Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
-
-    Const_Buff con;
-
-    //con.time = 0;
-    constant_buffer = Graphics_Engine::get_engine()->get_render_system()->create_constant_buffer(&con, sizeof(Const_Buff));
-    sky_constant_buffer = Graphics_Engine::get_engine()->get_render_system()->create_constant_buffer(&con, sizeof(Const_Buff));
     current_time = std::chrono::high_resolution_clock::now();
 
     world_camera.set_translation(Vector3D(0.0f,0.0f,-2.0f));
+   
+    earth_material->add_texture(earth_tex);
+    earth_material->add_texture(earth_spec_map);
+    earth_material->add_texture(clouds_tex);
+    earth_material->add_texture(brick_tex);
+
+    bricks_material->add_texture(brick_tex);
+
+    earth_material->set_culling_mode(BACK_CULLING);
+    bricks_material->set_culling_mode(BACK_CULLING);
     
+
+    sky_material->set_culling_mode(FRONT_CULLING);
+    sky_material->add_texture(sky_tex);
 }
 
 void App_Window::on_update() {

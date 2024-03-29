@@ -6,6 +6,8 @@
 #include "resource_manager/texture_manager/texture_manager.h"
 #include "resource_manager/mesh_manager/mesh_manager.h"
 
+#include "material/material.h"
+
 class Graphics_Engine {
 public:
     
@@ -17,6 +19,10 @@ public:
     static void release();
     
     void get_vert_mesh_layout_shader_data(void** byte_code, size_t* size);
+
+    material_sptr create_material(const wchar_t* vert_shader_path, const wchar_t* pix_shader_path);
+    material_sptr create_material(const material_sptr& material);
+    void set_material(const material_sptr& material);
     
 private:
     //these are private because the class is a singleton
