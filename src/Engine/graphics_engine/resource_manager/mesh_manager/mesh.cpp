@@ -19,7 +19,9 @@ Mesh::Mesh(const wchar_t* full_path):Resource(full_path) {
 
     auto input_file = std::filesystem::path(full_path).string();
 
-    bool res = tinyobj::LoadObj(&attribs,&shapes,&materials,&warn,&error,input_file.c_str());
+    std::string mtl_dir = input_file.substr(0,input_file.find_last_of("\\/"));
+
+    bool res = tinyobj::LoadObj(&attribs,&shapes,&materials,&warn,&error,input_file.c_str(),mtl_dir.c_str());
 
     if(!error.empty() || !res) {
         throw std::exception("Failed to load Mesh!");
@@ -28,41 +30,59 @@ Mesh::Mesh(const wchar_t* full_path):Resource(full_path) {
     std::vector<Vertex_Mesh> vertices;
     std::vector<unsigned int> indeces;
 
-    // ONLY WORKS FOR SINGLE FACED/SHAPED MESH AT THE MOMENT
+    size_t size_of_verts_and_indeces = 0;
 
     for(size_t s = 0; s < shapes.size();s++) {
+        size_of_verts_and_indeces += shapes[s].mesh.indices.size();
+    }
 
-        size_t index_offset = 0;
-        vertices.reserve(shapes[s].mesh.indices.size());
-        indeces.reserve(shapes[s].mesh.indices.size());
+    vertices.reserve(size_of_verts_and_indeces);
+    indeces.reserve(size_of_verts_and_indeces);
+    material_slots.resize(materials.size());
 
-        for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size();f++) {
+    size_t index_global_offset = 0;
 
-            unsigned char num_face_verts = shapes[s].mesh.num_face_vertices[f];
+    for(size_t m = 0; m < materials.size();m++) { 
 
-            for(unsigned char verts = 0; verts < num_face_verts;verts++) {
+        material_slots[m].start_index = index_global_offset;
+        material_slots[m].material_id = m;
 
-                tinyobj::index_t index = shapes[s].mesh.indices[index_offset + verts];
+        for(size_t s = 0; s < shapes.size();s++) {
 
-                tinyobj::real_t vert_Xpos = attribs.vertices[index.vertex_index * 3 + 0];
-                tinyobj::real_t vert_Ypos = attribs.vertices[index.vertex_index * 3 + 1];
-                tinyobj::real_t vert_Zpos = attribs.vertices[index.vertex_index * 3 + 2];
+            size_t index_offset = 0;
 
-                tinyobj::real_t tex_Xpos = attribs.texcoords[index.texcoord_index * 2 + 0];
-                tinyobj::real_t tex_Ypos = attribs.texcoords[index.texcoord_index * 2 + 1];
+            for (size_t f = 0; f < shapes[s].mesh.num_face_vertices.size();f++) {
 
-                tinyobj::real_t norm_Xpos = attribs.normals[index.normal_index * 3 + 0];
-                tinyobj::real_t norm_Ypos = attribs.normals[index.normal_index * 3 + 1];
-                tinyobj::real_t norm_Zpos = attribs.normals[index.normal_index * 3 + 2];
+                if(shapes[s].mesh.material_ids[f] != m) {continue;}
 
-                Vertex_Mesh vertex(Vector3D(vert_Xpos,vert_Ypos,vert_Zpos),Vector2D(tex_Xpos,tex_Ypos),Vector3D(norm_Xpos,norm_Ypos,norm_Zpos));
-                vertices.push_back(vertex);
-                indeces.push_back((unsigned int)index_offset + verts);
+                unsigned char num_face_verts = shapes[s].mesh.num_face_vertices[f];
+
+                for(unsigned char verts = 0; verts < num_face_verts;verts++) {
+
+                    tinyobj::index_t index = shapes[s].mesh.indices[index_offset + verts];
+
+                    tinyobj::real_t vert_Xpos = attribs.vertices[index.vertex_index * 3 + 0];
+                    tinyobj::real_t vert_Ypos = attribs.vertices[index.vertex_index * 3 + 1];
+                    tinyobj::real_t vert_Zpos = attribs.vertices[index.vertex_index * 3 + 2];
+
+                    tinyobj::real_t tex_Xpos = attribs.texcoords[index.texcoord_index * 2 + 0];
+                    tinyobj::real_t tex_Ypos = attribs.texcoords[index.texcoord_index * 2 + 1];
+
+                    tinyobj::real_t norm_Xpos = attribs.normals[index.normal_index * 3 + 0];
+                    tinyobj::real_t norm_Ypos = attribs.normals[index.normal_index * 3 + 1];
+                    tinyobj::real_t norm_Zpos = attribs.normals[index.normal_index * 3 + 2];
+
+                    Vertex_Mesh vertex(Vector3D(vert_Xpos,vert_Ypos,vert_Zpos),Vector2D(tex_Xpos,tex_Ypos),Vector3D(norm_Xpos,norm_Ypos,norm_Zpos));
+                    vertices.push_back(vertex);
+                    indeces.push_back((unsigned int)index_global_offset + verts);
+                }
+
+                index_offset += num_face_verts;
+                index_global_offset += num_face_verts;
             }
-
-            index_offset += num_face_verts;
-
         }
+
+        material_slots[m].num_indeces = index_global_offset - material_slots[m].start_index;
     }
 
     void* shader_byte_code = nullptr;
@@ -84,4 +104,13 @@ const vert_buffer_sptr &Mesh::get_vert_buffer() {
 
 const index_buffer_sptr &Mesh::get_index_buffer() {
     return index_buffer;
+}
+
+const Material_Slot &Mesh::get_material_slot(UINT slot) {
+   if(slot >= material_slots.size()) {return Material_Slot();}
+   return material_slots[slot];
+}
+
+size_t Mesh::get_num_materials() {
+    return material_slots.size();
 }

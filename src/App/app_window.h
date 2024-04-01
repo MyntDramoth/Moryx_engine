@@ -47,7 +47,7 @@ struct Const_Buff {
     Vector4D light_dir;
     Vector4D cam_pos;
     Vector4D light_pos = Vector4D(0.0f,1.0f,0.0f,0.0f);
-    float light_radius = 2.0f;
+    float light_radius = 500.0f;
     float time = 0.0f;
 };
 
@@ -59,10 +59,10 @@ public:
     void update();
     void render();
     void update_camera();
-    void update_model(Vector3D position, const material_sptr& material);
+    void update_model(Vector3D position, const std::vector<material_sptr>& materials);
     void update_skybox();
     void update_light();
-    void draw_mesh(const mesh_sptr& mesh,const material_sptr& material);
+    void draw_mesh(const mesh_sptr& mesh,const std::vector<material_sptr>& materials);
 
     //Inherited via Window
     virtual void on_create() override;
@@ -115,13 +115,7 @@ private:
 
     pix_shader_sptr skybox_shader {nullptr};
 
-    texture_sptr earth_tex {nullptr};
-    texture_sptr brick_tex {nullptr};
-    texture_sptr earth_spec_map {nullptr};
-    texture_sptr clouds_tex {nullptr};
-    mesh_sptr teapot_mesh {nullptr};
-    material_sptr earth_material {nullptr};
-    material_sptr bricks_material {nullptr};
+    
 
     texture_sptr sky_tex {nullptr};
     mesh_sptr skybox_mesh {nullptr};
@@ -131,4 +125,26 @@ private:
     Matrix4x4 cam_projection;
     Vector4D light_pos;
     Vector4D light_dir;
+
+    //---------------------
+    // OBJECTS & MATERIALS
+    //---------------------
+
+    texture_sptr sand_tex {nullptr};
+    texture_sptr brick_tex {nullptr};
+    texture_sptr barrel_tex {nullptr};
+    texture_sptr window_tex {nullptr};
+    texture_sptr wood_tex {nullptr};
+
+    mesh_sptr terrain_mesh {nullptr};
+    mesh_sptr house_mesh {nullptr};
+
+
+    material_sptr terrain_material {nullptr};
+    material_sptr bricks_material {nullptr};
+    material_sptr barrel_material {nullptr};
+    material_sptr window_material {nullptr};
+    material_sptr wood_material {nullptr};
+
+    std::vector<material_sptr> e_mats;
 };

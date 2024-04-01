@@ -62,7 +62,7 @@ float4 main(PS_INPUT input): SV_TARGET {
     //==============
     //SPECULAR LIGHT
     //==============
-    float spec_ref = 0.9f;
+    float spec_ref = 0.0f;
     float3 spec_col = float3(1.0,1.0,1.0);
     float3 ref_light = reflect(light_dir_point.xyz,input.normal.xyz);
     float shine_factor = 30.0f;

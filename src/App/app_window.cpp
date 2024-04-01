@@ -33,17 +33,31 @@ void App_Window::render() {
     
     update();
     
-    update_model(Vector3D(0.0f,0.0f,0.0f),earth_material);
+    
+    e_mats.clear();
+    e_mats.push_back(terrain_material);
 
-    draw_mesh(teapot_mesh,earth_material);
+    update_model(Vector3D(0.0f,0.0f,0.0f),e_mats);
 
-    update_model(Vector3D(0.0f,2.0f,0.0f),bricks_material);
-
-    draw_mesh(skybox_mesh,bricks_material);
-    //SKYBOX/SPHERE
+    draw_mesh(terrain_mesh,e_mats);
 
     
-    draw_mesh(skybox_mesh,sky_material);
+    e_mats.clear();
+    e_mats.push_back(barrel_material);
+    e_mats.push_back(bricks_material);
+    e_mats.push_back(window_material);
+    e_mats.push_back(wood_material);
+
+    update_model(Vector3D(0.0f,0.0f,0.0f),e_mats);
+
+    draw_mesh(house_mesh,e_mats);
+    //SKYBOX/SPHERE
+
+    e_mats.clear();
+    e_mats.push_back(sky_material);
+
+    
+    draw_mesh(skybox_mesh,e_mats);
   
     swapchain->present(true);
 
@@ -93,12 +107,10 @@ void App_Window::update_camera() {
 
 }
 
-void App_Window::update_model(Vector3D position, const material_sptr& material) {
+void App_Window::update_model(Vector3D position, const std::vector<material_sptr>& materials) {
     
     Const_Buff con;
     
-   
-
     con.time = time;
     con.world_space.set_identity();
     con.world_space.set_translation(position);
@@ -110,8 +122,11 @@ void App_Window::update_model(Vector3D position, const material_sptr& material) 
     con.light_pos = light_pos;
     con.light_dir = light_dir;
     float dist_from_origin = 2.0f;
-    con.light_radius = dist_from_origin;
-    material->set_buffer_data( &con,sizeof(Const_Buff));
+    //con.light_radius = light;
+
+    for (size_t m = 0; m < materials.size();m++) {
+        materials[m]->set_buffer_data(&con,sizeof(Const_Buff));
+    }
 }
 
 void App_Window::update_skybox() {
@@ -133,26 +148,34 @@ void App_Window::update_skybox() {
 void App_Window::update_light() {
    
     Matrix4x4 light_rot;
-    light_rot_y += sin(delta_time) * 0.7f;
+    //light_rot_y += sin(delta_time) * 0.7f;
     //light_rot_y -= delta_time;
-    light_rot.set_identity();
-    light_rot.set_rotation_y(light_rot_y);
+    //light_rot.set_identity();
+    //light_rot.set_rotation_y(light_rot_y);
 
-    float dist_from_origin = 2.0f;
-    light_rot_y += 0.02f;
+    //float dist_from_origin = 2.0f;
+    //light_rot_y += 0.02f;
 
-    light_pos = Vector4D(cos(light_rot_y) * dist_from_origin,1.0f,sin(light_rot_y) * dist_from_origin,0.0f);
+    //light_pos = Vector4D(cos(light_rot_y) * dist_from_origin,1.0f,sin(light_rot_y) * dist_from_origin,0.0f);
+    light_pos = Vector4D(180.0f,140.0f,70.0f,1.0f);
 
-    light_dir = light_rot.get_z_direction();
+    //light_dir = light_rot.get_z_direction();
 }
 
-void App_Window::draw_mesh(const mesh_sptr &mesh, const material_sptr& material) {
-    Graphics_Engine::get_engine()->set_material(material);
-    
+void App_Window::draw_mesh(const mesh_sptr &mesh, const std::vector<material_sptr>& materials) {
+
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_buffer(mesh->get_vert_buffer());
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_index_buffer(mesh->get_index_buffer());
+    
+    for (size_t m = 0; m < mesh->get_num_materials();m++) {
+        if(m >= materials.size()) {break;}
 
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->draw_indexed_triangle_list(mesh->get_index_buffer()->get_size_index_list(),0,0);
+        Material_Slot mat = mesh->get_material_slot((UINT)m);
+
+        Graphics_Engine::get_engine()->set_material(materials[m]);
+
+        Graphics_Engine::get_engine()->get_render_system()->get_device_context()->draw_indexed_triangle_list((UINT)mat.num_indeces,0,(UINT)mat.start_index);
+    }
 }
 
 void App_Window::on_create() {
@@ -162,14 +185,18 @@ void App_Window::on_create() {
     Input_System::get_input_system()->add_listener(this);
     Input_System::get_input_system()->show_cursor(false);
 
-    brick_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/brick_d.jpg");
-    earth_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_color.jpg");
-    earth_spec_map = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/earth_spec.jpg");
-    clouds_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/clouds.jpg");
-    sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/stars_map.jpg");
-    teapot_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/scene.obj");
+    brick_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/house_brick.jpg");
+    sand_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/sand.jpg");
+    barrel_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/barrel.jpg");
+    window_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/house_windows.jpg");
+    wood_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/house_wood.jpg");
+ 
+    terrain_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/terrain.obj");
+    house_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/house.obj");
+   
+    sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/sky.jpg");
     skybox_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/sphere.obj");
-
+    
     RECT rc = this->get_client_window_rect();
     UINT width = rc.right - rc.left;
     UINT height = rc.bottom - rc.top;
@@ -177,27 +204,35 @@ void App_Window::on_create() {
     swapchain = Graphics_Engine::get_engine()->get_render_system()->create_swap_chain(this->window_handle, width, height);
 
     
-    earth_material = Graphics_Engine::get_engine()->create_material(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/vert_point_light.hlsl",L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/frag_point_light.hlsl");
-    bricks_material = Graphics_Engine::get_engine()->create_material(earth_material);
+    terrain_material = Graphics_Engine::get_engine()->create_material(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/vert_point_light.hlsl",L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/frag_point_light.hlsl");
+    bricks_material = Graphics_Engine::get_engine()->create_material(terrain_material);
+    wood_material = Graphics_Engine::get_engine()->create_material(terrain_material);
+    window_material = Graphics_Engine::get_engine()->create_material(terrain_material);
+    barrel_material = Graphics_Engine::get_engine()->create_material(terrain_material);
+
     sky_material = Graphics_Engine::get_engine()->create_material(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/vert_point_light.hlsl",L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/skybox.hlsl");
 
     current_time = std::chrono::high_resolution_clock::now();
 
     world_camera.set_translation(Vector3D(0.0f,0.0f,-2.0f));
    
-    earth_material->add_texture(earth_tex);
-    earth_material->add_texture(earth_spec_map);
-    earth_material->add_texture(clouds_tex);
-    earth_material->add_texture(brick_tex);
-
-    bricks_material->add_texture(brick_tex);
-
-    earth_material->set_culling_mode(BACK_CULLING);
-    bricks_material->set_culling_mode(BACK_CULLING);
+    terrain_material->add_texture(sand_tex);
     
+    bricks_material->add_texture(brick_tex);
+    wood_material->add_texture(wood_tex);
+    window_material->add_texture(window_tex);
+    barrel_material->add_texture(barrel_tex);
+
+    terrain_material->set_culling_mode(BACK_CULLING);
+    bricks_material->set_culling_mode(BACK_CULLING);
+    wood_material->set_culling_mode(BACK_CULLING);
+    window_material->set_culling_mode(BACK_CULLING);
+    barrel_material->set_culling_mode(BACK_CULLING);
 
     sky_material->set_culling_mode(FRONT_CULLING);
     sky_material->add_texture(sky_tex);
+
+    e_mats.reserve(32);
 }
 
 void App_Window::on_update() {
