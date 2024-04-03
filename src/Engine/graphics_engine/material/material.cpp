@@ -2,16 +2,28 @@
 
 #include "../graphics_engine.h"
 #include <exception>
+#include <filesystem>
+#include <iostream>
 
 Material::Material(const wchar_t* vert_shader_path, const wchar_t* pix_shader_path) {
     void* shader_byte_code = nullptr;
     size_t shader_size = 0;
+
+    if(!std::filesystem::exists(vert_shader_path)) {
+        std::cout<<"File path is wrong or file does not exist!" << " || File name: " << std::filesystem::path(vert_shader_path).filename()<<"\n";
+        throw std::exception("File path is wrong or file does not exist!");    
+    }
     
     Graphics_Engine::get_engine()->get_render_system()->compile_vertex_shader(vert_shader_path,"main",&shader_byte_code,&shader_size);
     vert_shader = Graphics_Engine::get_engine()->get_render_system()->create_vertex_shader(shader_byte_code,shader_size);
     Graphics_Engine::get_engine()->get_render_system()->release_compiled_shader();
 
     if(!vert_shader) {throw std::exception("Failed to load Vertex Shader in Material!");}
+
+    if(!std::filesystem::exists(pix_shader_path)) {
+        std::cout<<"File path is wrong or file does not exist!" << " || File name: " << std::filesystem::path(pix_shader_path).filename()<<"\n";
+        throw std::exception("File path is wrong or file does not exist!");    
+    }
 
     Graphics_Engine::get_engine()->get_render_system()->compile_pixel_shader(pix_shader_path, "main", &shader_byte_code, &shader_size);
     pix_shader = Graphics_Engine::get_engine()->get_render_system()->create_pixel_shader(shader_byte_code,shader_size);

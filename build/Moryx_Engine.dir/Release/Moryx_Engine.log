@@ -1,2 +1,3 @@
-﻿  Building Custom Rule C:/Users/zachm/OneDrive/Desktop/Moryx_engine/CMakeLists.txt
+﻿  texture.cpp
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\texture_manager\texture.cpp(47,61): warning C4244: '=': conversion from 'UINT' to 'FLOAT', possible loss of data
   Moryx_Engine.vcxproj -> C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Release\Moryx_Engine.exe

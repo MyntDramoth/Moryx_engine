@@ -8,8 +8,15 @@
 
 #include <locale>
 #include <filesystem>
+#include <iostream>
+#include <exception>
 
 Mesh::Mesh(const wchar_t* full_path):Resource(full_path) {
+
+    if(!std::filesystem::exists(full_path)) {
+        std::cout<<"File path is wrong or file does not exist!" << " || File name: " << std::filesystem::path(full_path).filename()<<"\n";
+        throw std::exception("File path is wrong or file does not exist!");    
+    }
 
     tinyobj::attrib_t attribs;
     std::vector<tinyobj::shape_t> shapes;
