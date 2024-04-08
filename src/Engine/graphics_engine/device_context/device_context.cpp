@@ -9,6 +9,7 @@
 #include "../vertex_buffer/vertex_buffer.h"
 #include "../vertex_shader/vertex_shader.h"
 #include "../pixel_shader/pixel_shader.h"
+#include "../compute_shader/compute_shader.h"
 #include "../resource_manager/texture_manager/texture.h"
 
 Device_Context::Device_Context(ID3D11DeviceContext *context, Render_System *system): device_context(context), render_system(system) {
@@ -81,6 +82,10 @@ void Device_Context::set_pixel_shader(const pix_shader_sptr& pixel_shader) {
     device_context->PSSetShader(pixel_shader->pixel_shader,nullptr,0);
 }
 
+void Device_Context::set_compute_shader(const comp_shader_sptr& compute_shader) {
+     device_context->CSSetShader(compute_shader->compute_shader,nullptr,0);
+}
+
 void Device_Context::set_texture(const vert_shader_sptr& vertex_shader, const texture_sptr* texture, UINT num_textures) {
     ID3D11ShaderResourceView* views[32];
     ID3D11SamplerState* samplers[32];
@@ -109,4 +114,8 @@ void Device_Context::set_constant_buffer(const vert_shader_sptr& vertex_shader, 
 
 void Device_Context::set_constant_buffer(const pix_shader_sptr& pixel_shader, const const_buffer_sptr& const_buffer) {
     device_context->PSSetConstantBuffers(0,1,&const_buffer->buffer);
+}
+
+void Device_Context::set_constant_buffer(const comp_shader_sptr &compute_shader, const const_buffer_sptr &const_buffer) {
+    device_context->CSSetConstantBuffers(0,1,&const_buffer->buffer);
 }

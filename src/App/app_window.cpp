@@ -37,7 +37,7 @@ void App_Window::render() {
     e_mats.clear();
     e_mats.push_back(terrain_material);
 
-    update_model(Vector3D(0.0f,0.0f,0.0f),e_mats);
+    update_model(Vector3D(0.0f,0.0f,0.0f),Vector3D(0.0f,0.0f,0.0f),Vector3D(1.0f,1.0f,1.0f),e_mats);
 
     draw_mesh(terrain_mesh,e_mats);
 
@@ -48,7 +48,7 @@ void App_Window::render() {
     e_mats.push_back(window_material);
     e_mats.push_back(wood_material);
 
-    update_model(Vector3D(0.0f,0.0f,0.0f),e_mats);
+    update_model(Vector3D(0.0f,0.0f,0.0f),Vector3D(0.0f,0.0f,0.0f),Vector3D(2.0f,1.0f,1.0f),e_mats);
 
     draw_mesh(house_mesh,e_mats);
     //SKYBOX/SPHERE
@@ -107,12 +107,26 @@ void App_Window::update_camera() {
 
 }
 
-void App_Window::update_model(Vector3D position, const std::vector<material_sptr>& materials) {
+void App_Window::update_model(Vector3D position, Vector3D rotation,Vector3D scale, const std::vector<material_sptr>& materials) {
     
     Const_Buff con;
+
+    Matrix4x4 scale_mat;
+   
     
     con.time = time;
     con.world_space.set_identity();
+
+    scale_mat.set_identity();
+    scale_mat.set_scale(scale);
+
+    con.world_space *= scale_mat;
+
+    con.world_space.set_scale(scale);
+    con.world_space.set_rotation_x(rotation.x);
+    con.world_space.set_rotation_y(rotation.y);
+    con.world_space.set_rotation_z(rotation.z);
+
     con.world_space.set_translation(position);
 
     con.view_space = cam_view;

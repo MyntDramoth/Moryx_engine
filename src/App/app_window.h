@@ -59,7 +59,7 @@ public:
     void update();
     void render();
     void update_camera();
-    void update_model(Vector3D position, const std::vector<material_sptr>& materials);
+    void update_model(Vector3D position,Vector3D rotation,Vector3D scale, const std::vector<material_sptr>& materials);
     void update_skybox();
     void update_light();
     void draw_mesh(const mesh_sptr& mesh,const std::vector<material_sptr>& materials);

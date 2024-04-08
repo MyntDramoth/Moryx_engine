@@ -18,9 +18,11 @@ public:
     vert_buffer_sptr create_vertex_buffer(void* vertices, UINT vertex_size, UINT vertex_num, void* shader_byte_code, UINT shader_size);
     vert_shader_sptr create_vertex_shader(const void* shader_byte_code, size_t byte_code_size);
     pix_shader_sptr create_pixel_shader(const void* shader_byte_code, size_t byte_code_size);
+    comp_shader_sptr create_compute_shader(const void* shader_byte_code, size_t byte_code_size);
 
     bool compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
     bool compile_pixel_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
+    bool compile_compute_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
     void release_compiled_shader();
     void set_rasterizer_sate(bool front_culling);
     //default simple shaders
@@ -51,5 +53,6 @@ private:
     friend class Vertex_Buffer;
     friend class Vertex_Shader;
     friend class Pixel_Shader;
+    friend class Compute_Shader;
     friend class Texture;
 };

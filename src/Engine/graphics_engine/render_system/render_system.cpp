@@ -6,6 +6,7 @@
 #include "../vertex_buffer/vertex_buffer.h"
 #include "../vertex_shader/vertex_shader.h"
 #include "../pixel_shader/pixel_shader.h"
+#include "../compute_shader/compute_shader.h"
 
 #include "../constant_buffer/constant_buffer.h"
 #include "../index_buffer/index_buffer.h"
@@ -131,6 +132,17 @@ pix_shader_sptr Render_System::create_pixel_shader(const void *shader_byte_code,
     
 }
 
+comp_shader_sptr Render_System::create_compute_shader(const void *shader_byte_code, size_t byte_code_size)
+{
+    comp_shader_sptr shader{ nullptr};
+    try {
+        shader = std::make_shared<Compute_Shader>(shader_byte_code,byte_code_size, this);
+    }
+     catch (...) {}
+
+    return shader;
+}
+
 bool Render_System::compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size) {
     ID3DBlob* err_blob {nullptr};
 
@@ -145,6 +157,20 @@ bool Render_System::compile_vertex_shader(const wchar_t* file_name, const char* 
 }
 
 bool Render_System::compile_pixel_shader(const wchar_t *file_name, const char *shader_main_funtion_name, void **shader_byte_code, size_t *byte_code_size) {
+    ID3DBlob* err_blob {nullptr};
+
+    HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, shader_main_funtion_name, "ps_5_0", 0,0, &shader_blob, &err_blob);
+    if(FAILED(hres)) {
+        if(err_blob) {err_blob->Release();}
+        return false;
+    }
+    *shader_byte_code = shader_blob->GetBufferPointer();
+    *byte_code_size = shader_blob->GetBufferSize();
+    return true;
+}
+
+bool Render_System::compile_compute_shader(const wchar_t *file_name, const char *shader_main_funtion_name, void **shader_byte_code, size_t *byte_code_size)
+{
     ID3DBlob* err_blob {nullptr};
 
     HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, shader_main_funtion_name, "ps_5_0", 0,0, &shader_blob, &err_blob);
