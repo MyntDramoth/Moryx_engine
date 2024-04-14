@@ -2,11 +2,14 @@
 Texture2D Texture: register(t0);
 sampler TextureSampler : register(s0);
 
+Texture2D Normal: register(t1);
+sampler NormalSampler : register(s1);
+
 struct PS_INPUT {
     float4 pos: SV_POSITION;
     float2 uv: TEXCOORD0;
-    float3 normal: NORMAL0;
     float3 world_pos: TEXCOORD1;
+    row_major float3x3 tbn: TEXCOORD2;
 };
 
 cbuffer Constant: register(b0) {
@@ -22,8 +25,15 @@ cbuffer Constant: register(b0) {
 
 float4 main(PS_INPUT input): SV_TARGET {
     
-    float4 texture_col = Texture.Sample( TextureSampler,1.0 - input.uv);
+    float4 texture_col = Texture.Sample(TextureSampler,float2(input.uv.x,1.0 - input.uv.y));
+    float4 normal = Normal.Sample( NormalSampler,float2(input.uv.x,1.0 - input.uv.y));
+
     float3 camera_dir = normalize(input.world_pos.xyz - cam_pos.xyz);
+
+    normal.xyz = (normal.xyz * 2.0f) - 1.0f;
+    normal.xyz = mul(normal.xyz,input.tbn);
+
+    
 
     //=============
     //AMBIENT LIGHT
@@ -53,20 +63,26 @@ float4 main(PS_INPUT input): SV_TARGET {
     float3 diffuse_col_day = texture_col.rgb;
    
 
-    float diffuse_light_amount = max(0.0,dot(light_dir_point.xyz,input.normal.xyz));
+    float diffuse_light_amount = max(0.0,dot(light_dir_point.xyz,normal.xyz));
 
    
 
     float3 diffuse_light = (diffuse_ref * diffuse_col_day * diffuse_light_amount) / attenuation;
 
+    float dot_nl = dot(light_dir_point.xyz, input.tbn[2]);
+
     //==============
     //SPECULAR LIGHT
     //==============
-    float spec_ref = 0.0f;
+    float spec_ref = 1.0f;
     float3 spec_col = float3(1.0,1.0,1.0);
-    float3 ref_light = reflect(light_dir_point.xyz,input.normal.xyz);
+    float3 ref_light = reflect(light_dir_point.xyz,normal.xyz);
     float shine_factor = 30.0f;
-    float spec_light_amount = pow(max(0.0,dot(ref_light,camera_dir)),shine_factor);
+    float spec_light_amount = 0.0f;
+
+    if(dot_nl > 0) {
+        spec_light_amount = pow(max(0.0,dot(ref_light,camera_dir)),shine_factor);
+    }
 
     float3 specular_light = (spec_ref * spec_light_amount * spec_col) / attenuation;
 

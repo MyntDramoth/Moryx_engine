@@ -29,10 +29,10 @@ cbuffer Constant: register(b0) {
 
 float4 main(PS_INPUT input): SV_TARGET {
     
-    float4 earth_col = Texture.Sample( TextureSampler,1.0 - input.uv);
-    float4 earth_spec = SpecularTexture.Sample( SpecularTextureSampler,1.0 - input.uv).r;
-    float4 cloud_col = CloudTexture.Sample(CloudTextureSampler,1.0 - input.uv + float2(time/100.0,0.0)).r;
-    float4 night_col = NightTexture.Sample(NightTextureSampler,1.0 - input.uv);
+    float4 earth_col = Texture.Sample( TextureSampler,float2(input.uv.x,1.0 - input.uv.y));
+    float4 earth_spec = SpecularTexture.Sample( SpecularTextureSampler,float2(input.uv.x,1.0 - input.uv.y)).r;
+    float4 cloud_col = CloudTexture.Sample(CloudTextureSampler,float2(input.uv.x,1.0 - input.uv.y) + float2(time/100.0,0.0)).r;
+    float4 night_col = NightTexture.Sample(NightTextureSampler,float2(input.uv.x,1.0 - input.uv.y));
 
     //=============
     //AMBIENT LIGHT

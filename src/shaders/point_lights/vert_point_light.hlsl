@@ -3,13 +3,15 @@ struct VS_INPUT {
     float4 pos: POSITION0;
     float2 uv: TEXCOORD0;
     float3 normal: NORMAL0;
+    float3 tangent: TANGENT0;
+    float3 binormal: BINORMAL0;
 };
 
 struct VS_OUTPUT {
     float4 pos :SV_POSITION;
     float2 uv: TEXCOORD0;
-    float3 normal: NORMAL0;
     float3 world_pos: TEXCOORD1;
+    row_major float3x3 tbn: TEXCOORD2;
 };
 
 cbuffer Constant: register(b0) {
@@ -38,7 +40,11 @@ VS_OUTPUT main(VS_INPUT input) {
 
     output.uv = input.uv;
 
-    output.normal = normalize(mul(input.normal, world_space));
+    //output.normal = normalize(mul(input.normal, world_space));
+
+    output.tbn[0] = normalize(mul(input.tangent, world_space));
+    output.tbn[1] = normalize(mul(input.binormal, world_space));
+    output.tbn[2] = normalize(mul(input.normal, world_space));
     
     return output;   
 }

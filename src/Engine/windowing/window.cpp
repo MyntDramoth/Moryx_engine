@@ -109,14 +109,12 @@ bool Window::broadcast()
         this->is_initialized = true;
     }
 
-    this->on_update();
-
     while(::PeekMessage(&msg,NULL,0,0,PM_REMOVE) > 0) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
 
-    
+    this->on_update();
 
     //prevents throttling the CPU
     Sleep(0);

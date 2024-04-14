@@ -11,28 +11,28 @@ public:
     ~Vector2D() {};
 
     
-    Vector2D operator +(const Vector2D &in_vect) {
+    Vector2D operator +(const Vector2D &in_vect) const {
         //Vector3D vect;
        
         return Vector2D( in_vect.x + x,
        in_vect.y + y);
     };
 
-    Vector2D operator -(const Vector2D &in_vect) {
+    Vector2D operator -(const Vector2D &in_vect) const {
         //Vector3D vect;
         
         return Vector2D(x - in_vect.x,
         y - in_vect.y);
     };
 
-    Vector2D operator *(float num) {
+    Vector2D operator *(float num) const {
         //Vector3D vect;
         
         return Vector2D(x * num,
         y * num);
     };
 
-    Vector2D operator *(const Vector2D &in_vect) {
+    Vector2D operator *(const Vector2D &in_vect) const {
         //Vector3D vect;
         
         return Vector2D(x * in_vect.x,

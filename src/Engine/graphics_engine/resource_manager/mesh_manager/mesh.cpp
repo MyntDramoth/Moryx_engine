@@ -64,6 +64,26 @@ Mesh::Mesh(const wchar_t* full_path):Resource(full_path) {
 
                 unsigned char num_face_verts = shapes[s].mesh.num_face_vertices[f];
 
+                Vector3D vert_face[3];
+                Vector2D uv_face[3];
+                for(unsigned char verts = 0; verts < num_face_verts;verts++) {
+                    tinyobj::index_t index = shapes[s].mesh.indices[index_offset + verts];
+
+                    tinyobj::real_t vert_Xpos = attribs.vertices[index.vertex_index * 3 + 0];
+                    tinyobj::real_t vert_Ypos = attribs.vertices[index.vertex_index * 3 + 1];
+                    tinyobj::real_t vert_Zpos = attribs.vertices[index.vertex_index * 3 + 2];
+
+                    tinyobj::real_t tex_Xpos = attribs.texcoords[index.texcoord_index * 2 + 0];
+                    tinyobj::real_t tex_Ypos = attribs.texcoords[index.texcoord_index * 2 + 1];
+
+                    vert_face[verts] = Vector3D(vert_Xpos,vert_Ypos,vert_Zpos);
+                    uv_face[verts] = Vector2D(tex_Xpos,tex_Ypos);
+                }
+
+                Vector3D tangent, binormal;
+
+                compute_tangents(vert_face[0],vert_face[1],vert_face[2],uv_face[0],uv_face[1],uv_face[2],tangent,binormal);
+
                 for(unsigned char verts = 0; verts < num_face_verts;verts++) {
 
                     tinyobj::index_t index = shapes[s].mesh.indices[index_offset + verts];
@@ -79,7 +99,11 @@ Mesh::Mesh(const wchar_t* full_path):Resource(full_path) {
                     tinyobj::real_t norm_Ypos = attribs.normals[index.normal_index * 3 + 1];
                     tinyobj::real_t norm_Zpos = attribs.normals[index.normal_index * 3 + 2];
 
-                    Vertex_Mesh vertex(Vector3D(vert_Xpos,vert_Ypos,vert_Zpos),Vector2D(tex_Xpos,tex_Ypos),Vector3D(norm_Xpos,norm_Ypos,norm_Zpos));
+                    Vector3D v_tangent, v_binormal;
+                    v_binormal = Vector3D::cross(Vector3D(norm_Xpos,norm_Ypos,norm_Zpos),tangent);
+                    v_tangent = Vector3D::cross(v_binormal,Vector3D(norm_Xpos,norm_Ypos,norm_Zpos));
+
+                    Vertex_Mesh vertex(Vector3D(vert_Xpos,vert_Ypos,vert_Zpos),Vector2D(tex_Xpos,tex_Ypos),Vector3D(norm_Xpos,norm_Ypos,norm_Zpos),v_tangent,v_binormal);
                     vertices.push_back(vertex);
                     indeces.push_back((unsigned int)index_global_offset + verts);
                 }
@@ -120,4 +144,24 @@ const Material_Slot &Mesh::get_material_slot(UINT slot) {
 
 size_t Mesh::get_num_materials() {
     return material_slots.size();
+}
+
+void Mesh::compute_tangents(
+    const Vector3D &v0, const Vector3D &v1, const Vector3D &v2, 
+    const Vector2D &t0, const Vector2D &t1, const Vector2D &t2, 
+    Vector3D &tangent, Vector3D &binormal) {
+        
+    Vector3D delta_pos1 = v1 - v0;
+    Vector3D delta_pos2 = v2 - v0;
+
+    Vector2D delta_UV1 = t1 - t0;
+    Vector2D delta_UV2 = t2 - t0;
+
+    float r = 1.0f/((delta_UV1.x * delta_UV2.y) - (delta_UV1.y * delta_UV2.x));
+
+    tangent = ((delta_pos1 * delta_UV2.y) - (delta_pos2 * delta_UV1.y));
+    tangent = Vector3D::normalize(tangent);
+
+    binormal = ((delta_pos2 * delta_UV1.x) - (delta_pos1 * delta_UV2.x));
+    binormal = Vector3D::normalize(binormal);
 }

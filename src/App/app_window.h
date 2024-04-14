@@ -104,6 +104,10 @@ private:
     Vector3D cam_rot;
     Vector3D cam_pos;
     Vector3D cam_focus_pos;
+
+    Vector3D current_cam_rot;
+    Vector3D current_cam_pos;
+    Vector3D current_cam_focus_pos;
     float cam_dist_to_focus = 14.0f;
     Vector2D delta_mouse_cursor;
 
@@ -141,6 +145,7 @@ private:
 
     mesh_sptr spaceship_mesh {nullptr};
     texture_sptr spaceship_tex {nullptr};
+    texture_sptr spaceship_tex2 {nullptr};
     material_sptr spaceship_material {nullptr};
 
 

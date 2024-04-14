@@ -12,8 +12,8 @@ App_Window::~App_Window()
 
 void App_Window::update()
 {
-    //update_camera();
-    update_third_person_camera();
+    update_camera();
+    //update_third_person_camera();
     update_light(); 
     update_skybox();
 
@@ -70,8 +70,10 @@ void App_Window::render() {
 
 void App_Window::update_camera() {
 
-    cam_rot.x += delta_mouse_cursor.y  * delta_time * 0.1f;
-    cam_rot.y += delta_mouse_cursor.x  * delta_time * 0.1f;
+    cam_rot.x += (int)delta_mouse_cursor.y  * delta_time * 0.1f;
+    cam_rot.y += (int)delta_mouse_cursor.x  * delta_time * 0.1f;
+
+    current_cam_rot = Vector3D::lerp(current_cam_rot,cam_rot,3.0f * delta_time);
 
     Matrix4x4 camera_matrix, temp;
     camera_matrix.set_identity();
@@ -117,18 +119,21 @@ void App_Window::update_third_person_camera() {
         cam_rot.x = -1.57f;
     }
 
+    //use current_cam_rot for smooth rotation else just use cam_rot
+
+    current_cam_rot = Vector3D::lerp(current_cam_rot,cam_rot,3.0f * delta_time);
 
     Matrix4x4 camera_matrix, temp;
     camera_matrix.set_identity();
 
     temp.set_identity();
-    temp.set_rotation_x(cam_rot.x);
+    temp.set_rotation_x(current_cam_rot.x);
     camera_matrix *= temp;
     temp.set_identity();
-    temp.set_rotation_y(cam_rot.y);
+    temp.set_rotation_y(current_cam_rot.y);
     camera_matrix *= temp;
 
-
+   
     cam_pos = cam_focus_pos;
 
 
@@ -276,10 +281,12 @@ void App_Window::on_create() {
     // OBJECTS & MATERIALS
     //---------------------
    
-    spaceship_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"../../src/Assets/Meshes/spaceship.obj");
-    spaceship_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/spaceship.jpg");
+    spaceship_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"../../src/Assets/Meshes/sphere.obj");
+    spaceship_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/brick_d.jpg");
+    spaceship_tex2 = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/brick_n.jpg");
     spaceship_material = Graphics_Engine::get_engine()->create_material(default_material);
     spaceship_material->add_texture(spaceship_tex);
+    spaceship_material->add_texture(spaceship_tex2);
     spaceship_material->set_culling_mode(BACK_CULLING);
 
     e_mats.reserve(32);
@@ -306,6 +313,7 @@ void App_Window::on_resize() {
     RECT rc = this->get_client_window_rect();
    
     swapchain->resize_swapchain(rc.right - rc.left,rc.bottom - rc.top);
+    this->update();
     this->render();
 }
 

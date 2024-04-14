@@ -6,6 +6,9 @@
 #include "../../vertex_buffer/vertex_buffer.h"
 #include "../../index_buffer/index_buffer.h"
 
+#include  "../../../math/vector3D.h"
+#include  "../../../math/vector2D.h"
+
 #include <d3d11.h>
 #include <vector>
 
@@ -27,6 +30,14 @@ public:
     size_t get_num_materials();
 
 private:
+
+
+    void compute_tangents(
+        const Vector3D& v0, const Vector3D& v1, const Vector3D& v2,
+        const Vector2D& t0, const Vector2D& t1, const Vector2D& t2,
+        Vector3D& tangent, Vector3D& binormal
+    );
+
     vert_buffer_sptr vertex_buffer = nullptr;
     index_buffer_sptr index_buffer = nullptr;
 
