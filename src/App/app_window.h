@@ -59,6 +59,7 @@ public:
     void update();
     void render();
     void update_camera();
+    void update_third_person_camera();
     void update_model(Vector3D position,Vector3D rotation,Vector3D scale, const std::vector<material_sptr>& materials);
     void update_skybox();
     void update_light();
@@ -83,68 +84,69 @@ public:
     virtual void on_right_mouse_up(const Point &mouse_pos) override;
 
 private:
-    std::chrono::high_resolution_clock::time_point current_time;
-    float delta_time;
-    std::chrono::high_resolution_clock::time_point new_time;
-    
-
-    bool is_camera_locked_to_mouse = false;
-    bool is_full_screen_mode = false;
-
-    float FPS;
-    float d_pos = 0.01f;
-    float d_scale = 0.01f;
-
-    float rot_x = 0.0f;
-    float rot_y = 0.0f;
-    float light_rot_y = 0.0f;
-
-    Matrix4x4 world_camera;
+   
     float forward = 0.0f;
     float rightward = 0.0f;
-
     float time = 0.0f;
-
-    swapchain_sptr swapchain {nullptr};
-    index_buffer_sptr index_buffer {nullptr};
-    const_buffer_sptr constant_buffer {nullptr};
-    const_buffer_sptr sky_constant_buffer {nullptr};
-    vert_buffer_sptr vertex_buffer {nullptr};
-    vert_shader_sptr vertex_shader {nullptr};
-    pix_shader_sptr pixel_shader {nullptr};
-
-    pix_shader_sptr skybox_shader {nullptr};
-
     
+    //---------------------
+    // CONST BUFFER STUFF
+    //---------------------
 
-    texture_sptr sky_tex {nullptr};
-    mesh_sptr skybox_mesh {nullptr};
-    material_sptr sky_material {nullptr};
+    const_buffer_sptr constant_buffer {nullptr};
 
+    Matrix4x4 world_camera;
     Matrix4x4 cam_view;
     Matrix4x4 cam_projection;
     Vector4D light_pos;
     Vector4D light_dir;
 
+    Vector3D cam_rot;
+    Vector3D cam_pos;
+    Vector3D cam_focus_pos;
+    float cam_dist_to_focus = 14.0f;
+    Vector2D delta_mouse_cursor;
+
+    float light_rot_y = 0.0f;
+
+    //---------------------
+    // REQUIRED TO FUNCTION
+    //---------------------
+    swapchain_sptr swapchain {nullptr};
+    bool is_camera_locked_to_mouse = false;
+    bool is_full_screen_mode = false;
+
+    //---------------------
+    // TIME STUFF
+    //---------------------
+    std::chrono::high_resolution_clock::time_point current_time;
+    float delta_time;
+    std::chrono::high_resolution_clock::time_point new_time;
+    float FPS;
+
+    //---------------------
+    // USEFUL BITS
+    //---------------------
+    texture_sptr sky_tex {nullptr};
+    mesh_sptr skybox_mesh {nullptr};
+    material_sptr sky_material {nullptr};
+    const_buffer_sptr sky_constant_buffer {nullptr};
+
     //---------------------
     // OBJECTS & MATERIALS
     //---------------------
 
-    texture_sptr sand_tex {nullptr};
-    texture_sptr brick_tex {nullptr};
-    texture_sptr barrel_tex {nullptr};
-    texture_sptr window_tex {nullptr};
-    texture_sptr wood_tex {nullptr};
+    texture_sptr TEXTURE_NOT_FOUND {nullptr};
+    
 
-    mesh_sptr terrain_mesh {nullptr};
-    mesh_sptr house_mesh {nullptr};
+    mesh_sptr spaceship_mesh {nullptr};
+    texture_sptr spaceship_tex {nullptr};
+    material_sptr spaceship_material {nullptr};
 
 
-    material_sptr terrain_material {nullptr};
-    material_sptr bricks_material {nullptr};
-    material_sptr barrel_material {nullptr};
-    material_sptr window_material {nullptr};
-    material_sptr wood_material {nullptr};
+    material_sptr default_material {nullptr};
+    material_sptr NO_TEXTURE_material {nullptr};
+   
 
     std::vector<material_sptr> e_mats;
 };

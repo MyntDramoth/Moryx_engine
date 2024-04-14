@@ -25,6 +25,9 @@ set(FASTNOISE2_NOISETOOL OFF CACHE BOOL "Build Noise Tool" FORCE) #example if do
 add_subdirectory(lib/FastNoise2)
 #add_library(${PROJECT_NAME} ${SOURCES})
 
+#set asset directory
+
+
 # If TINYOBJ_PATH not specified in .env.cmake, try fetching from git repo
 if (NOT TINYOBJ_PATH)
   message(STATUS "TINYOBJ_PATH not specified in .env.cmake, using include/tinyobjloader")
@@ -54,7 +57,7 @@ if (WIN32)
       ${MINGW_PATH}/lib
     )
   endif()
- 
+  
   target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}/src
     ${TINYOBJ_PATH}

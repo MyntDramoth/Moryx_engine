@@ -38,7 +38,7 @@ VS_OUTPUT main(VS_INPUT input) {
 
     output.uv = input.uv;
 
-    output.normal = input.normal;
+    output.normal = normalize(mul(input.normal, world_space));
     
     return output;   
 }

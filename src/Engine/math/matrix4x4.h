@@ -43,7 +43,7 @@ public:
         matrix[3][2] = (-near_plane * far_plane)/(far_plane - near_plane);
     };
 
-    void set_scale(const Vector3D &scale) {
+    void set_scale(const Vector3D& scale) {
         matrix[0][0] = scale.x;
         matrix[1][1] = scale.y;
         matrix[2][2] = scale.z;
@@ -72,6 +72,10 @@ public:
 
     Vector3D get_z_direction() {
         return Vector3D(matrix[2][0],matrix[2][1],matrix[2][2]);
+    };
+
+    Vector3D get_y_direction() {
+        return Vector3D(matrix[1][0],matrix[1][1],matrix[1][2]);
     };
 
     Vector3D get_x_direction() {

@@ -12,9 +12,9 @@ App_Window::~App_Window()
 
 void App_Window::update()
 {
-    update_camera();
-    update_light();
-   
+    //update_camera();
+    update_third_person_camera();
+    update_light(); 
     update_skybox();
 
 }
@@ -31,26 +31,17 @@ void App_Window::render() {
 
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);
     
-    update();
+    
     
     
     e_mats.clear();
-    e_mats.push_back(terrain_material);
+    e_mats.push_back(spaceship_material);
 
     update_model(Vector3D(0.0f,0.0f,0.0f),Vector3D(0.0f,0.0f,0.0f),Vector3D(1.0f,1.0f,1.0f),e_mats);
 
-    draw_mesh(terrain_mesh,e_mats);
+    draw_mesh(spaceship_mesh,e_mats);
 
     
-    e_mats.clear();
-    e_mats.push_back(barrel_material);
-    e_mats.push_back(bricks_material);
-    e_mats.push_back(window_material);
-    e_mats.push_back(wood_material);
-
-    update_model(Vector3D(0.0f,0.0f,0.0f),Vector3D(0.0f,0.0f,0.0f),Vector3D(2.0f,1.0f,1.0f),e_mats);
-
-    draw_mesh(house_mesh,e_mats);
     //SKYBOX/SPHERE
 
     e_mats.clear();
@@ -78,14 +69,18 @@ void App_Window::render() {
 }
 
 void App_Window::update_camera() {
+
+    cam_rot.x += delta_mouse_cursor.y  * delta_time * 0.1f;
+    cam_rot.y += delta_mouse_cursor.x  * delta_time * 0.1f;
+
     Matrix4x4 camera_matrix, temp;
     camera_matrix.set_identity();
 
     temp.set_identity();
-    temp.set_rotation_x(rot_x);
+    temp.set_rotation_x(cam_rot.x);
     camera_matrix *= temp;
     temp.set_identity();
-    temp.set_rotation_y(rot_y);
+    temp.set_rotation_y(cam_rot.y);
     camera_matrix *= temp;
 
     Vector3D new_pos = world_camera.get_translation() + camera_matrix.get_z_direction() * (forward * 0.3f) + camera_matrix.get_x_direction() * (rightward * 0.3f);
@@ -107,25 +102,79 @@ void App_Window::update_camera() {
 
 }
 
+void App_Window::update_third_person_camera() {
+
+    cam_rot.x += delta_mouse_cursor.y  * delta_time * 0.1f;
+    cam_rot.y += delta_mouse_cursor.x  * delta_time * 0.1f;
+
+    //stops camera from rotating past 90 degrees in the up and down direction. 
+    //stops camera at the top and bottom of the model to prevent flipping the scene upside down
+
+    if(cam_rot.x >= 1.57f) {
+        cam_rot.x = 1.57f;
+    }
+    else if(cam_rot.x <= -1.57f) {
+        cam_rot.x = -1.57f;
+    }
+
+
+    Matrix4x4 camera_matrix, temp;
+    camera_matrix.set_identity();
+
+    temp.set_identity();
+    temp.set_rotation_x(cam_rot.x);
+    camera_matrix *= temp;
+    temp.set_identity();
+    temp.set_rotation_y(cam_rot.y);
+    camera_matrix *= temp;
+
+
+    cam_pos = cam_focus_pos;
+
+
+    Vector3D new_pos = cam_pos + camera_matrix.get_z_direction() * (-cam_dist_to_focus) + camera_matrix.get_x_direction() * (rightward * 0.3f);
+
+    camera_matrix.set_translation(new_pos);
+
+    world_camera = camera_matrix;
+
+    camera_matrix.inverse(); //turns it into a view matrix
+
+    cam_view = camera_matrix;
+   
+
+    int width = (this->get_client_window_rect().right - this->get_client_window_rect().left);
+    int height = (this->get_client_window_rect().bottom - this->get_client_window_rect().top);
+
+   
+    cam_projection.set_perspective_FOV(1.57f,((float)width/(float)height),0.1f,100.0f);
+}
+
 void App_Window::update_model(Vector3D position, Vector3D rotation,Vector3D scale, const std::vector<material_sptr>& materials) {
     
     Const_Buff con;
 
-    Matrix4x4 scale_mat;
-   
+    Matrix4x4 temp;
     
     con.time = time;
     con.world_space.set_identity();
 
-    scale_mat.set_identity();
-    scale_mat.set_scale(scale);
+    temp.set_identity();
+    temp.set_scale(scale);
+    con.world_space *= temp;
 
-    con.world_space *= scale_mat;
+    temp.set_identity();
+    temp.set_rotation_x(rotation.x);
+    con.world_space *= temp;
 
-    con.world_space.set_scale(scale);
-    con.world_space.set_rotation_x(rotation.x);
-    con.world_space.set_rotation_y(rotation.y);
-    con.world_space.set_rotation_z(rotation.z);
+    temp.set_identity();
+    temp.set_rotation_y(rotation.y);
+    con.world_space *= temp;
+
+    temp.set_identity();
+    temp.set_rotation_z(rotation.z);
+    con.world_space *= temp;
+
 
     con.world_space.set_translation(position);
 
@@ -160,20 +209,10 @@ void App_Window::update_skybox() {
 }
 
 void App_Window::update_light() {
-   
+
     Matrix4x4 light_rot;
-    //light_rot_y += sin(delta_time) * 0.7f;
-    //light_rot_y -= delta_time;
-    //light_rot.set_identity();
-    //light_rot.set_rotation_y(light_rot_y);
-
-    //float dist_from_origin = 2.0f;
-    //light_rot_y += 0.02f;
-
-    //light_pos = Vector4D(cos(light_rot_y) * dist_from_origin,1.0f,sin(light_rot_y) * dist_from_origin,0.0f);
     light_pos = Vector4D(180.0f,140.0f,70.0f,1.0f);
 
-    //light_dir = light_rot.get_z_direction();
 }
 
 void App_Window::draw_mesh(const mesh_sptr &mesh, const std::vector<material_sptr>& materials) {
@@ -194,57 +233,54 @@ void App_Window::draw_mesh(const mesh_sptr &mesh, const std::vector<material_spt
 
 void App_Window::on_create() {
 
+    //---------------------
+    // SET BASE VALUES
+    //---------------------
     is_camera_locked_to_mouse = true;
 
     Input_System::get_input_system()->add_listener(this);
     Input_System::get_input_system()->show_cursor(false);
 
-    brick_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/house_brick.jpg");
-    sand_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/sand.jpg");
-    barrel_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/barrel.jpg");
-    window_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/house_windows.jpg");
-    wood_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/house_wood.jpg");
- 
-    terrain_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/terrain.obj");
-    house_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/house.obj");
+    // ../../ is required due to the build directory containing the source directory/ files load based on source dir.
 
-    sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Textures/sky.jpg");
-    skybox_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/Assets/Meshes/sphere.obj");
+    TEXTURE_NOT_FOUND = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/MISSING_TEXTURE.jpg");
+   
+    sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/stars_map.jpg");
+    skybox_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"../../src/Assets/Meshes/sphere.obj");
     
+    
+    default_material = Graphics_Engine::get_engine()->create_material(L"../../src/shaders/point_lights/vert_point_light.hlsl",L"../../src/shaders/point_lights/frag_point_light.hlsl");
+    sky_material = Graphics_Engine::get_engine()->create_material(L"../../src/shaders/skybox_vert.hlsl",L"../../src/shaders/skybox_frag.hlsl");
+    NO_TEXTURE_material = Graphics_Engine::get_engine()->create_material(default_material);
+
     RECT rc = this->get_client_window_rect();
     UINT width = rc.right - rc.left;
     UINT height = rc.bottom - rc.top;
 
     swapchain = Graphics_Engine::get_engine()->get_render_system()->create_swap_chain(this->window_handle, width, height);
 
-    
-    terrain_material = Graphics_Engine::get_engine()->create_material(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/vert_point_light.hlsl",L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/frag_point_light.hlsl");
-    bricks_material = Graphics_Engine::get_engine()->create_material(terrain_material);
-    wood_material = Graphics_Engine::get_engine()->create_material(terrain_material);
-    window_material = Graphics_Engine::get_engine()->create_material(terrain_material);
-    barrel_material = Graphics_Engine::get_engine()->create_material(terrain_material);
+    NO_TEXTURE_material->add_texture(TEXTURE_NOT_FOUND);
+    NO_TEXTURE_material->set_culling_mode(BACK_CULLING);
 
-    sky_material = Graphics_Engine::get_engine()->create_material(L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/point_lights/vert_point_light.hlsl",L"C:/Users/zachm/OneDrive/Desktop/Moryx_engine/src/shaders/skybox.hlsl");
+    default_material->add_texture(TEXTURE_NOT_FOUND);
+    default_material->set_culling_mode(BACK_CULLING);
+   
+    sky_material->set_culling_mode(FRONT_CULLING);
+    sky_material->add_texture(sky_tex);
 
     current_time = std::chrono::high_resolution_clock::now();
 
     world_camera.set_translation(Vector3D(0.0f,0.0f,-2.0f));
+
+    //---------------------
+    // OBJECTS & MATERIALS
+    //---------------------
    
-    terrain_material->add_texture(sand_tex);
-    
-    bricks_material->add_texture(brick_tex);
-    wood_material->add_texture(wood_tex);
-    window_material->add_texture(window_tex);
-    barrel_material->add_texture(barrel_tex);
-
-    terrain_material->set_culling_mode(BACK_CULLING);
-    bricks_material->set_culling_mode(BACK_CULLING);
-    wood_material->set_culling_mode(BACK_CULLING);
-    window_material->set_culling_mode(BACK_CULLING);
-    barrel_material->set_culling_mode(BACK_CULLING);
-
-    sky_material->set_culling_mode(FRONT_CULLING);
-    sky_material->add_texture(sky_tex);
+    spaceship_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"../../src/Assets/Meshes/spaceship.obj");
+    spaceship_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/spaceship.jpg");
+    spaceship_material = Graphics_Engine::get_engine()->create_material(default_material);
+    spaceship_material->add_texture(spaceship_tex);
+    spaceship_material->set_culling_mode(BACK_CULLING);
 
     e_mats.reserve(32);
 }
@@ -252,6 +288,7 @@ void App_Window::on_create() {
 void App_Window::on_update() {
 
     Input_System::get_input_system()->update();
+    this->update();
     this->render();
     
 }
@@ -268,7 +305,7 @@ void App_Window::on_focus() {
 void App_Window::on_resize() {
     RECT rc = this->get_client_window_rect();
    
-    swapchain->resize_swapchain(rc.right,rc.bottom);
+    swapchain->resize_swapchain(rc.right - rc.left,rc.bottom - rc.top);
     this->render();
 }
 
@@ -278,19 +315,15 @@ void App_Window::on_kill_focus() {
 
 void App_Window::on_key_down(int key) {
     if(key == 'W') {
-        //rot_x += 0.7f * delta_time;
         forward = 1.0f;
     }
     if(key == 'A') {
-        //rot_y += 0.7f * delta_time;
         rightward = -1.0f;
     }
     if(key == 'S') {
-        //rot_x -= 0.7f * delta_time;
         forward = -1.0f;
     }
     if(key == 'D') {
-        //rot_y -= 0.7f * delta_time;
         rightward = 1.0f;
     }
     if(key == VK_ESCAPE) {
@@ -300,7 +333,7 @@ void App_Window::on_key_down(int key) {
         is_camera_locked_to_mouse = (is_camera_locked_to_mouse) ? false : true;
         Input_System::get_input_system()->show_cursor(!is_camera_locked_to_mouse);
     }
-     if(key == 'F') {
+    if(key == 'F') {
         is_full_screen_mode = (is_full_screen_mode) ? false : true;
         RECT rc = this->get_screen_size();
         swapchain->set_fullsreen_state(is_full_screen_mode,rc.right,rc.bottom);
@@ -317,13 +350,17 @@ void App_Window::on_key_up(int key) {
 void App_Window::on_mouse_move(const Point &mouse_pos) {
 
     if(!is_camera_locked_to_mouse) {return;}
-    int width = (this->get_client_window_rect().right - this->get_client_window_rect().left);
-    int height = (this->get_client_window_rect().bottom - this->get_client_window_rect().top);
 
-    rot_x += (mouse_pos.y - (height/2.0f))  * delta_time * 0.1f;
-    rot_y += (mouse_pos.x - (width/2.0f))  * delta_time * 0.1f;
+    RECT win_size = this->get_client_window_rect();
+    int width = (win_size.right - win_size.left);
+    int height = (win_size.bottom - win_size.top);
 
-    Input_System::get_input_system()->set_cursor_pos(Point(width/2.0f,height/2.0f));
+    delta_mouse_cursor = Vector2D(
+    (mouse_pos.x - (win_size.left + (width/2.0f))),
+    (mouse_pos.y - (win_size.top + (height/2.0f)))
+    );
+
+    Input_System::get_input_system()->set_cursor_pos(Point(win_size.left + (int)(width/2.0f),win_size.top + (int)(height/2.0f)));
 
 }
 
