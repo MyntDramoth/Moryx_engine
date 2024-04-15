@@ -72,6 +72,8 @@ void App_Window::update_camera() {
 
     cam_rot.x += (int)delta_mouse_cursor.y  * delta_time * 0.1f;
     cam_rot.y += (int)delta_mouse_cursor.x  * delta_time * 0.1f;
+    delta_mouse_cursor.y = 0.0f;
+    delta_mouse_cursor.x = 0.0f;
 
     current_cam_rot = Vector3D::lerp(current_cam_rot,cam_rot,3.0f * delta_time);
 
@@ -108,7 +110,8 @@ void App_Window::update_third_person_camera() {
 
     cam_rot.x += delta_mouse_cursor.y  * delta_time * 0.1f;
     cam_rot.y += delta_mouse_cursor.x  * delta_time * 0.1f;
-
+    delta_mouse_cursor.y = 0.0f;
+    delta_mouse_cursor.x = 0.0f;
     //stops camera from rotating past 90 degrees in the up and down direction. 
     //stops camera at the top and bottom of the model to prevent flipping the scene upside down
 
