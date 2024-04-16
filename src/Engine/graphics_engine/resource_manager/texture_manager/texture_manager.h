@@ -9,6 +9,7 @@ public:
     Texture_Manager();
     ~Texture_Manager();
     texture_sptr create_texture_from_file(const wchar_t* file_path);
+    texture_sptr create_texture(const Rect& size, Texture::Texture_Type tex_type);
 
 protected:
 

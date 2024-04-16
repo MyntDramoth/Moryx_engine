@@ -148,6 +148,9 @@ private:
     texture_sptr spaceship_tex2 {nullptr};
     material_sptr spaceship_material {nullptr};
 
+    texture_sptr d_stencil {nullptr};
+    texture_sptr r_target {nullptr};
+
 
     material_sptr default_material {nullptr};
     material_sptr NO_TEXTURE_material {nullptr};

@@ -50,8 +50,69 @@ Texture::Texture(const wchar_t* full_path):Resource(full_path) {
     } else {throw std::exception("failed to load image!");}
 }
 
+Texture::Texture(const Rect &size, Texture::Texture_Type tex_type): Resource(L"") {
+    
+    D3D11_TEXTURE2D_DESC tex_desc = {};
+    tex_desc.Width = size.width;
+    tex_desc.Height = size.height;
+
+    if(tex_type == NORMAL) {
+        tex_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+        tex_desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+    }
+    if(tex_type == RENDER_TARGET) {
+        tex_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+        tex_desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
+    }
+    if(tex_type == DEPTH_STENCIL) {
+        tex_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+        tex_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+    }
+
+    tex_desc.Usage = D3D11_USAGE_DEFAULT;
+    
+    tex_desc.MipLevels = 1;
+    tex_desc.SampleDesc.Count = 1;
+    tex_desc.SampleDesc.Quality = 0;
+    tex_desc.MiscFlags = 0;
+    tex_desc.ArraySize = 1;
+    tex_desc.CPUAccessFlags = 0;
+
+    auto hres = Graphics_Engine::get_engine()->get_render_system()->device->CreateTexture2D(&tex_desc,nullptr,(ID3D11Texture2D**)&texture);
+    if(FAILED(hres)) {
+        throw std::exception("Failed to create Texture!");
+    }
+
+   
+    if(tex_type == NORMAL || tex_type == RENDER_TARGET) {
+        hres = Graphics_Engine::get_engine()->get_render_system()->device->CreateShaderResourceView(texture,NULL,&shader_view);
+    }
+    if(tex_type == RENDER_TARGET) {
+        hres = Graphics_Engine::get_engine()->get_render_system()->device->CreateRenderTargetView(texture,NULL,&target_view);
+    }
+    if(tex_type == DEPTH_STENCIL) {
+        hres = Graphics_Engine::get_engine()->get_render_system()->device->CreateDepthStencilView(texture,NULL,&stencil_view);
+    }
+
+    if(FAILED(hres)) {
+        throw std::exception("Failed to create Texture!");
+    }
+}
+
 Texture::~Texture() {
-    sampler_state->Release();
-    shader_view->Release();
-    texture->Release();
+    if(sampler_state) {sampler_state->Release();}
+    if(target_view) {target_view->Release();}
+    if(stencil_view) {stencil_view->Release();}
+    if(shader_view) {shader_view->Release();}
+    if(texture) {texture->Release();}
+}
+
+Rect Texture::get_size()
+{
+    return size;
+}
+
+Texture::Texture_Type Texture::get_type()
+{
+    return type;
 }

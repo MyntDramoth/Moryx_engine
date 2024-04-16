@@ -12,6 +12,13 @@ public:
     ~Device_Context();
 
     void clear_render_target_color(const swapchain_sptr& swapchain,float red, float green, float blue, float alpha);
+    void clear_depth_stencil(const swapchain_sptr& swapchain);
+
+    void clear_render_target_color(const texture_sptr& render_target,float red, float green, float blue, float alpha);
+    void clear_depth_stencil(const texture_sptr& depth_stencil);
+
+    void set_render_target(const texture_sptr& render_target,const texture_sptr& depth_stencil);
+
     void set_vertex_buffer(const vert_buffer_sptr& vertex_buffer);
     void draw_triangle_list(UINT vertex_count, UINT start_index);
     void draw_indexed_triangle_list(UINT index_count,UINT start_index, UINT vert_start_index);

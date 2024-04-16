@@ -21,8 +21,8 @@ void App_Window::update()
 
 void App_Window::render() {
 
+   
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
-    
 
     RECT rc = this->get_client_window_rect();
     UINT width = rc.right - rc.left;
@@ -287,6 +287,7 @@ void App_Window::on_create() {
     spaceship_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"../../src/Assets/Meshes/sphere.obj");
     spaceship_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/brick_d.jpg");
     spaceship_tex2 = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/brick_n.jpg");
+    
     spaceship_material = Graphics_Engine::get_engine()->create_material(default_material);
     spaceship_material->add_texture(spaceship_tex);
     spaceship_material->add_texture(spaceship_tex2);
