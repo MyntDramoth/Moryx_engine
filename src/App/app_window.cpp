@@ -20,17 +20,19 @@ void App_Window::update()
 }
 
 void App_Window::render() {
-
-   
+    /*
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
-
     RECT rc = this->get_client_window_rect();
     UINT width = rc.right - rc.left;
     UINT height = rc.bottom - rc.top;
-
-
-    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);*/
     
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->render_target,0.0f,0.3f,0.4f,1.0f);
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_depth_stencil(this->depth_stencil);
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_render_target(this->render_target,this->depth_stencil);
+    Rect rect = render_target->get_size();
+
+   // Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(rect.width,rect.height);
     
     
     
@@ -42,14 +44,27 @@ void App_Window::render() {
     draw_mesh(spaceship_mesh,e_mats);
 
     
-    //SKYBOX/SPHERE
+    //SKYBOX/SPHEREs
 
     e_mats.clear();
     e_mats.push_back(sky_material);
 
     
     draw_mesh(skybox_mesh,e_mats);
-  
+    
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
+    RECT rc = this->get_client_window_rect();
+    UINT width = rc.right - rc.left;
+    UINT height = rc.bottom - rc.top;
+    Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);
+    
+    //RENDER QUAD
+    e_mats.clear();
+    e_mats.push_back(quad_mat);
+
+    
+    draw_mesh(quad_mesh,e_mats);
+
     swapchain->present(true);
 
    
@@ -283,10 +298,32 @@ void App_Window::on_create() {
     //---------------------
     // OBJECTS & MATERIALS
     //---------------------
-   
+    quad_mat = Graphics_Engine::get_engine()->create_material(L"../../src/shaders/post_processing_effects/post_process_vert.hlsl",L"../../src/shaders/post_processing_effects/post_process_frag.hlsl");
+    quad_mat->set_culling_mode(BACK_CULLING);
+    
     spaceship_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"../../src/Assets/Meshes/sphere.obj");
     spaceship_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/brick_d.jpg");
     spaceship_tex2 = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/brick_n.jpg");
+
+    
+
+    Vertex_Mesh quad_vert_list[] = {
+        Vertex_Mesh(Vector3D(-1.0f,-1.0f,0.0f),Vector2D(0.0f,1.0f),Vector3D(),Vector3D(),Vector3D()),
+        Vertex_Mesh(Vector3D(-1.0f, 1.0f,0.0f),Vector2D(0.0f,0.0f),Vector3D(),Vector3D(),Vector3D()),
+        Vertex_Mesh(Vector3D( 1.0f, 1.0f,0.0f),Vector2D(1.0f,0.0f),Vector3D(),Vector3D(),Vector3D()),
+        Vertex_Mesh(Vector3D( 1.0f,-1.0f,0.0f),Vector2D(1.0f,1.0f),Vector3D(),Vector3D(),Vector3D())
+    };
+
+    UINT quad_index_list[] = {
+        0,1,2,
+        2,3,0
+    };
+
+    Material_Slot quad_mat_slots[] = {
+        {0,6,0}
+    };
+
+    quad_mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh(quad_vert_list,4,quad_index_list,6,quad_mat_slots,1);
     
     spaceship_material = Graphics_Engine::get_engine()->create_material(default_material);
     spaceship_material->add_texture(spaceship_tex);
@@ -294,6 +331,11 @@ void App_Window::on_create() {
     spaceship_material->set_culling_mode(BACK_CULLING);
 
     e_mats.reserve(32);
+
+    render_target = Graphics_Engine::get_engine()->get_texture_manager()->create_texture(Rect(rc.right-rc.left,rc.bottom-rc.top),Texture::Texture_Type::RENDER_TARGET);
+    depth_stencil = Graphics_Engine::get_engine()->get_texture_manager()->create_texture(Rect(rc.right-rc.left,rc.bottom-rc.top),Texture::Texture_Type::DEPTH_STENCIL);
+    
+    quad_mat->add_texture(render_target);
 }
 
 void App_Window::on_update() {
@@ -317,6 +359,13 @@ void App_Window::on_resize() {
     RECT rc = this->get_client_window_rect();
    
     swapchain->resize_swapchain(rc.right - rc.left,rc.bottom - rc.top);
+
+    render_target = Graphics_Engine::get_engine()->get_texture_manager()->create_texture(Rect(rc.right-rc.left,rc.bottom-rc.top),Texture::Texture_Type::RENDER_TARGET);
+    depth_stencil = Graphics_Engine::get_engine()->get_texture_manager()->create_texture(Rect(rc.right-rc.left,rc.bottom-rc.top),Texture::Texture_Type::DEPTH_STENCIL);
+    
+    quad_mat->remove_texture(0);
+    quad_mat->add_texture(render_target);
+
     this->update();
     this->render();
 }

@@ -27,7 +27,7 @@ private:
     ID3D11Resource* texture = nullptr;
     ID3D11ShaderResourceView* shader_view = nullptr;
     ID3D11RenderTargetView* target_view = nullptr;
-     ID3D11DepthStencilView* stencil_view = nullptr;
+    ID3D11DepthStencilView* stencil_view = nullptr;
     ID3D11SamplerState* sampler_state = nullptr;
 
     Texture::Texture_Type type = Texture::Texture_Type::NORMAL;

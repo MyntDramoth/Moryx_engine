@@ -38,7 +38,7 @@ Texture::Texture(const wchar_t* full_path):Resource(full_path) {
         sampler_desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
         sampler_desc.Filter = D3D11_FILTER_ANISOTROPIC;
         sampler_desc.MinLOD = 0;
-        sampler_desc.MaxLOD = (UINT)image_data.GetMetadata().mipLevels;
+        sampler_desc.MaxLOD = (float)image_data.GetMetadata().mipLevels;
 
         res = Graphics_Engine::get_engine()->get_render_system()->device->CreateSamplerState(&sampler_desc,&sampler_state);
 
@@ -50,8 +50,8 @@ Texture::Texture(const wchar_t* full_path):Resource(full_path) {
     } else {throw std::exception("failed to load image!");}
 }
 
-Texture::Texture(const Rect &size, Texture::Texture_Type tex_type): Resource(L"") {
-    
+Texture::Texture(const Rect &size, Texture::Texture_Type tex_type): Resource(L""), type(tex_type){
+   
     D3D11_TEXTURE2D_DESC tex_desc = {};
     tex_desc.Width = size.width;
     tex_desc.Height = size.height;
@@ -60,17 +60,16 @@ Texture::Texture(const Rect &size, Texture::Texture_Type tex_type): Resource(L""
         tex_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
         tex_desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
     }
-    if(tex_type == RENDER_TARGET) {
+    else if(tex_type == RENDER_TARGET) {
         tex_desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
         tex_desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE;
     }
-    if(tex_type == DEPTH_STENCIL) {
+    else if(tex_type == DEPTH_STENCIL) {
         tex_desc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
         tex_desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
     }
 
     tex_desc.Usage = D3D11_USAGE_DEFAULT;
-    
     tex_desc.MipLevels = 1;
     tex_desc.SampleDesc.Count = 1;
     tex_desc.SampleDesc.Quality = 0;
@@ -83,26 +82,31 @@ Texture::Texture(const Rect &size, Texture::Texture_Type tex_type): Resource(L""
         throw std::exception("Failed to create Texture!");
     }
 
-   
     if(tex_type == NORMAL || tex_type == RENDER_TARGET) {
         hres = Graphics_Engine::get_engine()->get_render_system()->device->CreateShaderResourceView(texture,NULL,&shader_view);
+        if(FAILED(hres)) {
+        throw std::exception("Failed to create Resource View!");
+        }
     }
     if(tex_type == RENDER_TARGET) {
         hres = Graphics_Engine::get_engine()->get_render_system()->device->CreateRenderTargetView(texture,NULL,&target_view);
+        if(FAILED(hres)) {
+        throw std::exception("Failed to create Target View!");
+        }
     }
-    if(tex_type == DEPTH_STENCIL) {
+    else if(tex_type == DEPTH_STENCIL) {
         hres = Graphics_Engine::get_engine()->get_render_system()->device->CreateDepthStencilView(texture,NULL,&stencil_view);
+        if(FAILED(hres)) {
+        throw std::exception("Failed to create Depth View!");
+        }
     }
-
-    if(FAILED(hres)) {
-        throw std::exception("Failed to create Texture!");
-    }
+   
 }
 
 Texture::~Texture() {
-    if(sampler_state) {sampler_state->Release();}
     if(target_view) {target_view->Release();}
     if(stencil_view) {stencil_view->Release();}
+    if(sampler_state) {sampler_state->Release();}
     if(shader_view) {shader_view->Release();}
     if(texture) {texture->Release();}
 }

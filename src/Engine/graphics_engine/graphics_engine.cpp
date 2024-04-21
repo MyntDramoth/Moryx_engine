@@ -89,12 +89,15 @@ material_sptr Graphics_Engine::create_material(const material_sptr &material) {
 
 void Graphics_Engine::set_material(const material_sptr &material) {
     render_system->set_rasterizer_sate(material->culling_mode == CULL_MODE::FRONT_CULLING);
-
-    render_system->get_device_context()->set_constant_buffer(material->vert_shader, material->const_buffer);
-    render_system->get_device_context()->set_constant_buffer(material->pix_shader, material->const_buffer);
+    if(material->const_buffer) {
+        render_system->get_device_context()->set_constant_buffer(material->vert_shader, material->const_buffer);
+        render_system->get_device_context()->set_constant_buffer(material->pix_shader, material->const_buffer);
+    }
 
     render_system->get_device_context()->set_vertex_shader(material->vert_shader);
     render_system->get_device_context()->set_pixel_shader(material->pix_shader);
-
-    render_system->get_device_context()->set_texture(material->pix_shader,&material->textures[0],(UINT)material->textures.size());
+    
+    if(material->textures.size()) {
+        render_system->get_device_context()->set_texture(material->pix_shader,&material->textures[0],(UINT)material->textures.size());
+    }
 }

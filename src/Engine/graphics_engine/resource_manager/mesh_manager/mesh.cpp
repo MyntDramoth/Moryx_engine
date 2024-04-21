@@ -1,7 +1,7 @@
 #include "mesh.h"
 
 #include "../../graphics_engine.h"
-#include "../../../math/vertex_mesh.h"
+
 
 #define TINYOBJLOADER_IMPLEMENTATION
 #include "tiny_obj_loader.h"
@@ -127,6 +127,20 @@ Mesh::Mesh(const wchar_t* full_path):Resource(full_path) {
 
     vertex_buffer = Graphics_Engine::get_engine()->get_render_system()->create_vertex_buffer(&vertices[0],sizeof(Vertex_Mesh),(UINT)vertices.size(),shader_byte_code,(UINT)shader_size);
     index_buffer = Graphics_Engine::get_engine()->get_render_system()->create_index_buffer(&indeces[0],(UINT)indeces.size());
+}
+
+Mesh::Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Material_Slot *material_slot_list, UINT slot_list_size):Resource(L"") {
+    void* shader_byte_code = nullptr;
+    size_t shader_size = 0;
+
+    Graphics_Engine::get_engine()->get_vert_mesh_layout_shader_data(&shader_byte_code,&shader_size);
+
+    vertex_buffer = Graphics_Engine::get_engine()->get_render_system()->create_vertex_buffer(vert_list,sizeof(Vertex_Mesh),vert_list_size,shader_byte_code,(UINT)shader_size);
+    index_buffer = Graphics_Engine::get_engine()->get_render_system()->create_index_buffer(index_list,index_list_size);
+    material_slots.resize(slot_list_size);
+    for(UINT i =0; i < slot_list_size;i++) {
+        material_slots[i] = material_slot_list[i];
+    }
 }
 
 Mesh::~Mesh() {

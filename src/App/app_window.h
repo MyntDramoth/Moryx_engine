@@ -154,7 +154,11 @@ private:
 
     material_sptr default_material {nullptr};
     material_sptr NO_TEXTURE_material {nullptr};
-   
+
+    mesh_sptr quad_mesh {nullptr};
+    material_sptr quad_mat {nullptr};
+    texture_sptr render_target = {nullptr};
+    texture_sptr depth_stencil = {nullptr};
 
     std::vector<material_sptr> e_mats;
 };

@@ -8,6 +8,7 @@
 
 #include  "../../../math/vector3D.h"
 #include  "../../../math/vector2D.h"
+#include "../../../math/vertex_mesh.h"
 
 #include <d3d11.h>
 #include <vector>
@@ -22,6 +23,7 @@ class Mesh : public Resource
 {
 public:
     Mesh(const wchar_t* full_path);
+    Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Material_Slot *material_slot_list, UINT slot_list_size);
     ~Mesh();
 
     const vert_buffer_sptr& get_vert_buffer();
