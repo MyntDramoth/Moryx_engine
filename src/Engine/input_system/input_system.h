@@ -26,8 +26,8 @@ private:
     ~Input_System();
 
     std::map<Input_Listener*,Input_Listener*> map_listeners;
-    unsigned char key_state[256] = {};
-    unsigned char old_key_state[256] = {};
+    short key_state[256] = {};
+    short old_key_state[256] = {};
     Point old_mouse_pos;
     bool is_first_time = true;
 
