@@ -64,16 +64,18 @@ if (WIN32)
     ${FASTNOISE2_NOISETOOL}
     ${STB_IMAGE_PATH}
     ${DIRECTX_TEX_PATH}/include
+    ${DIRECTX_TK_PATH}/include
     
     )
  
   target_link_directories(${PROJECT_NAME} PUBLIC
     ${FASTNOISE2_NOISETOOL}
     ${DIRECTX_TEX_PATH}/bin
+    ${DIRECTX_TK_PATH}/bin
     
   )
  
-  target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex)
+  target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK)
 elseif (UNIX)
     message(STATUS "CREATING BUILD FOR UNIX")
     target_include_directories(${PROJECT_NAME} PUBLIC
@@ -83,5 +85,5 @@ elseif (UNIX)
       ${FASTNOISE2_NOISETOOL}
       ${DIRECTX_TEX_PATH}/include
     )
-    target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex)
+    target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK)
 endif()

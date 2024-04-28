@@ -24,6 +24,7 @@
 #include "../Engine/graphics_engine/pixel_shader/pixel_shader.h"
 
 #include "../Engine/graphics_engine/resource_manager/mesh_manager/mesh.h"
+#include "../Engine/graphics_engine/font2D/font2D.h"
 
 //INPUT SYSTEM
 #include "../Engine/input_system/input_listener.h"
@@ -64,6 +65,7 @@ public:
     void update_skybox();
     void update_light();
     void draw_mesh(const mesh_sptr& mesh,const std::vector<material_sptr>& materials);
+    void draw_gui(const font_sptr& Font, const char* text, Vector2D text_pos);
 
     //Inherited via Window
     virtual void on_create() override;
@@ -159,6 +161,9 @@ private:
     material_sptr quad_mat {nullptr};
     texture_sptr render_target = {nullptr};
     texture_sptr depth_stencil = {nullptr};
+
+    font_sptr font = {nullptr};
+    //Font_Utility font_util;
 
     std::vector<material_sptr> e_mats;
 };

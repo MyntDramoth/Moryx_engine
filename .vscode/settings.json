@@ -80,7 +80,9 @@
         "map": "cpp",
         "xtree": "cpp",
         "codecvt": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "regex": "cpp",
+        "bitset": "cpp"
     },
     "makefile.makefilePath": "C:\\Users\\zachm\\OneDrive\\Desktop\\Moryx_engine\\Makefile",
     "makefile.makePath": "C:\\Program Files\\CMake\\bin\\cmake",

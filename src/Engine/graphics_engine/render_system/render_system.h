@@ -3,7 +3,7 @@
 #include <d3d11.h>
 
 #include "../prerequisites.h"
-
+#include "../device_context/device_context.h"
 
 class Render_System {
 public:
@@ -20,11 +20,14 @@ public:
     pix_shader_sptr create_pixel_shader(const void* shader_byte_code, size_t byte_code_size);
     comp_shader_sptr create_compute_shader(const void* shader_byte_code, size_t byte_code_size);
 
+    font2D_sptr create_font(const wchar_t* file_path);
+
     bool compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
     bool compile_pixel_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
     bool compile_compute_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
     void release_compiled_shader();
     void set_rasterizer_sate(bool front_culling);
+    void clear_state();
     //default simple shaders
     
 private:
@@ -55,4 +58,5 @@ private:
     friend class Pixel_Shader;
     friend class Compute_Shader;
     friend class Texture;
+    friend class Font2D;
 };

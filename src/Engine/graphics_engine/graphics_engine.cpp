@@ -16,7 +16,9 @@ Graphics_Engine::Graphics_Engine() {
     try {
         mesh_manager = new Mesh_Manager();
     } catch(...){throw std::exception("Failed to create mesh manager!");}
-
+    try {
+        font_manager = new Font_Manager();
+    } catch(...){throw std::exception("Failed to create font manager!");}
     void* shader_byte_code = nullptr;
     size_t shader_size = 0;
 
@@ -30,6 +32,7 @@ Graphics_Engine::Graphics_Engine() {
 }
 
 Graphics_Engine::~Graphics_Engine() {
+    delete font_manager;
     delete mesh_manager;
     delete texture_manager;
     delete render_system;
@@ -46,6 +49,11 @@ Texture_Manager *Graphics_Engine::get_texture_manager() {
 
 Mesh_Manager *Graphics_Engine::get_mesh_manager() {
     return mesh_manager;
+}
+
+Font_Manager *Graphics_Engine::get_font_manager()
+{
+    return font_manager;
 }
 
 Graphics_Engine *Graphics_Engine::get_engine() {
@@ -96,7 +104,6 @@ void Graphics_Engine::set_material(const material_sptr &material) {
 
     render_system->get_device_context()->set_vertex_shader(material->vert_shader);
     render_system->get_device_context()->set_pixel_shader(material->pix_shader);
-    
     if(material->textures.size()) {
         render_system->get_device_context()->set_texture(material->pix_shader,&material->textures[0],(UINT)material->textures.size());
     }

@@ -19,6 +19,8 @@ class Texture;
 class Mesh_Manager;
 class Mesh;
 class Material;
+class Font2D;
+class Font;
 
 typedef std::shared_ptr<Swapchain> swapchain_sptr;
 typedef std::shared_ptr<Index_Buffer> index_buffer_sptr;
@@ -32,3 +34,5 @@ typedef std::shared_ptr<Resource> resource_sptr;
 typedef std::shared_ptr<Texture> texture_sptr;
 typedef std::shared_ptr<Mesh> mesh_sptr;
 typedef std::shared_ptr<Material> material_sptr;
+typedef std::shared_ptr<Font2D> font2D_sptr;
+typedef std::shared_ptr<Font> font_sptr;

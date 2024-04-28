@@ -10,6 +10,7 @@
 
 #include "../constant_buffer/constant_buffer.h"
 #include "../index_buffer/index_buffer.h"
+#include "../font2D/font2D.h"
 
 #include <exception>
 #include <d3dcompiler.h>
@@ -24,7 +25,7 @@ Render_System::Render_System() {
      UINT num_drivers = ARRAYSIZE(driver_types);
 
     D3D_FEATURE_LEVEL feature_levels[] = {
-        D3D_FEATURE_LEVEL_11_0
+        D3D_FEATURE_LEVEL_11_0  
     };
 
     UINT num_feat_levels = ARRAYSIZE(feature_levels);
@@ -32,7 +33,7 @@ Render_System::Render_System() {
    
     for (UINT driver_index = 0; driver_index < num_drivers;) {
 
-
+        
         hres = D3D11CreateDevice(NULL,driver_types[driver_index],NULL,NULL,feature_levels,num_feat_levels,D3D11_SDK_VERSION,
         &device,&m_feature_level,&context
         );
@@ -143,6 +144,16 @@ comp_shader_sptr Render_System::create_compute_shader(const void *shader_byte_co
     return shader;
 }
 
+font2D_sptr Render_System::create_font(const wchar_t *file_path)
+{
+    font2D_sptr font{ nullptr};
+     try {
+        font = std::make_shared<Font2D>(file_path, this);
+    }
+    catch (...) {}
+    return font;
+}
+
 bool Render_System::compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size) {
     ID3DBlob* err_blob {nullptr};
 
@@ -194,6 +205,10 @@ void Render_System::set_rasterizer_sate(bool front_culling) {
         context->RSSetState(back_face_culling);
     }
 
+}
+
+void Render_System::clear_state() {
+    context->ClearState();
 }
 
 void Render_System::intit_rasterizer_state() {

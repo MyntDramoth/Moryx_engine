@@ -1,3 +1,14 @@
-﻿  texture.cpp
-C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\texture_manager\texture.cpp(47,61): warning C4244: '=': conversion from 'UINT' to 'FLOAT', possible loss of data
+﻿  app_window.cpp
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\math\matrix4x4.h(138,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '../src/App/app_window.cpp')
+  
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\math\matrix4x4.h(139,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '../src/App/app_window.cpp')
+  
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\math\matrix4x4.h(140,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '../src/App/app_window.cpp')
+  
+C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\math\matrix4x4.h(141,43): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '../src/App/app_window.cpp')
+  
   Moryx_Engine.vcxproj -> C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Release\Moryx_Engine.exe

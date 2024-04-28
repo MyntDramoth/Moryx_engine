@@ -38,7 +38,7 @@ public:
     void set_constant_buffer(const pix_shader_sptr& pixel_shader, const const_buffer_sptr& const_buffer);
     void set_constant_buffer(const comp_shader_sptr& compute_shader, const const_buffer_sptr& const_buffer);
 
-
+    ID3D11DeviceContext* get_context() {return device_context;}
 private:
     ID3D11DeviceContext* device_context;
     Render_System* render_system {nullptr};

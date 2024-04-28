@@ -90,7 +90,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -109,10 +109,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;FASTNOISE_STATIC_LIB;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -120,8 +120,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>lib\FastNoise2\src\Debug\FastNoiseD.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lib\FastNoise2\src\Debug\FastNoiseD.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;DirectXTK.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTK/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTK/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -135,7 +135,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -154,10 +154,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FASTNOISE_STATIC_LIB;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -165,8 +165,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>lib\FastNoise2\src\Release\FastNoise.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lib\FastNoise2\src\Release\FastNoise.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;DirectXTK.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTK/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTK/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -180,7 +180,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -199,10 +199,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FASTNOISE_STATIC_LIB;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -210,8 +210,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>lib\FastNoise2\src\MinSizeRel\FastNoise.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lib\FastNoise2\src\MinSizeRel\FastNoise.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;DirectXTK.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTK/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTK/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -225,7 +225,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -243,10 +243,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;FASTNOISE_STATIC_LIB;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\tinyobjloader;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\OFF;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\include\STB_Image;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTex\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\DirectXTK\include;C:\Users\zachm\OneDrive\Desktop\Moryx_engine\lib\FastNoise2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -254,8 +254,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <Link>
-      <AdditionalDependencies>lib\FastNoise2\src\RelWithDebInfo\FastNoise.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lib\FastNoise2\src\RelWithDebInfo\FastNoise.lib;d3d11.lib;d3dcompiler.lib;DirectXTex.lib;DirectXTK.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/OFF/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTex/bin/$(Configuration);C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTK/bin;C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/DirectXTK/bin/$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -331,11 +331,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\compute_shader\compute_shader.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\constant_buffer\constant_buffer.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\device_context\device_context.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\font2D\font2D.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\graphics_engine.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\index_buffer\index_buffer.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\material\material.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\pixel_shader\pixel_shader.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\render_system\render_system.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\font_manager\font.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\font_manager\font_manager.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\mesh_manager\mesh.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\mesh_manager\mesh_manager.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\resource.cpp" />

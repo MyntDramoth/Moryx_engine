@@ -5,6 +5,7 @@
 #include "render_system/render_system.h"
 #include "resource_manager/texture_manager/texture_manager.h"
 #include "resource_manager/mesh_manager/mesh_manager.h"
+#include "resource_manager/font_manager/font_manager.h"
 
 #include "material/material.h"
 
@@ -14,6 +15,7 @@ public:
     Render_System* get_render_system();
     Texture_Manager* get_texture_manager();
     Mesh_Manager* get_mesh_manager();
+    Font_Manager* get_font_manager();
     static Graphics_Engine* get_engine();
     static void create();
     static void release();
@@ -31,6 +33,7 @@ private:
     Render_System* render_system = nullptr;
     Texture_Manager* texture_manager = nullptr;
     Mesh_Manager* mesh_manager = nullptr;
+    Font_Manager* font_manager = nullptr;
     static Graphics_Engine* engine;
 
     unsigned char layout_byte_code[1024];

@@ -1,6 +1,7 @@
 #include "app_window.h"
 
 #include <iostream>
+#include <format>
 
 App_Window::App_Window()
 {
@@ -12,6 +13,7 @@ App_Window::~App_Window()
 
 void App_Window::update()
 {
+    
     update_camera();
     //update_third_person_camera();
     update_light(); 
@@ -26,11 +28,14 @@ void App_Window::render() {
     UINT width = rc.right - rc.left;
     UINT height = rc.bottom - rc.top;
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);*/
-    
+
+    //required to have opn screen GUI - need to go back and look up changes to drawing functionality to fix state setting
+    //Graphics_Engine::get_engine()->get_render_system()->clear_state();
+
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->render_target,0.0f,0.3f,0.4f,1.0f);
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_depth_stencil(this->depth_stencil);
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_render_target(this->render_target,this->depth_stencil);
-    Rect rect = render_target->get_size();
+    //Rect rect = render_target->get_size();
 
    // Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(rect.width,rect.height);
     
@@ -40,17 +45,14 @@ void App_Window::render() {
     e_mats.push_back(spaceship_material);
 
     update_model(Vector3D(0.0f,0.0f,0.0f),Vector3D(0.0f,0.0f,0.0f),Vector3D(1.0f,1.0f,1.0f),e_mats);
-
     draw_mesh(spaceship_mesh,e_mats);
-
     
     //SKYBOX/SPHEREs
 
     e_mats.clear();
-    e_mats.push_back(sky_material);
-
-    
+    e_mats.push_back(sky_material); 
     draw_mesh(skybox_mesh,e_mats);
+
     
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->swapchain,0.0f,0.3f,0.4f,1.0f);
     RECT rc = this->get_client_window_rect();
@@ -61,13 +63,14 @@ void App_Window::render() {
     //RENDER QUAD
     e_mats.clear();
     e_mats.push_back(quad_mat);
-
-    
     draw_mesh(quad_mesh,e_mats);
 
+    std::string i = "FPS: " + std::to_string(FPS);
+    const char* input =  i.c_str();
+    draw_gui(font,input,Vector2D(10.0f,10.0f));
+    
     swapchain->present(true);
-
-   
+    
 
     new_time = std::chrono::high_resolution_clock::now();
 
@@ -80,7 +83,8 @@ void App_Window::render() {
     FPS = (float)frame_time * 1000.0f;
     //std::cout<<(float)FPS<<std::endl;
     time += delta_time;
-
+    
+    //Graphics_Engine::get_engine()->get_render_system()->clear_state();
 }
 
 void App_Window::update_camera() {
@@ -242,7 +246,6 @@ void App_Window::draw_mesh(const mesh_sptr &mesh, const std::vector<material_spt
 
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_vertex_buffer(mesh->get_vert_buffer());
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_index_buffer(mesh->get_index_buffer());
-    
     for (size_t m = 0; m < mesh->get_num_materials();m++) {
         if(m >= materials.size()) {break;}
 
@@ -254,8 +257,15 @@ void App_Window::draw_mesh(const mesh_sptr &mesh, const std::vector<material_spt
     }
 }
 
-void App_Window::on_create() {
+void App_Window::draw_gui(const font_sptr &Font, const char* text, Vector2D text_pos) {
+    
+    font2D_sptr f = Font->get_font();
+    f->batch->Begin();
+    f->font->DrawString(f->batch.get(),text,DirectX::XMFLOAT2(text_pos.x,text_pos.y));
+    f->batch->End();  
+}
 
+void App_Window::on_create() {
     //---------------------
     // SET BASE VALUES
     //---------------------
@@ -265,7 +275,7 @@ void App_Window::on_create() {
     Input_System::get_input_system()->show_cursor(false);
 
     // ../../ is required due to the build directory containing the source directory/ files load based on source dir.
-
+    // does not work if being ran in visual studio, only in VScode
     TEXTURE_NOT_FOUND = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/MISSING_TEXTURE.jpg");
    
     sky_tex = Graphics_Engine::get_engine()->get_texture_manager()->create_texture_from_file(L"../../src/Assets/Textures/stars_map.jpg");
@@ -294,6 +304,9 @@ void App_Window::on_create() {
     current_time = std::chrono::high_resolution_clock::now();
 
     world_camera.set_translation(Vector3D(0.0f,0.0f,-2.0f));
+
+   
+    font = Graphics_Engine::get_engine()->get_font_manager()->create_font_from_file(L"../../src/Assets/Fonts/Bahnschrift.font");
 
     //---------------------
     // OBJECTS & MATERIALS
@@ -336,11 +349,14 @@ void App_Window::on_create() {
     depth_stencil = Graphics_Engine::get_engine()->get_texture_manager()->create_texture(Rect(rc.right-rc.left,rc.bottom-rc.top),Texture::Texture_Type::DEPTH_STENCIL);
     
     quad_mat->add_texture(render_target);
+
+    
 }
 
 void App_Window::on_update() {
 
     Input_System::get_input_system()->update();
+    
     this->update();
     this->render();
     
