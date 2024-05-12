@@ -9,6 +9,7 @@
 #include  "../../../math/vector3D.h"
 #include  "../../../math/vector2D.h"
 #include "../../../math/vertex_mesh.h"
+#include "../../material/material.h"
 
 #include <d3d11.h>
 #include <vector>
@@ -46,4 +47,10 @@ private:
     std::vector<Material_Slot> material_slots;
 
     friend class Device_Context;
+};
+
+struct Mesh_Data {
+    mesh_sptr mesh;
+    material_sptr material;
+
 };

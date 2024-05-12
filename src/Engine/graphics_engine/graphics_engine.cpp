@@ -108,3 +108,44 @@ void Graphics_Engine::set_material(const material_sptr &material) {
         render_system->get_device_context()->set_texture(material->pix_shader,&material->textures[0],(UINT)material->textures.size());
     }
 }
+
+void Graphics_Engine::update(Mesh_Data& mesh_data, const swapchain_sptr& swapchain) {
+    //auto swapchain = display->swapchain;
+    auto context = render_system->get_device_context();
+
+    context->clear_render_target_color(swapchain, 1.0f,0.0f,0.0f,1.0f);
+    auto win_size = display->get_client_size();
+    context->set_viewport_size(win_size.width,win_size.height);
+
+    Constant_Data const_data = {};
+    const_data.world_camera.set_identity();
+    const_data.cam_view.set_identity();
+    const_data.cam_projection.set_identity();
+
+    const_data.world_camera.set_rotation_y(0.707f);
+    const_data.cam_view.set_translation(Vector3D(0.0f,0.0f,-10.0f));
+    const_data.cam_view.inverse();
+
+    const_data.cam_projection.set_perspective_FOV(1.3f,win_size.width/win_size.height,0.01f,1000.0f);
+
+    context->set_vertex_buffer(mesh_data.mesh->get_vert_buffer());
+    context->set_index_buffer(mesh_data.mesh->get_index_buffer());
+
+    for(auto i = 0; i < mesh_data.mesh->get_num_materials();i++) {
+        mesh_data.material->set_buffer_data(&const_data,sizeof(Constant_Data));
+
+        context->set_constant_buffer(mesh_data.material->vert_shader,mesh_data.material->const_buffer);
+        
+
+        context->set_vertex_shader(mesh_data.material->vert_shader);
+        context->set_pixel_shader(mesh_data.material->pix_shader);
+        
+        auto slot = mesh_data.mesh->get_material_slot((UINT)i);
+       
+        context->draw_indexed_triangle_list(slot.num_indeces,slot.start_index,0);
+
+
+    }
+    swapchain->present(true);
+    
+}

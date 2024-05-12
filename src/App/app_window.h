@@ -3,34 +3,18 @@
 #include <Windows.h>
 #include <chrono>
 
-#include "../Engine/math/vector3D.h"
-#include "../Engine/math/vector2D.h"
-#include "../Engine/math/matrix4x4.h"
-
-
 #include "../Engine/windowing/window.h"
 
 //RENDERING ENGINE
 
-#include "../Engine/graphics_engine/prerequisites.h"
+#include "../Engine/graphics_engine/graphics_headers.h"
 
 #include "../Engine/graphics_engine/graphics_engine.h"
-#include "../Engine/graphics_engine/swapchain/swapchain.h"
-#include "../Engine/graphics_engine/device_context/device_context.h"
-#include "../Engine/graphics_engine/vertex_buffer/vertex_buffer.h"
-#include "../Engine/graphics_engine/constant_buffer/constant_buffer.h"
-#include "../Engine/graphics_engine/index_buffer/index_buffer.h"
-#include "../Engine/graphics_engine/vertex_shader/vertex_shader.h"
-#include "../Engine/graphics_engine/pixel_shader/pixel_shader.h"
-
-#include "../Engine/graphics_engine/resource_manager/mesh_manager/mesh.h"
-#include "../Engine/graphics_engine/font2D/font2D.h"
 
 //INPUT SYSTEM
 #include "../Engine/input_system/input_listener.h"
 
 #include "../Engine/input_system/input_system.h"
-
 
 
 
@@ -164,6 +148,8 @@ private:
 
     font_sptr font = {nullptr};
     //Font_Utility font_util;
+
+    Mesh_Data m_data;
 
     std::vector<material_sptr> e_mats;
 };

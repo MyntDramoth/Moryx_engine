@@ -21,6 +21,7 @@ class Mesh;
 class Material;
 class Font2D;
 class Font;
+class Display;
 
 typedef std::shared_ptr<Swapchain> swapchain_sptr;
 typedef std::shared_ptr<Index_Buffer> index_buffer_sptr;

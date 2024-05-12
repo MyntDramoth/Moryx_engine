@@ -4,6 +4,9 @@
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\app_window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\display.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

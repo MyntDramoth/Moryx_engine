@@ -27,11 +27,11 @@ public:
     void set_buffer_data(void* data, UINT data_size);
     void set_culling_mode(CULL_MODE mode);
     CULL_MODE get_culling_mode();
-
-private:
-
     vert_shader_sptr vert_shader;
     pix_shader_sptr pix_shader;
+private:
+
+   
 
     const_buffer_sptr const_buffer;
 

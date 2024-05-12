@@ -13,7 +13,7 @@ App_Window::~App_Window()
 
 void App_Window::update()
 {
-    
+    Graphics_Engine::get_engine()->update(m_data,swapchain);
     update_camera();
     //update_third_person_camera();
     update_light(); 
@@ -29,7 +29,7 @@ void App_Window::render() {
     UINT height = rc.bottom - rc.top;
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->set_viewport_size(width,height);*/
 
-    //required to have opn screen GUI - need to go back and look up changes to drawing functionality to fix state setting
+    //required to have on screen GUI - need to go back and look up changes to drawing functionality to fix state setting
     //Graphics_Engine::get_engine()->get_render_system()->clear_state();
 
     Graphics_Engine::get_engine()->get_render_system()->get_device_context()->clear_render_target_color(this->render_target,0.0f,0.3f,0.4f,1.0f);
@@ -270,7 +270,6 @@ void App_Window::on_create() {
     // SET BASE VALUES
     //---------------------
     is_camera_locked_to_mouse = true;
-
     Input_System::get_input_system()->add_listener(this);
     Input_System::get_input_system()->show_cursor(false);
 
@@ -350,7 +349,10 @@ void App_Window::on_create() {
     
     quad_mat->add_texture(render_target);
 
-    
+    m_data.material = Graphics_Engine::get_engine()->create_material(default_material);
+    m_data.material->add_texture(spaceship_tex);
+    m_data.material->set_culling_mode(BACK_CULLING);
+    m_data.mesh = Graphics_Engine::get_engine()->get_mesh_manager()->create_mesh_from_file(L"../../src/Assets/Meshes/sphere.obj");
 }
 
 void App_Window::on_update() {
@@ -358,7 +360,7 @@ void App_Window::on_update() {
     Input_System::get_input_system()->update();
     
     this->update();
-    this->render();
+    //this->render();
     
 }
 

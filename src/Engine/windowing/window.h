@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Windows.h>
+#include "../math/rect.h"
 
 class Window {
 public:
@@ -21,6 +22,7 @@ public:
 
     RECT get_client_window_rect();
     RECT get_screen_size();
+    Rect get_client_size();
 
 protected:
     HWND window_handle;

@@ -159,3 +159,9 @@ RECT Window::get_screen_size() {
     
     return rc;
 }
+
+Rect Window::get_client_size()
+{
+    RECT rec = this->get_client_window_rect();
+    return Rect(rec.right - rec.left,rec.bottom - rec.top,rec.left,rec.top);
+}
