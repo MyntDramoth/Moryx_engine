@@ -325,33 +325,28 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\app_window.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\display.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\App\main.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\entities\voxel_components.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\compute_shader\compute_shader.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\constant_buffer\constant_buffer.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\device_context\device_context.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\font2D\font2D.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\graphics_engine.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\index_buffer\index_buffer.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\material\material.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\pixel_shader\pixel_shader.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\render_system\render_system.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\font_manager\font.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\font_manager\font_manager.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\mesh_manager\mesh.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\mesh_manager\mesh_manager.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\resource.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\resource_manager.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\texture_manager\texture.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\resource_manager\texture_manager\texture_manager.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\swapchain\swapchain.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_buffer\vertex_buffer.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\graphics_engine\vertex_shader\vertex_shader.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\input_system\input_system.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\physics\physics.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Engine\windowing\window.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\display.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\game.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\main.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Compute_Shader\compute_shader.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Constant_Buffer\constant_buffer.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Device_Context\device_context.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Index_Buffer\index_buffer.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Pixel_Shader\pixel_shader.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Swapchain\swapchain.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Texture\texture_internal.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Vertex_Buffer\vertex_buffer.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Vertex_Shader\vertex_shader.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\render_system.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\graphics_engine.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Resource\font.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Resource\material.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Resource\mesh.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Resource\resource.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Resource\resource_manager.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Resource\texture.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Windowing\window.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\W32_Game\w32_game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\ZERO_CHECK.vcxproj">
