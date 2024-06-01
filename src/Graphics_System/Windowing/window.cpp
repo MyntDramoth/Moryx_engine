@@ -163,7 +163,7 @@ Rect Window::get_screen_size() {
     rc.right = GetSystemMetrics(SM_CXSCREEN);
     rc.bottom = GetSystemMetrics(SM_CYSCREEN);
     
-    return {rc.right - rc.left,rc.bottom - rc.top,0,0};
+    return {rc.right - rc.left,rc.bottom - rc.top,rc.left,rc.top};
 }
 
 Rect Window::get_client_size()
@@ -173,6 +173,6 @@ Rect Window::get_client_size()
     GetClientRect(win_hndl,&rc);
     ClientToScreen(win_hndl,(LPPOINT)&rc.left);
     ClientToScreen(win_hndl,(LPPOINT)&rc.right);
-
-    return {rc.right - rc.left,rc.bottom - rc.top,0,0};
+   
+    return {rc.right - rc.left,rc.bottom - rc.top,rc.left,rc.top};
 }

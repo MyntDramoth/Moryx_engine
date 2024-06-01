@@ -5,6 +5,7 @@
 #include <exception>
 
 class Game;
+class Input_System;
 
 //---------
 // GRAPHICS
@@ -30,10 +31,8 @@ class Render_System;
 //---------
 class Resource;
 class Resource_Manager;
-class Texture_Manager;
 class Texture;
 class Texture_Internal;
-class Mesh_Manager;
 class Mesh;
 class Material;
 class Font2D;
@@ -67,6 +66,16 @@ typedef std::shared_ptr<Mesh> mesh_sptr;
 typedef std::shared_ptr<Material> material_sptr;
 typedef std::shared_ptr<Font2D> font2D_sptr;
 typedef std::shared_ptr<Font> font_sptr;
+
+
+
+
+enum class Key{
+    A = 0,
+    B,C,D,E,F,G, H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9,
+    ESCAPE, SHIFT, SPACE, ENTER, LEFT_MOUSE, MIDDLE_MOUSE, RIGHT_MOUSE
+};
+
 
 
 

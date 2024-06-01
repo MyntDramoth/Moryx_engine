@@ -2,6 +2,7 @@
 
 #include "display.h"
 
+#include "../Input_System/input_system.h"
 #include "../Graphics_System/prerequisites.h"
 #include "../Graphics_System/Windowing/window.h"
 #include "../Graphics_System/Graphics/graphics_engine.h"
@@ -33,6 +34,7 @@ private:
     void on_display_size_change(const Rect& size);
     void on_update_internal();
 
+    std::unique_ptr<Input_System> input;
     std::unique_ptr<Graphics_Engine> graphics;
     std::unique_ptr<Display> display;
     std::unique_ptr<Resource_Manager> resource_manager;
