@@ -195,7 +195,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
-    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\ALL_BUILD.vcxproj">
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lib\flecs-master\ALL_BUILD.vcxproj">
       <Project>{DFAE6D7A-5C7B-3DA1-A6A1-36B828273162}</Project>
       <Name>ALL_BUILD</Name>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>

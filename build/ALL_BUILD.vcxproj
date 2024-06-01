@@ -181,6 +181,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{88B5EC47-0CA4-3FF7-98BC-30128DD8F5E5}</Project>
       <Name>Moryx_Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lib\flecs-master\flecs.vcxproj">
+      <Project>{4AE28256-C5C8-33EE-AE28-B4B8E5364B94}</Project>
+      <Name>flecs</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lib\flecs-master\flecs_static.vcxproj">
+      <Project>{10566C9E-6C93-34CA-A778-0871F6AF8A14}</Project>
+      <Name>flecs_static</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -257,6 +257,24 @@ FASTNOISE2_NOISETOOL:BOOL=OFF
 //Build tests
 FASTNOISE2_TESTS:BOOL=OFF
 
+//Build Noise Tool
+FLECS_PATH:BOOL=OFF
+
+//Compile static flecs lib with position independent code (PIC)
+FLECS_PIC:BOOL=ON
+
+//Build shared flecs lib
+FLECS_SHARED:BOOL=ON
+
+//Build static flecs lib
+FLECS_STATIC:BOOL=ON
+
+//Stricter warning options and Werror
+FLECS_STRICT:BOOL=OFF
+
+//Build flecs tests
+FLECS_TESTS:BOOL=OFF
+
 //Value Computed by CMake
 FastNoise2_BINARY_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2
 
@@ -274,6 +292,21 @@ Moryx_Engine_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
 Moryx_Engine_SOURCE_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine
+
+//Value Computed by CMake
+flecs_BINARY_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master
+
+//Value Computed by CMake
+flecs_IS_TOP_LEVEL:STATIC=OFF
+
+//Dependencies for the target
+flecs_LIB_DEPENDS:STATIC=general;wsock32;general;ws2_32;
+
+//Value Computed by CMake
+flecs_SOURCE_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/flecs-master
+
+//Dependencies for the target
+flecs_static_LIB_DEPENDS:STATIC=general;wsock32;general;ws2_32;
 
 
 ########################
@@ -392,7 +425,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MT
 CMAKE_MT-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=3
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
 //Platform information initialized
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //noop for ranlib

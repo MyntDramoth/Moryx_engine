@@ -24,6 +24,7 @@ include_directories(include)
 set(FASTNOISE2_NOISETOOL OFF CACHE BOOL "Build Noise Tool" FORCE) #example if don't need the graph tool
 add_subdirectory(lib/FastNoise2)
 #add_library(${PROJECT_NAME} ${SOURCES})
+add_subdirectory(lib/flecs-master)
 
 #set asset directory
 
@@ -37,6 +38,7 @@ endif()
 set(STB_IMAGE_PATH include/STB_Image)
 set(DIRECTX_TEX_PATH lib/DirectXTex)
 set(DIRECTX_TK_PATH lib/DirectXTK)
+
 
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
  
@@ -57,7 +59,7 @@ if (WIN32)
       ${MINGW_PATH}/lib
     )
   endif()
-  
+
   target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}/src
     ${TINYOBJ_PATH}
@@ -75,7 +77,7 @@ if (WIN32)
     
   )
  
-  target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK)
+  target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK flecs::flecs_static)
 elseif (UNIX)
     message(STATUS "CREATING BUILD FOR UNIX")
     target_include_directories(${PROJECT_NAME} PUBLIC
@@ -85,5 +87,5 @@ elseif (UNIX)
       ${FASTNOISE2_NOISETOOL}
       ${DIRECTX_TEX_PATH}/include
     )
-    target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK)
+    target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK flecs::flecs_static)
 endif()

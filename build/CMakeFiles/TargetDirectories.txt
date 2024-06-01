@@ -6,3 +6,7 @@ C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2/CMakeFiles/INS
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2/CMakeFiles/ALL_BUILD.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2/src/CMakeFiles/FastNoise.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2/src/CMakeFiles/INSTALL.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master/CMakeFiles/flecs.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master/CMakeFiles/flecs_static.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master/CMakeFiles/INSTALL.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master/CMakeFiles/ALL_BUILD.dir
