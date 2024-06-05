@@ -326,8 +326,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\display.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\entity_handler.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\game.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\main.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\Kore\Kore.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\The Queen Must Grow\The_Queen_Must_Grow.cpp" />
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\VET\VET.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Compute_Shader\compute_shader.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Constant_Buffer\constant_buffer.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Device_Context\device_context.cpp" />

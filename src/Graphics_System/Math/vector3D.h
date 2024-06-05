@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <memory>
 
 class Vector3D {
 public:
@@ -39,6 +40,12 @@ public:
         res.z = (vec1.x * vec2.y) - (vec1.y * vec2.x);
 
         return res;
+    };
+
+    void operator =(const Vector3D& in_vect) const {
+       memcpy((void*)&x,&in_vect.x,sizeof(float));
+       memcpy((void*)&y,&in_vect.y,sizeof(float));
+       memcpy((void*)&z,&in_vect.z,sizeof(float));
     };
 
     Vector3D operator +(const Vector3D& in_vect) const {

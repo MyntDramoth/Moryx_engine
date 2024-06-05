@@ -5,10 +5,6 @@
 #include "Render_System/render_system.h"
 
 
-struct Mesh_Data {
-    mesh_sptr mesh;
-    material_sptr material;
-};
 
 class Graphics_Engine {
 public:
@@ -18,7 +14,7 @@ public:
    Render_System* get_render_system();
    
 
-    void update(const Mesh_Data& mesh_data);
+    void update();
     
 private:
 

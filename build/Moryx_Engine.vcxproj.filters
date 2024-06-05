@@ -4,10 +4,22 @@
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\display.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\entity_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\Kore\Kore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\The Queen Must Grow\The_Queen_Must_Grow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\VET\VET.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Graphics\Render_System\Compute_Shader\compute_shader.cpp">
