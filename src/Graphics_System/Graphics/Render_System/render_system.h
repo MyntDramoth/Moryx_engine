@@ -35,7 +35,7 @@ public:
 
     void compile_private_shaders();
     //void release_compiled_shader();
-    void set_rasterizer_sate(bool front_culling);
+    void set_cull_mode(const CULL_MODE& cull_mode);
     void clear_state();
 
     unsigned char mesh_layout_bytecode[1024];
@@ -49,6 +49,7 @@ private:
     Microsoft::WRL::ComPtr<ID3D11DeviceContext> context = nullptr;
     Microsoft::WRL::ComPtr<ID3D11RasterizerState> front_face_culling = nullptr;
     Microsoft::WRL::ComPtr<ID3D11RasterizerState> back_face_culling = nullptr;
+    Microsoft::WRL::ComPtr<ID3D11RasterizerState> none_culling = nullptr;
 
     // or Immediate Device Contact Spider
     device_context_sptr device_context {nullptr};

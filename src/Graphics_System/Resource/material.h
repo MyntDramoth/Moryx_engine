@@ -5,13 +5,6 @@
 #include <vector>
 #include "../prerequisites.h"
 
-
-enum CULL_MODE {
-    FRONT_CULLING = 0,
-    BACK_CULLING
-};
-
-
 class Material : public Resource
 {
 public:

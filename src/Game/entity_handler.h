@@ -12,12 +12,15 @@ public:
 
     void purge_entities(float time);
     flecs::entity create_entity(const char* name);
+    flecs::entity create_camera(const char* name);
     void register_mesh(flecs::entity entity);
-    void bind_transform_to_mesh(flecs::entity entity);
+    
     std::map<size_t,flecs::entity> get_meshes() {return meshes;}
+    std::map<size_t,flecs::entity> get_cams() {return cameras;}
 
 private:
     flecs::world world;
     std::map<size_t,flecs::entity> entities;
     std::map<size_t,flecs::entity> meshes;
+    std::map<size_t,flecs::entity> cameras;
 };

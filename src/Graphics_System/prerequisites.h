@@ -68,15 +68,23 @@ typedef std::shared_ptr<Font2D> font2D_sptr;
 typedef std::shared_ptr<Font> font_sptr;
 
 
-
+enum class Camera_Type {
+    ORTHOGONAL = 0,
+    PERSPECTIVE
+};
 
 enum class Key{
     A = 0,
     B,C,D,E,F,G, H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9,
-    ESCAPE, SHIFT, SPACE, ENTER, LEFT_MOUSE, MIDDLE_MOUSE, RIGHT_MOUSE
+    ESCAPE, SHIFT, SPACE, ENTER, LEFT_MOUSE, MIDDLE_MOUSE, RIGHT_MOUSE,
+    GAME_PAD_A, GAME_PAD_B, GAME_PAD_DPAD_DOWN, GAME_PAD_DPAD_UP, GAME_PAD_DPAD_LEFT, GAME_PAD_DPAD_RIGHT
 };
 
-
+enum class CULL_MODE {
+    NONE = 0,
+    FRONT_CULLING,
+    BACK_CULLING
+};
 
 
 //---------

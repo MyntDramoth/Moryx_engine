@@ -75,7 +75,7 @@ Mesh::Mesh(const wchar_t* full_path, Resource_Manager* manager):Resource(full_pa
 
                     tinyobj::real_t vert_Xpos = attribs.vertices[index.vertex_index * 3 + 0];
                     tinyobj::real_t vert_Ypos = attribs.vertices[index.vertex_index * 3 + 1];
-                    tinyobj::real_t vert_Zpos = attribs.vertices[index.vertex_index * 3 + 2];
+                    tinyobj::real_t vert_Zpos = -attribs.vertices[index.vertex_index * 3 + 2];
 
                     tinyobj::real_t tex_Xpos = attribs.texcoords[index.texcoord_index * 2 + 0];
                     tinyobj::real_t tex_Ypos = attribs.texcoords[index.texcoord_index * 2 + 1];
@@ -94,14 +94,14 @@ Mesh::Mesh(const wchar_t* full_path, Resource_Manager* manager):Resource(full_pa
 
                     tinyobj::real_t vert_Xpos = attribs.vertices[index.vertex_index * 3 + 0];
                     tinyobj::real_t vert_Ypos = attribs.vertices[index.vertex_index * 3 + 1];
-                    tinyobj::real_t vert_Zpos = attribs.vertices[index.vertex_index * 3 + 2];
+                    tinyobj::real_t vert_Zpos = -attribs.vertices[index.vertex_index * 3 + 2];
 
                     tinyobj::real_t tex_Xpos = attribs.texcoords[index.texcoord_index * 2 + 0];
                     tinyobj::real_t tex_Ypos = attribs.texcoords[index.texcoord_index * 2 + 1];
 
                     tinyobj::real_t norm_Xpos = attribs.normals[index.normal_index * 3 + 0];
                     tinyobj::real_t norm_Ypos = attribs.normals[index.normal_index * 3 + 1];
-                    tinyobj::real_t norm_Zpos = attribs.normals[index.normal_index * 3 + 2];
+                    tinyobj::real_t norm_Zpos = -attribs.normals[index.normal_index * 3 + 2];
 
                     Vector3D v_tangent, v_binormal;
                     v_binormal = Vector3D::cross(Vector3D(norm_Xpos,norm_Ypos,norm_Zpos),tangent);

@@ -60,16 +60,6 @@ Render_System::Render_System() {
 }
 
 Render_System::~Render_System() {
-    dxgi_device->Release();
-    dxgi_adapter->Release();
-    dxgi_factory->Release();
-
-    back_face_culling->Release();
-    front_face_culling->Release();
-
-    shader_blob->Release();
-    context->Release();
-    device->Release();
 }
 
 device_context_sptr Render_System::get_device_context() {
@@ -110,6 +100,7 @@ texture_internal_sptr Render_System::create_texture(const wchar_t *full_path) {
 texture_internal_sptr Render_System::create_texture(const Rect &size, Texture_Internal::Texture_Type tex_type) {
     return std::make_shared<Texture_Internal>(size,tex_type, this);
 }
+
 /*
 font2D_sptr Render_System::create_font(const wchar_t *file_path)
 {
@@ -120,45 +111,6 @@ font2D_sptr Render_System::create_font(const wchar_t *file_path)
     catch (...) {}
     return font;
 }*/
-
-// bool Render_System::compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size) {
-//     ID3DBlob* err_blob {nullptr};
-
-//     HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, shader_main_funtion_name, "vs_5_0", 0,0, &shader_blob, &err_blob);
-//     if(FAILED(hres)) {
-//         if(err_blob) {err_blob->Release();}
-//         return false;
-//     }
-//     *shader_byte_code = shader_blob->GetBufferPointer();
-//     *byte_code_size = shader_blob->GetBufferSize();
-//     return true;
-// }
-
-// bool Render_System::compile_pixel_shader(const wchar_t *file_name, const char *shader_main_funtion_name, void **shader_byte_code, size_t *byte_code_size) {
-//     ID3DBlob* err_blob {nullptr};
-
-//     HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, shader_main_funtion_name, "ps_5_0", 0,0, &shader_blob, &err_blob);
-//     if(FAILED(hres)) {
-//         if(err_blob) {err_blob->Release();}
-//         return false;
-//     }
-//     *shader_byte_code = shader_blob->GetBufferPointer();
-//     *byte_code_size = shader_blob->GetBufferSize();
-//     return true;
-// }
-
-// bool Render_System::compile_compute_shader(const wchar_t *file_name, const char *shader_main_funtion_name, void **shader_byte_code, size_t *byte_code_size) {
-//     ID3DBlob* err_blob {nullptr};
-
-//     HRESULT hres = D3DCompileFromFile(file_name, nullptr, nullptr, shader_main_funtion_name, "ps_5_0", 0,0, &shader_blob, &err_blob);
-//     if(FAILED(hres)) {
-//         if(err_blob) {err_blob->Release();}
-//         return false;
-//     }
-//     *shader_byte_code = shader_blob->GetBufferPointer();
-//     *byte_code_size = shader_blob->GetBufferSize();
-//     return true;
-// }
 
 void Render_System::compile_private_shaders() {
     Microsoft::WRL::ComPtr<ID3DBlob> err_blob {nullptr};
@@ -198,16 +150,17 @@ void Render_System::compile_private_shaders() {
     mesh_layout_size = shader->GetBufferSize();
 }
 
-// void Render_System::release_compiled_shader() {
-//     if(shader_blob) {shader_blob->Release();}
-// }
-
-void Render_System::set_rasterizer_sate(bool front_culling) {
-    if(front_culling) {
+void Render_System::set_cull_mode(const CULL_MODE& cull_mode) {
+    if(cull_mode == CULL_MODE::FRONT_CULLING) {
         context->RSSetState(front_face_culling.Get());
-    } else {
+    } 
+    else if(cull_mode == CULL_MODE::BACK_CULLING){
         context->RSSetState(back_face_culling.Get());
     }
+    else if(cull_mode == CULL_MODE::NONE){
+        context->RSSetState(none_culling.Get());
+    }
+
 
 }
 
@@ -220,10 +173,15 @@ void Render_System::intit_rasterizer_state() {
     desc.CullMode = D3D11_CULL_FRONT;
     desc.DepthClipEnable = true;
     desc.FillMode = D3D11_FILL_SOLID;
+    desc.FrontCounterClockwise = true;
 
     device->CreateRasterizerState(&desc,&front_face_culling);
 
     desc.CullMode = D3D11_CULL_BACK;
 
     device->CreateRasterizerState(&desc,&back_face_culling);
+
+    desc.CullMode = D3D11_CULL_NONE;
+
+    device->CreateRasterizerState(&desc,&none_culling);
 }

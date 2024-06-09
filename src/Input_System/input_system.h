@@ -4,6 +4,8 @@
 #include "../Graphics_System/Math/rect.h"
 #include "../Graphics_System/prerequisites.h"
 #include <map>
+//#include <Gamepad.h>
+
 
 class Input_System {
 public:
@@ -30,4 +32,8 @@ private:
     bool is_cursor_locked = false;
     Rect lock_area;
     Vector2D lock_area_center;
+    
+    
+
+    //std::unique_ptr<DirectX::GamePad> game_pad;
 };

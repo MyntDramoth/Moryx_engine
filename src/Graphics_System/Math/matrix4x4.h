@@ -41,6 +41,7 @@ public:
         matrix[2][2] = far_plane/(far_plane - near_plane);
         matrix[2][3] = 1.0f;
         matrix[3][2] = (-near_plane * far_plane)/(far_plane - near_plane);
+        matrix[3][3] = 0.0f;
     };
 
     void set_scale(const Vector3D& scale) {

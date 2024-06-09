@@ -11,3 +11,11 @@ VET::~VET() {
 void VET::update() {
 
 }
+
+void VET::late_update() {
+
+}
+
+void VET::on_create() {
+    
+}

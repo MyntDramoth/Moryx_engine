@@ -4,7 +4,7 @@
 
 
 Input_System::Input_System() {
-
+    
 }
 
 Input_System::~Input_System() {
@@ -30,7 +30,7 @@ void Input_System::update() {
         SetCursorPos((int)lock_area_center.x,(int)lock_area_center.y);
         old_mouse_pos = lock_area_center;
     }
-
+    
     
     for(unsigned int i = 0; i < 255;i++) {
 
@@ -55,6 +55,8 @@ void Input_System::update() {
 
 void Input_System::lock_cursor(bool lock) {
     is_cursor_locked = lock;
+    if(lock) {ShowCursor(false);}
+    else if (!lock){ShowCursor(true);}
 }
 
 void Input_System::set_lock_area(const Rect &area) {
@@ -106,6 +108,24 @@ short Input_System::get_internal_key_code(const Key &key) {
     }
     else if(key == Key::RIGHT_MOUSE) {
         key_win = VK_RBUTTON;
+    }
+    else if(key == Key::GAME_PAD_A) {
+        key_win = VK_GAMEPAD_A;
+    }
+    else if(key == Key::GAME_PAD_B) {
+        key_win = VK_GAMEPAD_B;
+    }
+    else if(key == Key::GAME_PAD_DPAD_DOWN) {
+        key_win = VK_GAMEPAD_DPAD_DOWN;
+    }
+    else if(key == Key::GAME_PAD_DPAD_LEFT) {
+        key_win = VK_GAMEPAD_DPAD_LEFT;
+    }
+    else if(key == Key::GAME_PAD_DPAD_RIGHT) {
+        key_win = VK_GAMEPAD_DPAD_RIGHT;
+    }
+    else if(key == Key::GAME_PAD_DPAD_UP) {
+        key_win = VK_GAMEPAD_DPAD_UP;
     }
    
     return key_win;

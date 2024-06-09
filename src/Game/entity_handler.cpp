@@ -27,21 +27,19 @@ flecs::entity entity_handler::create_entity(const char *name)
     return e;
 }
 
+flecs::entity entity_handler::create_camera(const char *name)
+{
+    auto e = world.entity(name);
+    e.is_alive();
+    e.add<Transform>();
+    e.add<Camera>();
+    entities.insert({(size_t)name,e});
+    cameras.insert({(size_t)name,e});
+    return e;
+}
+
 void entity_handler::register_mesh(flecs::entity entity) {
     entity.add<M_Mesh>();
     const char *name = entity.name();
     meshes.insert({(size_t)name,entity});
-}
-
-void entity_handler::bind_transform_to_mesh(flecs::entity entity) {
-    auto transform = entity.get_ref<Transform>();
-    transform->world_matrix.set_identity();
-    transform->world_matrix.set_scale(transform->scale);
-    
-    transform->world_matrix.set_rotation_x(transform->rotation.x);
-    transform->world_matrix.set_rotation_y(transform->rotation.y);
-    transform->world_matrix.set_rotation_z(transform->rotation.z);
-
-    
-    transform->world_matrix.set_translation(transform->position);
 }

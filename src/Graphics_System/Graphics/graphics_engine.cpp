@@ -31,26 +31,35 @@ void Graphics_Engine::update() {
     auto context = render_system->get_device_context();
     auto entity_system = game->get_entity_handler();
 
-    context->clear_render_target_color(swapchain, 1.0f,0.0f,0.0f,1.0f);
+    context->clear_render_target_color(swapchain, 0.0f,0.0f,0.0f,1.0f);
     auto win_size = game->display->get_client_size();
     context->set_viewport_size(win_size.width,win_size.height);
 
     Const_Buff const_data = {};
     //const_data.world_space.set_identity();
-    const_data.view_space.set_identity();
-    const_data.projection.set_identity();
+    //const_data.view_space.set_identity();
+   // const_data.projection.set_identity();
 
     //const_data.world_space.set_rotation_y(0.707f);
-    const_data.view_space.set_translation(Vector3D(0.0f,0.0f,-10.0f));
-    const_data.view_space.inverse();
+    //const_data.view_space.set_translation(Vector3D(0.0f,0.0f,-10.0f));
+    //const_data.view_space.inverse();
 
   
     //const_data.projection.set_perspective_FOV(1.57f,((float)win_size.width/(float)win_size.height),0.1f,100.0f);
-    const_data.projection.set_perspective_FOV(1.3f,((float)win_size.width/(float)win_size.height),0.01f,1000.0f);
+    //const_data.projection.set_perspective_FOV(1.3f,((float)win_size.width/(float)win_size.height),0.01f,1000.0f);
    
+    for(auto cam_entity : entity_system->get_cams()) {
+        auto cam = cam_entity.second.get_ref<Camera>();
+        auto tr = cam_entity.second.get_mut<Transform>();
+        cam->screen_area = win_size;
+        cam->compute_projection_matrtix();
+        const_data.view_space = cam->get_view(*tr);
+        const_data.projection = cam->projection_matrix;
+    }
+
     for(auto mesh_entity : entity_system->get_meshes()) {
         auto mesh = mesh_entity.second.get_ref<M_Mesh>();
-        auto transform = mesh_entity.second.get_ref<Transform>();
+        auto transform = mesh_entity.second.get_mut<Transform>();
         const_data.world_space =  transform->world_matrix;
         const auto materials = mesh->materials;
 
@@ -58,11 +67,15 @@ void Graphics_Engine::update() {
         context->set_vertex_buffer(mesh->mesh->vertex_buffer);
         context->set_index_buffer(mesh->mesh->index_buffer);
     
+        
 
         for(auto i = 0; i < mesh->mesh->get_num_materials();i++) {
         
             if(i >= materials.size()) {break;}
             auto mat = materials[i];
+
+            render_system->set_cull_mode(mat->get_culling_mode());
+
             mat->set_buffer_data(&const_data,sizeof(Const_Buff));
 
             context->set_constant_buffer(mat->vert_shader,mat->const_buffer);
