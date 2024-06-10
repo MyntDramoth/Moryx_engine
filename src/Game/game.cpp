@@ -77,7 +77,11 @@ Game::Game() {
     text.get_ref<Text>()->text = L"Testing Text";
     text.get_ref<Text>()->font = resource_manager->create_resource_from_file<Font>(L"../../src/Assets/Fonts/Bahnschrift.font");
     
-    input->lock_cursor(true);
+    auto image = handler->create_UI_image("UI 1");
+    image.get_ref<Transform>()->position = Vector3D(50.0f,0.0f,0.0f);
+    image.get_ref<Image>()->image = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/UI/cross.png");
+    image.get_ref<Image>()->size = {50,50,0,0};
+    //input->lock_cursor(true);
 }
 
 
@@ -101,7 +105,7 @@ void Game::on_update_internal()
     }
     previous_time = current_time;
 
-    auto delta_time = (float)elapsed_time.count();
+    auto delta_time = (float)elapsed_time.count(); //measured in seconds
     input->update();
     handler->purge_entities(delta_time);
     if(input->is_key_up(Key::ESCAPE)) {
@@ -145,9 +149,9 @@ void Game::on_update_internal()
 
     auto d_pos = input->get_delta_mouse_pos();
     //MORYX_INFO("Mouse X_pos: " << d_pos.x << " || Mouse Y_pos: "<< d_pos.y);
-
-    //player.get_ref<Transform>()->rotation = Vector3D(0.0f,d_pos.x * delta_time,0.0f);
-    //handler->bind_transform_to_mesh(player);
+    rot += delta_time;
+    player.get_ref<Transform>()->rotation = Vector3D(0.0f,sin(rot),0.0f);
+    player.get_ref<Transform>()->compute_world_matrix();
     rot_y += d_pos.x * 0.001f;
     rot_x += d_pos.y * 0.001f;
 

@@ -56,6 +56,8 @@ Render_System::Render_System() {
     dxgi_device->GetParent(__uuidof(IDXGIAdapter),(void**)&dxgi_adapter);
     dxgi_adapter->GetParent(__uuidof(IDXGIFactory),(void**)&dxgi_factory);
 
+    image_batch = std::make_unique<DirectX::DX11::SpriteBatch>(this->context.Get());
+
     intit_rasterizer_state();
     compile_private_shaders();
 }
@@ -163,6 +165,13 @@ void Render_System::clear_state() {
     context->ClearState();
 }
 
+void Render_System::draw_image(const texture_internal_sptr &texture, const Rect &size) {
+    image_batch->Begin(DirectX::DX11::SpriteSortMode::SpriteSortMode_Deferred,alpha_blending.Get());
+    RECT rc = {size.left,size.top,size.left + size.width, size.top + size.height};
+    image_batch->Draw(texture->shader_view.Get(),rc);
+    image_batch->End();
+}
+
 void Render_System::intit_rasterizer_state() {
     D3D11_RASTERIZER_DESC desc = {};
     desc.CullMode = D3D11_CULL_FRONT;
@@ -179,4 +188,11 @@ void Render_System::intit_rasterizer_state() {
     desc.CullMode = D3D11_CULL_NONE;
 
     device->CreateRasterizerState(&desc,&none_culling);
+
+    D3D11_BLEND_DESC bdesc;
+    bdesc.AlphaToCoverageEnable = false;
+    bdesc.IndependentBlendEnable = true;
+    //bdesc.RenderTarget = 
+
+    device->CreateBlendState(&bdesc,&alpha_blending);
 }

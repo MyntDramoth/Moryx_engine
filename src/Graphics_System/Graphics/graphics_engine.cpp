@@ -106,6 +106,13 @@ void Graphics_Engine::update() {
     // GUI Rendering
     //==========
 
+    for(auto image_entity : entity_system->get_images()) {
+        auto image = image_entity.second.get_ref<Image>();
+        auto pos = image_entity.second.get_ref<Transform>()->position;
+        auto size = image->size;
+        render_system->draw_image(image->image->texture,{size.width,size.height,(int)pos.x,(int)pos.y});
+    }
+
 
     for(auto text_entity : entity_system->get_text()) {
         auto text = text_entity.second.get_ref<Text>();

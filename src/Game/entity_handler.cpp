@@ -60,6 +60,17 @@ flecs::entity entity_handler::create_text(const char *name)
     return e;
 }
 
+flecs::entity entity_handler::create_UI_image(const char *name)
+{
+    auto e = world.entity(name);
+    e.is_alive();
+    e.add<Transform>();
+    e.add<Image>();
+    entities.insert({(size_t)name,e});
+    images.insert({(size_t)name,e});
+    return e;
+}
+
 void entity_handler::register_mesh(flecs::entity entity) {
     entity.add<M_Mesh>();
     const char *name = entity.name();

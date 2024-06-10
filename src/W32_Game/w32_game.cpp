@@ -7,7 +7,7 @@ void Game::run() {
 
     while (is_running){
         
-        if(PeekMessage(&msg,NULL,0,0,PM_REMOVE)) {
+        while(PeekMessage(&msg,NULL,0,0,PM_REMOVE)) {
             if(msg.message == WM_QUIT) {
                 is_running = false;
                 continue;

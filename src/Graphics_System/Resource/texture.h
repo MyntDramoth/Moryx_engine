@@ -13,5 +13,6 @@ private:
 
    texture_internal_sptr texture;
    friend class Material;
+   friend class Graphics_Engine;
 };
 

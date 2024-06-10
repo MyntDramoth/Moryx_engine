@@ -35,4 +35,5 @@ private:
     Render_System* render_system {nullptr};
     
     friend class Device_Context;
+    friend class Render_System;
 };

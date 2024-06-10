@@ -3,6 +3,7 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <wrl.h>
+#include <SpriteBatch.h>
 
 #include "../../prerequisites.h"
 #include "Device_Context/device_context.h"
@@ -38,6 +39,7 @@ public:
     //void release_compiled_shader();
     void set_cull_mode(const CULL_MODE& cull_mode);
     void clear_state();
+    void draw_image(const texture_internal_sptr& texture, const Rect& size);
 
     unsigned char mesh_layout_bytecode[1024];
     size_t mesh_layout_size = 0;
@@ -52,8 +54,12 @@ private:
     Microsoft::WRL::ComPtr<ID3D11RasterizerState> back_face_culling = nullptr;
     Microsoft::WRL::ComPtr<ID3D11RasterizerState> none_culling = nullptr;
 
+    Microsoft::WRL::ComPtr<ID3D11BlendState> alpha_blending = nullptr;
+
+
     // or Immediate Device Contact Spider
     device_context_sptr device_context {nullptr};
+    std::unique_ptr<DirectX::DX11::SpriteBatch> image_batch = nullptr;
 
     Microsoft::WRL::ComPtr<IDXGIDevice> dxgi_device = nullptr;
     Microsoft::WRL::ComPtr<IDXGIAdapter> dxgi_adapter = nullptr;

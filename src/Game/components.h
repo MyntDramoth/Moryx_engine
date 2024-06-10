@@ -75,3 +75,8 @@ struct Text {
 struct Light {
     Vector4D color = Vector4D(1.0f,1.0f,1.0f,1.0f);
 };
+
+struct Image {
+    texture_sptr image;
+    Rect size;
+};
