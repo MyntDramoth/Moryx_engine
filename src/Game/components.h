@@ -80,3 +80,9 @@ struct Image {
     texture_sptr image;
     Rect size;
 };
+
+struct Fog {
+    Vector4D color = Vector4D(0.5f,0.5f,0.5f,1.0f);
+    float start = 50;
+    float end = 300;
+};

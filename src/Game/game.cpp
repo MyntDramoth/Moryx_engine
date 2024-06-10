@@ -2,6 +2,8 @@
 
 #include "i_game_project_manager.h"
 
+#include <lua.hpp>
+
 Game::Game() {
     input = std::make_unique<Input_System>();
     graphics = std::make_unique<Graphics_Engine>(this);
@@ -82,6 +84,13 @@ Game::Game() {
     image.get_ref<Image>()->image = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/UI/cross.png");
     image.get_ref<Image>()->size = {50,50,0,0};
     //input->lock_cursor(true);
+
+    lua_State* L = luaL_newstate();
+    luaL_dostring(L,"x = 42");
+    lua_getglobal(L,"x");
+    lua_Number num = lua_tonumber(L,1);
+    std::cout<<num<<" :LUA number.\n";
+    lua_close(L);
 }
 
 
@@ -160,6 +169,7 @@ void Game::on_update_internal()
     cam.get_ref<Transform>()->compute_world_matrix();
    
     graphics->update();
+   
 }
 
 void Game::quit() {

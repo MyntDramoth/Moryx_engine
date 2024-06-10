@@ -285,6 +285,15 @@ FastNoise2_IS_TOP_LEVEL:STATIC=OFF
 FastNoise2_SOURCE_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lib/FastNoise2
 
 //Value Computed by CMake
+LuaLib_BINARY_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lua-5.4.6
+
+//Value Computed by CMake
+LuaLib_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+LuaLib_SOURCE_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine/lua-5.4.6
+
+//Value Computed by CMake
 Moryx_Engine_BINARY_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build
 
 //Value Computed by CMake
@@ -425,7 +434,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_MT
 CMAKE_MT-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=4
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=5
 //Platform information initialized
 CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //noop for ranlib

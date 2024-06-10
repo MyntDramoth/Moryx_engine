@@ -2,6 +2,9 @@ C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/CMakeFiles/Moryx_Engine.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/CMakeFiles/INSTALL.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/CMakeFiles/ALL_BUILD.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lua-5.4.6/CMakeFiles/LuaLib.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lua-5.4.6/CMakeFiles/INSTALL.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lua-5.4.6/CMakeFiles/ALL_BUILD.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2/CMakeFiles/INSTALL.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2/CMakeFiles/ALL_BUILD.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2/src/CMakeFiles/FastNoise.dir

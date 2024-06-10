@@ -16,7 +16,7 @@ if (CMAKE_GENERATOR STREQUAL "MinGW Makefiles")
 endif()
  
 project(${NAME} VERSION 0.23.0)
- 
+add_subdirectory(lua-5.4.6)
 include_directories(include)
  
 # 3. set fast noise paths
@@ -77,7 +77,7 @@ if (WIN32)
     
   )
  
-  target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK flecs::flecs_static)
+  target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK flecs::flecs_static LuaLib)
 elseif (UNIX)
     message(STATUS "CREATING BUILD FOR UNIX")
     target_include_directories(${PROJECT_NAME} PUBLIC
@@ -87,5 +87,5 @@ elseif (UNIX)
       ${FASTNOISE2_NOISETOOL}
       ${DIRECTX_TEX_PATH}/include
     )
-    target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK flecs::flecs_static)
+    target_link_libraries(${PROJECT_NAME} FastNoise d3d11 d3dcompiler DirectXTex DirectXTK flecs::flecs_static LuaLib)
 endif()

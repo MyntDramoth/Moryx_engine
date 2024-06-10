@@ -177,6 +177,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{9CDD101F-CF1F-32D1-BDC8-78F38D8BBB64}</Project>
       <Name>FastNoise</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lua-5.4.6\LuaLib.vcxproj">
+      <Project>{D4357A1B-6BA0-3C23-9EB4-C1DD4DFF7627}</Project>
+      <Name>LuaLib</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\Moryx_Engine.vcxproj">
       <Project>{88B5EC47-0CA4-3FF7-98BC-30128DD8F5E5}</Project>
       <Name>Moryx_Engine</Name>

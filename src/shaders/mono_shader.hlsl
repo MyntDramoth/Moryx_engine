@@ -14,6 +14,13 @@ struct VS_OUTPUT {
     float3 world_pos: TEXCOORD1;
 };
 
+struct fog_data {
+    float4 color;
+    float start;
+    float end;
+    float enable;
+};
+
 struct light_data {
     float4 color;
     float4 direction;
@@ -96,4 +103,16 @@ float4 ps_main(PS_INPUT input): SV_TARGET {
 
     return float4(final_lighting,1.0);
     //return Texture.Sample(TextureSampler,input.uv * 0.5);
+}
+
+float compute_fog(float distance, float start, float end) {
+    float res = (end - distance)/(end - start);
+    return clamp(res,0,1);
+}
+
+float3 compute_fog_color(fog_data fog, float3 cam_pos, float3 world_pos, float3 scene_color) {
+    float3 dir = world_pos - cam_pos.xyz;
+    float dist = length(dir);
+    float fog_amount = compute_fog(dist,fog.start,fog.end);
+    return lerp(fog.color.rgb,scene_color.rgb,fog_amount);
 }
