@@ -45,7 +45,8 @@ private:
 
     flecs::entity player;
     flecs::entity cam;
-
+    flecs::entity text;
+    
     float rot_y = 0;
     float rot_x = 0;
     Vector3D cam_pos;

@@ -5,6 +5,7 @@
 #include "../Graphics_System/Math/rect.h"
 
 #include <vector>
+#include <sstream>
 
 struct Transform {
     Vector3D position;
@@ -64,4 +65,13 @@ struct Camera {
         view.inverse();
         return view;
     }
+};
+
+struct Text {
+    std::wstring text = L"";
+    font_sptr font;
+};
+
+struct Light {
+    Vector4D color = Vector4D(1.0f,1.0f,1.0f,1.0f);
 };

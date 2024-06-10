@@ -7,6 +7,7 @@
 #include "../../prerequisites.h"
 #include "Device_Context/device_context.h"
 #include "Texture/texture_internal.h"
+
 #include "Swapchain/swapchain.h"
 
 class Render_System {
@@ -27,7 +28,7 @@ public:
     texture_internal_sptr create_texture(const wchar_t* full_path);
     texture_internal_sptr create_texture(const Rect& size, Texture_Internal::Texture_Type tex_type);
 
-    //font2D_sptr create_font(const wchar_t* file_path);
+    font_internal_sptr create_font(const wchar_t* file_path);
 
     // bool compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
     // bool compile_pixel_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
@@ -68,5 +69,5 @@ private:
     friend class Pixel_Shader;
     friend class Compute_Shader;
     friend class Texture_Internal;
-    //friend class Font2D;
+    friend class Font_Internal;
 };

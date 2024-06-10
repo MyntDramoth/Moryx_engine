@@ -43,5 +43,5 @@ private:
     Render_System* render_system {nullptr};
 
     friend class Constant_Buffer;
-    
+    friend class Font_Internal;
 };

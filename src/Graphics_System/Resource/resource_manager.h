@@ -6,6 +6,7 @@
 #include "resource.h"
 #include "../../Game/game.h"
 
+
 class Resource_Manager
 {
 public:

@@ -83,7 +83,8 @@
         "set": "cpp",
         "regex": "cpp",
         "bitset": "cpp",
-        "*.rh": "cpp"
+        "*.rh": "cpp",
+        "coroutine": "cpp"
     },
     "makefile.makefilePath": "C:\\Users\\zachm\\OneDrive\\Desktop\\Moryx_engine\\Makefile",
     "makefile.makePath": "C:\\Program Files\\CMake\\bin\\cmake",

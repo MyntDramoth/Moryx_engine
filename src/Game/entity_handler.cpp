@@ -38,6 +38,28 @@ flecs::entity entity_handler::create_camera(const char *name)
     return e;
 }
 
+flecs::entity entity_handler::create_light(const char *name)
+{
+    auto e = world.entity(name);
+    e.is_alive();
+    e.add<Transform>();
+    e.add<Light>();
+    entities.insert({(size_t)name,e});
+    lights.insert({(size_t)name,e});
+    return e;
+}
+
+flecs::entity entity_handler::create_text(const char *name)
+{
+   auto e = world.entity(name);
+    e.is_alive();
+    e.add<Transform>();
+    e.add<Text>();
+    entities.insert({(size_t)name,e});
+    text.insert({(size_t)name,e});
+    return e;
+}
+
 void entity_handler::register_mesh(flecs::entity entity) {
     entity.add<M_Mesh>();
     const char *name = entity.name();

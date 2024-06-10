@@ -4,12 +4,21 @@
 #include "../../Game/game.h"
 #include "../../Game/display.h"
 
+#include "../Resource/font.h"
+#include "Render_System/Font/font_internal.h"
+
+struct Light_Data {
+    Vector4D color;
+    Vector4D direction;
+};
 
 __declspec(align(16))
 struct Const_Buff {
     Matrix4x4 world_space;
     Matrix4x4 view_space;
     Matrix4x4 projection;
+    Vector4D camera_position;
+    Light_Data light;
 };
 
 Graphics_Engine::Graphics_Engine(Game* game): game(game) {
@@ -36,17 +45,7 @@ void Graphics_Engine::update() {
     context->set_viewport_size(win_size.width,win_size.height);
 
     Const_Buff const_data = {};
-    //const_data.world_space.set_identity();
-    //const_data.view_space.set_identity();
-   // const_data.projection.set_identity();
-
-    //const_data.world_space.set_rotation_y(0.707f);
-    //const_data.view_space.set_translation(Vector3D(0.0f,0.0f,-10.0f));
-    //const_data.view_space.inverse();
-
-  
-    //const_data.projection.set_perspective_FOV(1.57f,((float)win_size.width/(float)win_size.height),0.1f,100.0f);
-    //const_data.projection.set_perspective_FOV(1.3f,((float)win_size.width/(float)win_size.height),0.01f,1000.0f);
+    
    
     for(auto cam_entity : entity_system->get_cams()) {
         auto cam = cam_entity.second.get_ref<Camera>();
@@ -55,6 +54,15 @@ void Graphics_Engine::update() {
         cam->compute_projection_matrtix();
         const_data.view_space = cam->get_view(*tr);
         const_data.projection = cam->projection_matrix;
+        const_data.camera_position = tr->position;
+    }
+
+    for(auto light_entity : entity_system->get_lights()) {
+        auto light = light_entity.second.get_ref<Light>();
+        auto transform = light_entity.second.get_ref<Transform>();
+
+        const_data.light.direction = transform->world_matrix.get_z_direction();
+        const_data.light.color = light->color;
     }
 
     for(auto mesh_entity : entity_system->get_meshes()) {
@@ -93,6 +101,23 @@ void Graphics_Engine::update() {
 
         }
     }
+
+    //==========
+    // GUI Rendering
+    //==========
+
+
+    for(auto text_entity : entity_system->get_text()) {
+        auto text = text_entity.second.get_ref<Text>();
+        auto transform = text_entity.second.get_ref<Transform>();
+        auto font = text->font->get_font();
+
+        font->batch->Begin();
+        font->font->DrawString(font->batch.get(),text->text.c_str(),DirectX::XMFLOAT2(transform->position.x,transform->position.y));
+        font->batch->End();
+    }
+
+
     swapchain->present(true);
-    
+    render_system->clear_state();
 }

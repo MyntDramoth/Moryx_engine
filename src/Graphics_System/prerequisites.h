@@ -35,7 +35,7 @@ class Texture;
 class Texture_Internal;
 class Mesh;
 class Material;
-class Font2D;
+class Font_Internal;
 class Font;
 
 //*********
@@ -64,7 +64,7 @@ typedef std::shared_ptr<Texture> texture_sptr;
 typedef std::shared_ptr<Texture_Internal> texture_internal_sptr;
 typedef std::shared_ptr<Mesh> mesh_sptr;
 typedef std::shared_ptr<Material> material_sptr;
-typedef std::shared_ptr<Font2D> font2D_sptr;
+typedef std::shared_ptr<Font_Internal> font_internal_sptr;
 typedef std::shared_ptr<Font> font_sptr;
 
 

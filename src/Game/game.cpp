@@ -34,6 +34,16 @@ Game::Game() {
         sky.get_ref<M_Mesh>()->materials.push_back(sky_mat);
     }
 
+    {
+        auto light = handler->create_light("light 1");
+        light.get_ref<Transform>()->rotation = Vector3D(0.5f,0.5f,0.0f);
+        light.get_ref<Transform>()->position = Vector3D(0.0f,10.0f,20.0f);
+        light.get_ref<Transform>()->compute_world_matrix();
+
+        light.get_ref<Light>()->color = Vector4D(1.0f,0.0f,0.0f,1.0f);
+
+    }
+
     auto n = handler->create_entity("floor");
     n.add<Transform>();
     n.get_ref<Transform>()->compute_world_matrix();
@@ -61,6 +71,12 @@ Game::Game() {
     cam.get_ref<Transform>()->compute_world_matrix();
     cam.get_ref<Camera>()->far_plane = 2000;
     //MORYX_INFO("pos X: " <<player.get<Transform>()->position.x<<" Y: " <<player.get<Transform>()->position.y << " Z: "<<player.get<Transform>()->position.z);
+    
+    text = handler->create_text("text 1");
+    text.get_ref<Transform>()->position = Vector3D(0.0f,0.0f,0.0f);
+    text.get_ref<Text>()->text = L"Testing Text";
+    text.get_ref<Text>()->font = resource_manager->create_resource_from_file<Font>(L"../../src/Assets/Fonts/Bahnschrift.font");
+    
     input->lock_cursor(true);
 }
 
@@ -122,7 +138,10 @@ void Game::on_update_internal()
        cam_pos.y -= 1;
     }
 
+    int FPS = (1/delta_time);
 
+
+    text.get_ref<Text>()->text = std::to_wstring(FPS);
 
     auto d_pos = input->get_delta_mouse_pos();
     //MORYX_INFO("Mouse X_pos: " << d_pos.x << " || Mouse Y_pos: "<< d_pos.y);
@@ -135,7 +154,7 @@ void Game::on_update_internal()
     cam.get_ref<Transform>()->rotation = Vector3D(rot_x,rot_y,0.0f);
     cam.get_ref<Transform>()->position = cam_pos;
     cam.get_ref<Transform>()->compute_world_matrix();
-
+   
     graphics->update();
 }
 

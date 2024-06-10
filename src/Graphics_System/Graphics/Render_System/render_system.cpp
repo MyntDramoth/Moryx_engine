@@ -10,7 +10,8 @@
 
 #include "Constant_Buffer/constant_buffer.h"
 #include "Index_Buffer/index_buffer.h"
-//#include "font2D/font2D.h"
+
+#include "Font/font_internal.h"
 
 #include <exception>
 
@@ -101,16 +102,10 @@ texture_internal_sptr Render_System::create_texture(const Rect &size, Texture_In
     return std::make_shared<Texture_Internal>(size,tex_type, this);
 }
 
-/*
-font2D_sptr Render_System::create_font(const wchar_t *file_path)
-{
-    font2D_sptr font{ nullptr};
-     try {
-        font = std::make_shared<Font2D>(file_path, this);
-    }
-    catch (...) {}
-    return font;
-}*/
+
+font_internal_sptr Render_System::create_font(const wchar_t *file_path) {  
+    return std::make_shared<Font_Internal>(file_path, this); 
+}
 
 void Render_System::compile_private_shaders() {
     Microsoft::WRL::ComPtr<ID3DBlob> err_blob {nullptr};
