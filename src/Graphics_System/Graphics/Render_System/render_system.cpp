@@ -189,10 +189,17 @@ void Render_System::intit_rasterizer_state() {
 
     device->CreateRasterizerState(&desc,&none_culling);
 
-    D3D11_BLEND_DESC bdesc;
+    D3D11_BLEND_DESC bdesc = {};
     bdesc.AlphaToCoverageEnable = false;
-    bdesc.IndependentBlendEnable = true;
-    //bdesc.RenderTarget = 
+    bdesc.IndependentBlendEnable = false;
+    bdesc.RenderTarget[0].BlendEnable = true;
+    bdesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+    bdesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+    bdesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+    bdesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+    bdesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+    bdesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+    bdesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
     device->CreateBlendState(&bdesc,&alpha_blending);
 }
