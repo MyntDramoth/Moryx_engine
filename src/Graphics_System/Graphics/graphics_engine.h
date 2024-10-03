@@ -14,7 +14,7 @@ public:
    Render_System* get_render_system();
    
 
-    void update();
+    void update(float delta_time);
     
 private:
 

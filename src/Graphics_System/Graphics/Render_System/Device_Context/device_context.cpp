@@ -89,6 +89,10 @@ void Device_Context::draw_triangle_strip(UINT vertex_count, UINT start_index) {
     device_context->Draw(vertex_count,start_index);
 }
 
+void Device_Context::draw_indexed_instanced(UINT index_count, UINT instance_count, UINT start_index, INT base_vert_location, UINT start_instance_location) {
+    device_context->DrawIndexedInstanced(index_count, instance_count, start_index, base_vert_location, start_instance_location);
+}
+
 void Device_Context::set_viewport_size(UINT width, UINT height) {
     D3D11_VIEWPORT viewport = {};
     viewport.Width = width;

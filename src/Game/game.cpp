@@ -2,7 +2,8 @@
 
 #include "i_game_project_manager.h"
 
-#include <lua.hpp>
+#include "../Game_Directories/Kore/chunk_generator.h"
+#include <FastNoise/FastNoise.h>
 
 Game::Game() {
     input = std::make_unique<Input_System>();
@@ -10,7 +11,8 @@ Game::Game() {
     display = std::make_unique<Display>(this);
     resource_manager = std::make_unique<Resource_Manager>(this);
     handler = std::make_unique<entity_handler>();
-    
+    physics = std::make_unique<Physics>();
+
     mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/house.obj");
     auto terrain = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/terrain.obj");
     auto tex = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/wood.jpg");
@@ -83,7 +85,30 @@ Game::Game() {
     image.get_ref<Transform>()->position = Vector3D(50.0f,0.0f,0.0f);
     image.get_ref<Image>()->image = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/UI/cross.png");
     image.get_ref<Image>()->size = {50,50,0,0};
+
+    auto anim = handler->create_animated_sprite("bettle");
+    anim.get_ref<Transform>()->position = Vector3D(100.0f,0.0f,0.0f);
+    anim.get_ref<Animation_2D>()->size = {50,50,0,0};
+    anim.get_ref<Animation_2D>()->sprites.push_back( resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle1.png"));
+    //image.get_ref<Animation_2D>()->sprites.push_back(bettle);
+    auto bettle = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle2.png");
+    anim.get_ref<Animation_2D>()->sprites.push_back(bettle);
+    bettle = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle3.png");
+    anim.get_ref<Animation_2D>()->sprites.push_back(bettle);
+    bettle = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle4.png");
+    anim.get_ref<Animation_2D>()->sprites.push_back(bettle);
+    anim.get_ref<Animation_2D>()->duration = 0.1f;
+
+    
+    auto tf = anim.get_ref<Transform>();
+   
+    physics->physics_body_create({tf->position.x, tf->position.y},{tf->scale.x,tf->scale.y},{},0,0,false,nullptr,nullptr,0);
+    tf->body_id = 0;
+    
     //input->lock_cursor(true);
+
+
+    //physics->physics_body_create()
 
     lua_State* L = luaL_newstate();
     luaL_dostring(L,"x = 42");
@@ -91,6 +116,38 @@ Game::Game() {
     lua_Number num = lua_tonumber(L,1);
     std::cout<<num<<" :LUA number.\n";
     lua_close(L);
+
+    
+    /*
+    auto cell = FastNoise::New<FastNoise::CellularDistance>();
+    int seed = 5098;
+    int size = 32;
+    
+
+    for (int x = 0; x < size; x++) {
+        for (int y = 0; y < size; y++) {
+            for (int z = 0; z < size; z++) {
+
+                auto res = cell.get()->GenSingle3D((unsigned int)x,(unsigned int)y,(unsigned int)z,seed);
+                if((res) > 0.1569f) {
+                    std::string s =  "cube";
+                    s.append(std::to_string(x));
+                    s.append(std::to_string(y));
+                    s.append(std::to_string(z));
+                    auto e = handler->create_entity(s.c_str());
+                    e.add<Transform>();
+                    handler->register_mesh(e);
+                    
+                    e.get_ref<Transform>()->position = Vector3D((float)x,(float)y,(float)z);
+                    e.get_ref<Transform>()->compute_world_matrix();
+                    e.get_ref<M_Mesh>()->mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/box.obj");
+                    e.get_ref<M_Mesh>()->materials.push_back(material);
+                    
+                }
+            }
+        }
+    }
+    MORYX_INFO("finished chunk");*/
 }
 
 
@@ -152,7 +209,7 @@ void Game::on_update_internal()
     }
 
     int FPS = (1/delta_time);
-
+    
 
     text.get_ref<Text>()->text = std::to_wstring(FPS);
 
@@ -168,7 +225,11 @@ void Game::on_update_internal()
     cam.get_ref<Transform>()->position = cam_pos;
     cam.get_ref<Transform>()->compute_world_matrix();
    
-    graphics->update();
+    physics->physics_update(delta_time);
+    for(auto sprite_entity : handler->get_sprites()) {
+        sprite_entity.second.get_ref<Transform>()->position = physics->physics_body_get(sprite_entity.second.get_ref<Transform>()->body_id)->aabb.position;
+    }
+    graphics->update(delta_time);
    
 }
 

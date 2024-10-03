@@ -12,6 +12,7 @@ struct Transform {
     Vector3D rotation;
     Vector3D scale = Vector3D(1.0f,1.0f,1.0f);
     Matrix4x4 world_matrix;
+    int body_id;
 
     void compute_world_matrix() {
         Matrix4x4 temp;
@@ -79,6 +80,14 @@ struct Light {
 struct Image {
     texture_sptr image;
     Rect size;
+};
+
+struct Animation_2D {
+    std::vector<texture_sptr> sprites;
+    Rect size;
+    size_t sprite_index;
+    float current_frame_time;
+    float duration = 1.0f;
 };
 
 struct Fog {

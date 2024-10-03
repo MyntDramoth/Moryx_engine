@@ -35,7 +35,7 @@ Render_System *Graphics_Engine::get_render_system() {
     return render_system.get();
 }
 
-void Graphics_Engine::update() {
+void Graphics_Engine::update(float delta_time) {
     auto swapchain = game->display->swapchain;
     auto context = render_system->get_device_context();
     auto entity_system = game->get_entity_handler();
@@ -113,6 +113,21 @@ void Graphics_Engine::update() {
         render_system->draw_image(image->image->texture,{size.width,size.height,(int)pos.x,(int)pos.y});
     }
 
+    for(auto sprite_entity : entity_system->get_sprites()) {
+        auto sprites = sprite_entity.second.get_ref<Animation_2D>();
+        auto pos = sprite_entity.second.get_ref<Transform>()->position;
+        auto size = sprites->size;
+        auto index = sprites->sprite_index;
+        sprites->current_frame_time -= delta_time;
+        if(sprites->current_frame_time <= 0) {
+            sprites->sprite_index += 1;
+            sprites->current_frame_time = sprites->duration;
+        }
+        if((int)sprites->sprite_index == (int)sprites->sprites.size()){
+            sprites->sprite_index = 0;
+        }
+        render_system->draw_image(sprites->sprites[sprites->sprite_index]->texture,{size.width,size.height,(int)pos.x,(int)pos.y});     
+    }
 
     for(auto text_entity : entity_system->get_text()) {
         auto text = text_entity.second.get_ref<Text>();

@@ -1,7 +1,12 @@
 #pragma once
 #include <chrono>
+#include <lua.hpp>
 
 #include "game_engine.h"
+
+#include "../Game_Directories/Kore/chunk_generator.h"
+
+//void hit_sprite(Body *self,Body *other,Hit hit) {std::cout<<"hit\n";};
 
 class Game
 {
@@ -31,11 +36,12 @@ private:
     std::unique_ptr<Display> display;
     std::unique_ptr<Resource_Manager> resource_manager;
     std::unique_ptr<entity_handler> handler;
+    std::unique_ptr<Physics> physics;
     bool is_running = true;
 
 
     std::chrono::system_clock::time_point previous_time;
-
+   
     //------------------------
     // TEMP RESOURCE STORAGE
     //------------------------
@@ -52,6 +58,10 @@ private:
     float rot = 0;
     Vector3D cam_pos;
 
+    
+    
+
     friend class Graphics_Engine;
     friend class Display;
 };
+ 

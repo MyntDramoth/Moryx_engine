@@ -39,7 +39,7 @@ namespace FastNoise
 
         static const int kMaxDistanceCount = 4;
 
-        void SetValueIndex( int value ) { mValueIndex = std::min( std::max( value, 0 ), kMaxDistanceCount - 1 ); }
+        void SetValueIndex( int value ) { mValueIndex = std::min<int>( std::max<int>( value, 0 ), kMaxDistanceCount - 1 ); }
 
     protected:
         int mValueIndex = 0;
@@ -80,8 +80,8 @@ namespace FastNoise
 
         static const int kMaxDistanceCount = 4;
 
-        void SetDistanceIndex0( int value ) { mDistanceIndex0 = std::min( std::max( value, 0 ), kMaxDistanceCount - 1 ); }
-        void SetDistanceIndex1( int value ) { mDistanceIndex1 = std::min( std::max( value, 0 ), kMaxDistanceCount - 1 ); }
+        void SetDistanceIndex0( int value ) { mDistanceIndex0 = std::min<int>( std::max<int>( value, 0 ), kMaxDistanceCount - 1 ); }
+        void SetDistanceIndex1( int value ) { mDistanceIndex1 = std::min<int>( std::max<int>( value, 0 ), kMaxDistanceCount - 1 ); }
         void SetReturnType( ReturnType value ) { mReturnType = value; }
 
     protected:

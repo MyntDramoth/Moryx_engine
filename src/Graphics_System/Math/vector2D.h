@@ -39,5 +39,12 @@ public:
         y * in_vect.y);
     };
 
+    float operator [](int num) const {
+        //Vector3D vect;
+        if(num == 0) {return x;}
+        if(num == 1) {return y;}
+        
+    };
+
     float x = 0,y = 0;
 };

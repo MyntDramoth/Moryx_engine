@@ -47,15 +47,15 @@ namespace FastNoise
 
         OutputMinMax& operator <<( float v )
         {
-            min = std::min( min, v );
-            max = std::max( max, v );
+            min = std::min<float>( min, v );
+            max = std::max<float>( max, v );
             return *this;
         }
 
         OutputMinMax& operator <<( const OutputMinMax& v )
         {
-            min = std::min( min, v.min );
-            max = std::max( max, v.max );
+            min = std::min<float>( min, v.min );
+            max = std::max<float>( max, v.max );
             return *this;
         }
     };
@@ -140,7 +140,7 @@ namespace FastNoise
 
             assert( !gen.get() || GetSIMDLevel() == gen->GetSIMDLevel() ); // Ensure that all SIMD levels match
 
-            SetSourceSIMDPtr( dynamic_cast<const Generator*>( gen.get() ), &memberVariable.simdGeneratorPtr );
+            SetSourceSIMDPtr( static_cast<const Generator*>( gen.get() ), &memberVariable.simdGeneratorPtr );
             memberVariable.base = gen;
         }
 

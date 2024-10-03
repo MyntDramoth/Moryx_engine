@@ -20,10 +20,9 @@ add_subdirectory(lua-5.4.6)
 include_directories(include)
  
 # 3. set fast noise paths
-
 set(FASTNOISE2_NOISETOOL OFF CACHE BOOL "Build Noise Tool" FORCE) #example if don't need the graph tool
+
 add_subdirectory(lib/FastNoise2)
-#add_library(${PROJECT_NAME} ${SOURCES})
 add_subdirectory(lib/flecs-master)
 
 #set asset directory
@@ -63,7 +62,6 @@ if (WIN32)
   target_include_directories(${PROJECT_NAME} PUBLIC
     ${PROJECT_SOURCE_DIR}/src
     ${TINYOBJ_PATH}
-    ${FASTNOISE2_NOISETOOL}
     ${STB_IMAGE_PATH}
     ${DIRECTX_TEX_PATH}/include
     ${DIRECTX_TK_PATH}/include
@@ -71,7 +69,6 @@ if (WIN32)
     )
  
   target_link_directories(${PROJECT_NAME} PUBLIC
-    ${FASTNOISE2_NOISETOOL}
     ${DIRECTX_TEX_PATH}/bin
     ${DIRECTX_TK_PATH}/bin
     

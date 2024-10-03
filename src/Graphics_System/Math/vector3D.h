@@ -78,6 +78,13 @@ public:
         z * in_vect.z);
     };
 
+    float operator [](int num) const {
+        //Vector3D vect;
+        if(num == 0) {return x;}
+        if(num == 1) {return y;}
+        if(num == 2) {return z;}
+        
+    };
 
     ~Vector3D() {};
 

@@ -24,6 +24,7 @@ public:
     void draw_triangle_list(UINT vertex_count, UINT start_index);
     void draw_indexed_triangle_list(UINT index_count,UINT start_index, UINT vert_start_index);
     void draw_triangle_strip(UINT vertex_count, UINT start_index);
+    void draw_indexed_instanced(UINT index_count, UINT instance_count, UINT start_index, INT base_vert_location, UINT start_instance_location);
     void set_viewport_size(UINT width, UINT height);
 
     void set_index_buffer(const index_buffer_sptr& index_buffer);
