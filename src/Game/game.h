@@ -6,7 +6,6 @@
 
 #include "../Game_Directories/Kore/chunk_generator.h"
 
-//void hit_sprite(Body *self,Body *other,Hit hit) {std::cout<<"hit\n";};
 
 class Game
 {
@@ -41,6 +40,7 @@ private:
 
 
     std::chrono::system_clock::time_point previous_time;
+    mesh_sptr tile_mesh;
    
     //------------------------
     // TEMP RESOURCE STORAGE
@@ -58,10 +58,11 @@ private:
     float rot = 0;
     Vector3D cam_pos;
 
-    
-    
+    static void hit_sprite(Body *self, Body *other, Hit hit) {std::cout<<"hit sprite!\n"; other->velocity.y = 0.0f;};
+    static void hit_sprite_stat(Body *self, Static_Body *other, Hit hit) {std::cout<<"hit static!\n";};
 
     friend class Graphics_Engine;
     friend class Display;
 };
+
  

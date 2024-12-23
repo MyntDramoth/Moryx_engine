@@ -10,6 +10,7 @@
 
 #include "Constant_Buffer/constant_buffer.h"
 #include "Index_Buffer/index_buffer.h"
+#include "Instance_Buffer/instance_buffer.h"
 
 #include "Font/font_internal.h"
 
@@ -85,6 +86,10 @@ vert_buffer_sptr Render_System::create_vertex_buffer(void* vertices, UINT vertex
     return std::make_shared<Vertex_Buffer>(vertices,vertex_size,vertex_num,this);
 }
 
+instance_buffer_sptr Render_System::create_instance_buffer(void *instances, UINT inst_size, UINT inst_num) {
+    return std::make_shared<Instance_Buffer>(instances,inst_size,inst_num,this);
+}
+
 vert_shader_sptr Render_System::create_vertex_shader(const wchar_t* full_path, const char* entry_point) {
     return std::make_shared<Vertex_Shader>(full_path,entry_point, this);
 }
@@ -145,6 +150,33 @@ void Render_System::compile_private_shaders() {
     }
     memcpy(mesh_layout_bytecode,shader->GetBufferPointer(),shader->GetBufferSize());
     mesh_layout_size = shader->GetBufferSize();
+
+    auto instance_mesh_layout_code = R"(
+        struct INST_INPUT {
+            float4 pos: POSITION1; // Offset in the texture atlas
+            float2 uv: TEXCOORD1; // Scale (size) in the texture atlas
+        };
+
+        struct VS_OUTPUT {
+            float4 pos :SV_POSITION;
+            float2 uv: TEXCOORD0;
+        };
+
+
+        VS_OUTPUT main(INST_INPUT input) {
+            VS_OUTPUT output = (VS_OUTPUT)0;
+            
+            return output;   
+        }
+    )";
+
+    code_size = strlen(instance_mesh_layout_code);
+    hres = D3DCompile(instance_mesh_layout_code,code_size, "inst_mesh_layout",nullptr, nullptr, "main", "vs_5_0", 0,0, &shader, &err_blob);
+    if(FAILED(hres)) {
+       MORYX_ERROR("Failed to Compile instance layout shader");
+    }
+    memcpy(instance_mesh_layout_bytecode,shader->GetBufferPointer(),shader->GetBufferSize());
+    instance_mesh_layout_size = shader->GetBufferSize();
 }
 
 void Render_System::set_cull_mode(const CULL_MODE& cull_mode) {

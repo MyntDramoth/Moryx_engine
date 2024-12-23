@@ -23,6 +23,8 @@ public:
     index_buffer_sptr create_index_buffer(void* indeces, UINT index_size);
     const_buffer_sptr create_constant_buffer(void* buffer, UINT buffer_size);
     vert_buffer_sptr create_vertex_buffer(void* vertices, UINT vertex_size, UINT vertex_num);
+    instance_buffer_sptr create_instance_buffer(void* instances, UINT inst_size, UINT inst_num);
+    
     vert_shader_sptr create_vertex_shader(const wchar_t* full_path, const char* entry_point = "main");
     pix_shader_sptr create_pixel_shader(const wchar_t* full_path, const char* entry_point = "main");
     comp_shader_sptr create_compute_shader(const wchar_t* full_path, const char* entry_point = "main");
@@ -43,8 +45,9 @@ public:
     void draw_image(const texture_internal_sptr& texture, const Rect& size);
 
     unsigned char mesh_layout_bytecode[1024];
+    unsigned char instance_mesh_layout_bytecode[1024];
     size_t mesh_layout_size = 0;
-    
+    size_t instance_mesh_layout_size = 0;
 private:
 
     void intit_rasterizer_state();
@@ -72,6 +75,7 @@ private:
     friend class Index_Buffer;
     friend class Constant_Buffer;
     friend class Vertex_Buffer;
+    friend class Instance_Buffer;
     friend class Vertex_Shader;
     friend class Pixel_Shader;
     friend class Compute_Shader;

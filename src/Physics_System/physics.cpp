@@ -1,13 +1,14 @@
 #include "physics.h"
+#include "../Graphics_System/prerequisites.h"
 
 Physics::Physics() {
    
 	
 	//currently can't have enemies that move slower than gravity, an event queue can fix this but it's complicated
-	gravity = 0.1f;
-	terminal_velocity = -7000;
+	gravity = 10.0f;
+	terminal_velocity = 7000.0f;
 
-	tick_rate = 1.f / iterations;
+	tick_rate = 1.0f / iterations;
 }
 
 Physics::~Physics()
@@ -26,7 +27,7 @@ void Physics::physics_update(float delta_t) {
 
 		if (!body->is_kinematic) {
 			body->velocity.y += gravity;
-			if (terminal_velocity > body->velocity.y) {
+			if (terminal_velocity < body->velocity.y) {
 				body->velocity.y = terminal_velocity;
 			}
 		}
@@ -128,7 +129,7 @@ size_t Physics::physics_static_body_create(Vector2D position, Vector2D size, uin
 bool Physics::physics_point_intersect_aabb(Vector2D point, AABB aabb)
 {
    Vector2D min, max;
-	aabb_min_max(min, max, aabb);
+	aabb_min_max(&min, &max, aabb);
 	return  point.x >= min.x &&
 		point.x <= max.x &&
 		point.y >= min.y &&
@@ -138,7 +139,7 @@ bool Physics::physics_point_intersect_aabb(Vector2D point, AABB aabb)
 bool Physics::physics_aabb_intersect_aabb(AABB a, AABB b)
 {
     Vector2D min, max;
-	aabb_min_max(min, max, aabb_minkowski_difference(a, b));
+	aabb_min_max(&min, &max, aabb_minkowski_difference(a, b));
 
 	return (min.x <= 0 && max.x >= 0 && min.y <= 0 && max.y >= 0);
 }
@@ -153,7 +154,7 @@ AABB Physics::aabb_minkowski_difference(AABB a, AABB b) {
 
 void Physics::aabb_penetration_vector(Vector2D r, AABB aabb) {
     Vector2D min, max;
-	aabb_min_max(min, max, aabb);
+	aabb_min_max(&min, &max, aabb);
 
 	float min_dist = fabsf(min.x);
 	r.x = min.x;
@@ -176,17 +177,26 @@ void Physics::aabb_penetration_vector(Vector2D r, AABB aabb) {
 	}
 }
 
-void Physics::aabb_min_max(Vector2D min, Vector2D max, AABB aabb) {
+void Physics::aabb_min_max(Vector2D* min, Vector2D* max, AABB aabb) {
 	
-	min = Vector2D(aabb.position.x - aabb.bounds.x,aabb.position.y - aabb.bounds.y);
-	max = Vector2D(aabb.position.x + aabb.bounds.x,aabb.position.y + aabb.bounds.y);
+	//min = &Vector2D(aabb.position.x - aabb.bounds.x,aabb.position.y - aabb.bounds.y);
+	if(min) {
+		min->y = aabb.position.y - aabb.bounds.y;
+		min->x = aabb.position.x - aabb.bounds.x;
+	}
+	//max = &Vector2D(aabb.position.x + aabb.bounds.x,aabb.position.y + aabb.bounds.y);
+	if(max) {
+		max->x = aabb.position.x + aabb.bounds.x;
+		max->y = aabb.position.y + aabb.bounds.y;
+	}
+	MORYX_INFO("min: "<<min->y<<"|| max: "<<max->y);
 }
 
 Hit Physics::ray_intersect_aabb(Vector2D position, Vector2D magnitude, AABB aabb)
 {
     Hit hit = {0};
 	Vector2D min, max;
-	aabb_min_max(min, max, aabb);
+	aabb_min_max(&min, &max, aabb);
 
 	float last_entry = -INFINITY;
 	float first_exit = INFINITY;
@@ -241,7 +251,7 @@ void Physics::update_sweep_result(Hit *result, Body *body, size_t other_id, Vect
 	if ((body->collision_mask & other->collision_layer) == 0) {
 		return;
 	}
-
+	
 	AABB sum_aabb = other->aabb;
 	sum_aabb.bounds = sum_aabb.bounds + body->aabb.bounds;
 
@@ -255,9 +265,9 @@ void Physics::update_sweep_result(Hit *result, Body *body, size_t other_id, Vect
 			*result = hit;
 		} else if (hit.time == result->time) {
 			// Solve highest velocity axis first.
-			if (fabsf(velocity[0]) > fabsf(velocity[1]) && hit.normal[0] != 0) {
+			if (fabsf(velocity.x) > fabsf(velocity.y) && hit.normal.x != 0) {
 				*result = hit;
-			} else if (fabsf(velocity[1]) > fabsf(velocity[0]) && hit.normal[1] != 0) {
+			} else if (fabsf(velocity.y) > fabsf(velocity.x) && hit.normal.y != 0) {
 				*result = hit;
 			}
 		}
@@ -268,11 +278,11 @@ void Physics::update_sweep_result(Hit *result, Body *body, size_t other_id, Vect
 
 void Physics::update_sweep_result_static(Hit *result, Body *body, size_t other_id, Vector2D velocity) {
 	Static_Body *static_body = physics_static_body_get(other_id);
-
+	
 	if ((body->collision_mask & static_body->collision_layer) == 0) {
 		return;
 	}
-
+	
 	AABB sum_aabb = static_body->aabb;
 	sum_aabb.bounds = sum_aabb.bounds + body->aabb.bounds;
 
@@ -282,9 +292,9 @@ void Physics::update_sweep_result_static(Hit *result, Body *body, size_t other_i
 			*result = hit;
 		} else if (hit.time == result->time) {
 			// Solve highest velocity axis first.
-			if (fabsf(velocity[0]) > fabsf(velocity[1]) && hit.normal[0] != 0) {
+			if (fabsf(velocity.x) > fabsf(velocity.y) && hit.normal.x != 0) {
 				*result = hit;
-			} else if (fabsf(velocity[1]) > fabsf(velocity[0]) && hit.normal[1] != 0) {
+			} else if (fabsf(velocity.y) > fabsf(velocity.x) && hit.normal.y != 0) {
 				*result = hit;
 			}
 		}
@@ -315,7 +325,6 @@ Hit Physics::sweep_bodies(Body *body, Vector2D velocity)
 		if (body == other) {
 			continue;
 		}
-
 		update_sweep_result(&result, body, i, velocity);
 	}
 
@@ -333,6 +342,7 @@ void Physics::sweep_response(Body *body, Vector2D velocity) {
 	}
 
 	if (hit.is_hit) {
+		
 		body->aabb.position.x = hit.position.x;
 		body->aabb.position.y = hit.position.y;
 
@@ -363,9 +373,9 @@ void Physics::stationary_response(Body *body) {
 
 		AABB aabb = aabb_minkowski_difference(static_body->aabb, body->aabb);
 		Vector2D min, max;
-		aabb_min_max(min, max, aabb);
-
-		if (min[0] <= 0 && max[0] >= 0 && min[1] <= 0 && max[1] >= 0) {
+		aabb_min_max(&min, &max, aabb);
+		MORYX_INFO("calc min: "<<min.y<<"|| calc max: "<<max.y);
+		if (min.x <= 0 && max.x >= 0 && min.y <= 0 && max.y >= 0) {
 			Vector2D penetration_vector;
 			aabb_penetration_vector(penetration_vector, aabb);
 
@@ -387,11 +397,12 @@ void Physics::stationary_response(Body *body) {
 
 		AABB aabb = aabb_minkowski_difference(other->aabb, body->aabb);
 		Vector2D min, max;
-		aabb_min_max(min, max, aabb);
+		aabb_min_max(&min, &max, aabb);
 
-		if (min[0] <= 0 && max[0] >= 0 && min[1] <= 0 && max[1] >= 0) {
+		if (min.x <= 0 && max.x >= 0 && min.y <= 0 && max.y >= 0) {
 			Hit h = {true,i};
 			body->on_hit(body, other, h);
+			
 		}
 	}
 }

@@ -8,6 +8,7 @@
 #include "../Index_Buffer/index_buffer.h"
 #include "../Constant_Buffer/constant_buffer.h"
 #include "../Vertex_Buffer/vertex_buffer.h"
+#include "../Instance_Buffer/instance_buffer.h"
 #include "../Vertex_Shader/vertex_shader.h"
 #include "../Pixel_Shader/pixel_shader.h"
 #include "../Compute_Shader/compute_shader.h"
@@ -38,23 +39,6 @@ void Device_Context::clear_depth_stencil(const swapchain_sptr &swapchain) {
     auto sten_view = swapchain->stencil_view.Get();
     device_context->ClearDepthStencilView(sten_view,D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,1,0);
 }
-/*
-void Device_Context::clear_render_target_color(const texture_sptr &render_target, float red, float green, float blue, float alpha) {
-    if(render_target->type != Texture::Texture_Type::RENDER_TARGET) {return;}
-    FLOAT clear_color[] ={red,green,blue,alpha};
-    device_context->ClearRenderTargetView(render_target->target_view,clear_color);
-}
-
-void Device_Context::clear_depth_stencil(const texture_sptr &depth_stencil) {
-    if(depth_stencil->type != Texture::Texture_Type::DEPTH_STENCIL) {return;}
-    device_context->ClearDepthStencilView(depth_stencil->stencil_view,D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,1,0);
-}
-
-void Device_Context::set_render_target(const texture_sptr &render_target, const texture_sptr &depth_stencil) {
-    if(render_target->type != Texture::Texture_Type::RENDER_TARGET) {return;}
-    if(depth_stencil->type != Texture::Texture_Type::DEPTH_STENCIL) {return;}
-    device_context->OMSetRenderTargets(1,&render_target->target_view,depth_stencil->stencil_view);
-}*/
 
 void Device_Context::set_vertex_buffer(const vert_buffer_sptr& vertex_buffer) {
 
@@ -69,6 +53,18 @@ void Device_Context::set_vertex_buffer(const vert_buffer_sptr& vertex_buffer) {
     device_context->IASetInputLayout(layout);
 
    
+}
+
+void Device_Context::set_instance_and_vertex_buffer(const vert_buffer_sptr &vertex_buffer, const instance_buffer_sptr &instance_buffer) {
+    UINT stride[2] = {vertex_buffer->vert_size,instance_buffer->vert_size};
+    UINT offset[2] = {0,0};
+
+    ID3D11Buffer* buffer[2] = {vertex_buffer->buffer.Get(),instance_buffer->buffer.Get()};
+    ID3D11InputLayout* layout[2] = {vertex_buffer->input_layout.Get(),instance_buffer->input_layout.Get()};
+
+    device_context->IASetVertexBuffers(0,2,buffer,stride,offset);
+
+    device_context->IASetInputLayout(*layout);
 }
 
 void Device_Context::draw_triangle_list(UINT vertex_count, UINT start_index) {

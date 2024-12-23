@@ -15,7 +15,7 @@
 ########################
 
 //Path to a program.
-CMAKE_AR:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/lib.exe
+CMAKE_AR:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.40.33807/bin/Hostx64/x64/lib.exe
 
 //Semicolon separated list of supported configuration types, only
 // supports Debug, Release, MinSizeRel, and RelWithDebInfo, anything
@@ -131,7 +131,7 @@ CMAKE_INSTALL_SHAREDSTATEDIR:PATH=com
 CMAKE_INSTALL_SYSCONFDIR:PATH=etc
 
 //Path to a program.
-CMAKE_LINKER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.39.33519/bin/Hostx64/x64/link.exe
+CMAKE_LINKER:FILEPATH=C:/Program Files (x86)/Microsoft Visual Studio/2022/BuildTools/VC/Tools/MSVC/14.40.33807/bin/Hostx64/x64/link.exe
 
 //Flags used by the linker during the creation of modules during
 // all build types.
@@ -257,9 +257,6 @@ FASTNOISE2_NOISETOOL:BOOL=OFF
 //Build tests
 FASTNOISE2_TESTS:BOOL=OFF
 
-//Build Noise Tool
-FASTNOISE_OPTION:BOOL=OFF
-
 //Compile static flecs lib with position independent code (PIC)
 FLECS_PIC:BOOL=ON
 
@@ -298,9 +295,6 @@ Moryx_Engine_BINARY_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine/buil
 
 //Value Computed by CMake
 Moryx_Engine_IS_TOP_LEVEL:STATIC=ON
-
-//Dependencies for the target
-Moryx_Engine_LIB_DEPENDS:STATIC=general;FastNoise;general;d3d11;general;d3dcompiler;general;DirectXTex;general;DirectXTK;general;flecs::flecs_static;general;LuaLib;
 
 //Value Computed by CMake
 Moryx_Engine_SOURCE_DIR:STATIC=C:/Users/zachm/OneDrive/Desktop/Moryx_engine

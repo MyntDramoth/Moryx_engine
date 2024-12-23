@@ -28,13 +28,13 @@ struct static_body {
 	uint8_t collision_layer;
 };
 
-struct hit {
+typedef struct hit {
 	size_t other_id;
 	float time;
 	Vector2D position;
 	Vector2D normal;
 	bool is_hit;
-};
+} Hit;
 
 typedef struct physics_state_internal {
 
@@ -64,7 +64,7 @@ public:
     bool physics_aabb_intersect_aabb(AABB a, AABB b);
     AABB aabb_minkowski_difference(AABB a, AABB b);
     void aabb_penetration_vector(Vector2D r, AABB aabb);
-    void aabb_min_max(Vector2D min, Vector2D max, AABB aabb);
+    void aabb_min_max(Vector2D* min, Vector2D* max, AABB aabb);
     Hit ray_intersect_aabb(Vector2D position, Vector2D magnitude, AABB aabb);
     void physics_reset(void);
 

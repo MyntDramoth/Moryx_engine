@@ -13,6 +13,15 @@ Game::Game() {
     handler = std::make_unique<entity_handler>();
     physics = std::make_unique<Physics>();
 
+    //=====================//
+    // IMPORTANT RESOURCES //
+    //=====================//
+
+    //tile_mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/plane.obj");
+
+    //=====================//
+    // TEMP RESOURCES      //
+    //=====================//
     mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/house.obj");
     auto terrain = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/terrain.obj");
     auto tex = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/wood.jpg");
@@ -25,7 +34,7 @@ Game::Game() {
     {
         auto sky_mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/sphere.obj");
         auto sky_tex = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/sky.jpg");
-        auto sky_mat = resource_manager->create_resource_from_file<Material>(L"../../src/shaders/test_vert.hlsl");
+        auto sky_mat = resource_manager->create_resource_from_file<Material>(L"../../src/shaders/mono_shader.hlsl");
         sky_mat->add_texture(sky_tex);
         sky_mat->set_culling_mode(CULL_MODE::FRONT_CULLING);
 
@@ -101,10 +110,18 @@ Game::Game() {
 
     
     auto tf = anim.get_ref<Transform>();
+    auto a_im = anim.get_ref<Animation_2D>()->size;
    
-    physics->physics_body_create({tf->position.x, tf->position.y},{tf->scale.x,tf->scale.y},{},0,0,false,nullptr,nullptr,0);
+    physics->physics_body_create({tf->position.x, tf->position.y},{1.0f,1.0f},{0.0f,0.0f},1,1,false,hit_sprite,nullptr,0);
     tf->body_id = 0;
-    
+    auto plat = handler->create_UI_image("UI 2");
+    plat.get_ref<Transform>()->position = Vector3D(100.0f,100.0f,0.0f);
+    plat.get_ref<Image>()->image = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/brick_d.jpg");
+    plat.get_ref<Image>()->size = {150,50,0,0};
+    auto ptf = plat.get_ref<Transform>();
+    a_im = plat.get_ref<Animation_2D>()->size;
+
+    physics->physics_static_body_create({ptf->position.x,ptf->position.y},{3.0f,1.0f},1);
     //input->lock_cursor(true);
 
 
@@ -116,38 +133,6 @@ Game::Game() {
     lua_Number num = lua_tonumber(L,1);
     std::cout<<num<<" :LUA number.\n";
     lua_close(L);
-
-    
-    /*
-    auto cell = FastNoise::New<FastNoise::CellularDistance>();
-    int seed = 5098;
-    int size = 32;
-    
-
-    for (int x = 0; x < size; x++) {
-        for (int y = 0; y < size; y++) {
-            for (int z = 0; z < size; z++) {
-
-                auto res = cell.get()->GenSingle3D((unsigned int)x,(unsigned int)y,(unsigned int)z,seed);
-                if((res) > 0.1569f) {
-                    std::string s =  "cube";
-                    s.append(std::to_string(x));
-                    s.append(std::to_string(y));
-                    s.append(std::to_string(z));
-                    auto e = handler->create_entity(s.c_str());
-                    e.add<Transform>();
-                    handler->register_mesh(e);
-                    
-                    e.get_ref<Transform>()->position = Vector3D((float)x,(float)y,(float)z);
-                    e.get_ref<Transform>()->compute_world_matrix();
-                    e.get_ref<M_Mesh>()->mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/box.obj");
-                    e.get_ref<M_Mesh>()->materials.push_back(material);
-                    
-                }
-            }
-        }
-    }
-    MORYX_INFO("finished chunk");*/
 }
 
 

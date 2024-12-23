@@ -21,6 +21,7 @@ public:
     //void set_render_target(const texture_sptr& render_target,const texture_sptr& depth_stencil);
 
     void set_vertex_buffer(const vert_buffer_sptr& vertex_buffer);
+    void set_instance_and_vertex_buffer(const vert_buffer_sptr& vertex_buffer,const instance_buffer_sptr& instance_buffer);
     void draw_triangle_list(UINT vertex_count, UINT start_index);
     void draw_indexed_triangle_list(UINT index_count,UINT start_index, UINT vert_start_index);
     void draw_triangle_strip(UINT vertex_count, UINT start_index);

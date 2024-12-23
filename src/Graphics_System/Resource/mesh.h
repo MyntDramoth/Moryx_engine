@@ -5,10 +5,12 @@
 
 #include "../Graphics/Render_System/Vertex_Buffer/vertex_buffer.h"
 #include "../Graphics/Render_System/Index_Buffer/index_buffer.h"
+#include "../Graphics/Render_System/Instance_Buffer/instance_buffer.h"
 
 #include  "../Math/vector3D.h"
 #include  "../Math/vector2D.h"
 #include "../Math/vertex_mesh.h"
+#include "../Math/instance_data.h"
 #include "material.h"
 
 #include <d3d11.h>
@@ -25,6 +27,10 @@ class Mesh : public Resource
 public:
     Mesh(const wchar_t* full_path, Resource_Manager* manager);
     Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Material_Slot *material_slot_list, UINT slot_list_size, Resource_Manager* manager);
+    Mesh(const wchar_t* full_path, Resource_Manager* manager, Instance_Data *inst_list, UINT instance_list_size);
+    Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Instance_Data *inst_list, UINT instance_list_size, Material_Slot *material_slot_list, UINT slot_list_size, Resource_Manager* manager);
+    
+    
     ~Mesh();
 
     
@@ -42,6 +48,7 @@ private:
 
     vert_buffer_sptr vertex_buffer = nullptr;
     index_buffer_sptr index_buffer = nullptr;
+    instance_buffer_sptr inst_buffer = nullptr;
 
     std::vector<Material_Slot> material_slots;
 

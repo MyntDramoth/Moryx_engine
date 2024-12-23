@@ -25,6 +25,7 @@ class Constant_Buffer;
 class Vertex_Buffer;
 class Device_Context;
 class Render_System;
+class Instance_Buffer;
 
 //---------
 // RESOURCES
@@ -56,6 +57,7 @@ typedef std::shared_ptr<Swapchain> swapchain_sptr;
 typedef std::shared_ptr<Index_Buffer> index_buffer_sptr;
 typedef std::shared_ptr<Constant_Buffer> const_buffer_sptr;
 typedef std::shared_ptr<Vertex_Buffer> vert_buffer_sptr;
+typedef std::shared_ptr<Instance_Buffer> instance_buffer_sptr;
 //---------
 // RESOURCES
 //---------
