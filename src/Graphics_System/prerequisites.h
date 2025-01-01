@@ -88,7 +88,11 @@ enum class CULL_MODE {
     BACK_CULLING
 };
 
-
+struct Material_Slot {
+    size_t start_index = 0;
+    size_t num_indeces = 0;
+    size_t material_id = 0;
+};
 //---------
 // MACROS
 //---------

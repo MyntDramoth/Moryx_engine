@@ -16,6 +16,8 @@ Game::Game() {
     //=====================//
     // IMPORTANT RESOURCES //
     //=====================//
+    auto pallete = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/color_pallete.png");
+
 
     //tile_mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/plane.obj");
 
@@ -29,7 +31,7 @@ Game::Game() {
     material->add_texture(tex);
     auto floor = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/Sponza/sponza_floor_a_diff.jpg");
     auto fmat = resource_manager->create_resource_from_file<Material>(L"../../src/shaders/mono_shader.hlsl");
-    fmat->add_texture(floor);
+    fmat->add_texture(pallete);
 
     {
         auto sky_mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/sphere.obj");

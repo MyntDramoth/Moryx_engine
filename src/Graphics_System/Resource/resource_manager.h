@@ -4,6 +4,7 @@
 #include <string>
 #include "../prerequisites.h"
 #include "resource.h"
+#include "mesh.h"
 #include "../../Game/game.h"
 
 
@@ -18,6 +19,9 @@ public:
         return std::dynamic_pointer_cast<T>(create_resource_from_file_concrete(file_path));
     }
 
+
+    mesh_sptr create_custom_mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Material_Slot *material_slot_list, UINT slot_list_size);
+    mesh_sptr create_custom_mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Instance_Data *inst_list, UINT instance_list_size, Material_Slot *material_slot_list, UINT slot_list_size);
 
     Game* get_game() {return game;}
 

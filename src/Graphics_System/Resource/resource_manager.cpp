@@ -1,6 +1,5 @@
 #include "resource_manager.h"
 #include <filesystem>
-#include "mesh.h"
 #include "texture.h"
 #include "material.h"
 #include "font.h"
@@ -14,8 +13,17 @@ Resource_Manager::~Resource_Manager() {
 
 }
 
-resource_sptr Resource_Manager::create_resource_from_file_concrete(const wchar_t *file_path) {
-    
+mesh_sptr Resource_Manager::create_custom_mesh( Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Material_Slot *material_slot_list, UINT slot_list_size) {
+    return std::make_shared<Mesh>(vert_list,vert_list_size,index_list,index_list_size,material_slot_list,slot_list_size,this);
+}
+
+mesh_sptr Resource_Manager::create_custom_mesh( Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Instance_Data *inst_list, UINT instance_list_size, Material_Slot *material_slot_list, UINT slot_list_size) {
+    return std::make_shared<Mesh>(vert_list,vert_list_size,index_list,index_list_size,inst_list,instance_list_size,material_slot_list,slot_list_size,this);
+}
+
+resource_sptr Resource_Manager::create_resource_from_file_concrete(const wchar_t *file_path)
+{
+
     std::filesystem::path resource_path = file_path;
     auto extension = resource_path.extension();
   

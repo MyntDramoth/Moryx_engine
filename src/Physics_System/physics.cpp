@@ -189,7 +189,7 @@ void Physics::aabb_min_max(Vector2D* min, Vector2D* max, AABB aabb) {
 		max->x = aabb.position.x + aabb.bounds.x;
 		max->y = aabb.position.y + aabb.bounds.y;
 	}
-	MORYX_INFO("min: "<<min->y<<"|| max: "<<max->y);
+	//MORYX_INFO("min: "<<min->y<<"|| max: "<<max->y);
 }
 
 Hit Physics::ray_intersect_aabb(Vector2D position, Vector2D magnitude, AABB aabb)
@@ -374,7 +374,7 @@ void Physics::stationary_response(Body *body) {
 		AABB aabb = aabb_minkowski_difference(static_body->aabb, body->aabb);
 		Vector2D min, max;
 		aabb_min_max(&min, &max, aabb);
-		MORYX_INFO("calc min: "<<min.y<<"|| calc max: "<<max.y);
+		//MORYX_INFO("calc min: "<<min.y<<"|| calc max: "<<max.y);
 		if (min.x <= 0 && max.x >= 0 && min.y <= 0 && max.y >= 0) {
 			Vector2D penetration_vector;
 			aabb_penetration_vector(penetration_vector, aabb);

@@ -58,7 +58,7 @@ private:
     float rot = 0;
     Vector3D cam_pos;
 
-    static void hit_sprite(Body *self, Body *other, Hit hit) {std::cout<<"hit sprite!\n"; other->velocity.y = 0.0f;};
+    static void hit_sprite(Body *self, Body *other, Hit hit) { other->velocity.y = 0.0f;};
     static void hit_sprite_stat(Body *self, Static_Body *other, Hit hit) {std::cout<<"hit static!\n";};
 
     friend class Graphics_Engine;
