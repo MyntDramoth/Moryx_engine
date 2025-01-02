@@ -38,7 +38,7 @@ Instance_Buffer::Instance_Buffer(void* instances, UINT inst_size, UINT inst_num,
 
     hres = render_system->device->CreateInputLayout(layout,layout_size,render_system->instance_mesh_layout_bytecode,render_system->instance_mesh_layout_size,&input_layout);
     if(FAILED(hres)) {
-       MORYX_ERROR("Failed to create Input Layout!");
+       MORYX_ERROR("Failed to create Instance Input Layout!");
     }
 }
 

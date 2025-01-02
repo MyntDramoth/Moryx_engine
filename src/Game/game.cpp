@@ -18,6 +18,28 @@ Game::Game() {
     //=====================//
     auto pallete = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/color_pallete.png");
 
+    std::vector<Vertex_Mesh> mesh_V = {
+            Vertex_Mesh(Vector3D(0.0f,0.0f,0.0f), Vector2D(0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
+        , 
+            Vertex_Mesh(Vector3D(0.0f,0.0f,1.0f), Vector2D(0.0f,1.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
+        ,
+            Vertex_Mesh(Vector3D(1.0f,0.0f,0.0f), Vector2D(1.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
+        ,
+            Vertex_Mesh(Vector3D(1.0f,0.0f,1.0f), Vector2D(1.0f,1.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
+    };
+
+   std::vector<UINT> indexes = {
+        0,1,2,
+        3,2,1};
+  
+
+    std::vector<Material_Slot> ssssslot = {{0,6,0}};
+    
+     std::vector<Instance_Data> inst_data = {{Vector3D(0.0f,0.0f,0.0f),Vector2D(0.0f,0.0f)}};
+    //inst_data[0] = Instance_Data(Vector3D(0.0f,0.0f,0.0f),Vector2D(0.0f,0.0f));
+
+    auto test_mesh = resource_manager->create_custom_mesh(mesh_V.data(),4,indexes.data(),6,inst_data.data(),1,ssssslot.data(),1);
+
 
     //tile_mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/plane.obj");
 

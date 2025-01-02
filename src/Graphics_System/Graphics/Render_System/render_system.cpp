@@ -118,6 +118,9 @@ void Render_System::compile_private_shaders() {
     Microsoft::WRL::ComPtr<ID3DBlob> err_blob {nullptr};
     Microsoft::WRL::ComPtr<ID3DBlob> shader {nullptr};
 
+    Microsoft::WRL::ComPtr<ID3DBlob> inst_err_blob {nullptr};
+    Microsoft::WRL::ComPtr<ID3DBlob> inst_shader {nullptr};
+
     auto mesh_layout_code = R"(
         struct VS_INPUT {
             float4 pos: POSITION0;
@@ -153,15 +156,14 @@ void Render_System::compile_private_shaders() {
 
     auto instance_mesh_layout_code = R"(
         struct INST_INPUT {
-            float4 pos: POSITION1; // Offset in the texture atlas
-            float2 uv: TEXCOORD1; // Scale (size) in the texture atlas
+            float4 pos: INSTANCE_POS0;
+            float2 uv: INSTANCE_UV0;
         };
 
         struct VS_OUTPUT {
             float4 pos :SV_POSITION;
-            float2 uv: TEXCOORD0;
+            float2 uv: INSTANCE_UV0;
         };
-
 
         VS_OUTPUT main(INST_INPUT input) {
             VS_OUTPUT output = (VS_OUTPUT)0;
@@ -170,13 +172,13 @@ void Render_System::compile_private_shaders() {
         }
     )";
 
-    code_size = strlen(instance_mesh_layout_code);
-    hres = D3DCompile(instance_mesh_layout_code,code_size, "inst_mesh_layout",nullptr, nullptr, "main", "vs_5_0", 0,0, &shader, &err_blob);
+    auto inst_code_size = strlen(instance_mesh_layout_code);
+    hres = D3DCompile(instance_mesh_layout_code,inst_code_size, "inst_mesh_layout",nullptr, nullptr, "main", "vs_5_0", 0,0, &inst_shader, &inst_err_blob);
     if(FAILED(hres)) {
        MORYX_ERROR("Failed to Compile instance layout shader");
     }
-    memcpy(instance_mesh_layout_bytecode,shader->GetBufferPointer(),shader->GetBufferSize());
-    instance_mesh_layout_size = shader->GetBufferSize();
+    memcpy(instance_mesh_layout_bytecode,inst_shader->GetBufferPointer(),inst_shader->GetBufferSize());
+    instance_mesh_layout_size = inst_shader->GetBufferSize();
 }
 
 void Render_System::set_cull_mode(const CULL_MODE& cull_mode) {
