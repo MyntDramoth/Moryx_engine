@@ -87,3 +87,9 @@ void entity_handler::register_mesh(flecs::entity entity) {
     const char *name = entity.name();
     meshes.insert({(size_t)name,entity});
 }
+
+void entity_handler::register_instance_mesh(flecs::entity entity) {
+    entity.add<M_Mesh>();
+    const char *name = entity.name();
+    instance_meshes.insert({(size_t)name,entity});
+}

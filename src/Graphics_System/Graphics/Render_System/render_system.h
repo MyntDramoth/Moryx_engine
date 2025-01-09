@@ -34,10 +34,6 @@ public:
 
     font_internal_sptr create_font(const wchar_t* file_path);
 
-    // bool compile_vertex_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
-    // bool compile_pixel_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
-    // bool compile_compute_shader(const wchar_t* file_name, const char* shader_main_funtion_name, void** shader_byte_code, size_t* byte_code_size);
-
     void compile_private_shaders();
     //void release_compiled_shader();
     void set_cull_mode(const CULL_MODE& cull_mode);
@@ -46,6 +42,7 @@ public:
 
     unsigned char mesh_layout_bytecode[1024];
     unsigned char instance_mesh_layout_bytecode[1024];
+    
     size_t mesh_layout_size = 0;
     size_t instance_mesh_layout_size = 0;
 private:

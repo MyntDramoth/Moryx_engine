@@ -102,6 +102,47 @@ void Graphics_Engine::update(float delta_time) {
         }
     }
 
+    //====================
+    // Instance Rendering
+    //====================
+
+    for(auto inst_entity : entity_system->get_instances()) {
+        auto mesh = inst_entity.second.get_ref<M_Mesh>();
+        auto transform = inst_entity.second.get_mut<Transform>();
+        const_data.world_space =  transform->world_matrix;
+        const auto materials = mesh->materials;
+
+
+        context->set_instance_and_vertex_buffer(mesh->mesh->vertex_buffer,mesh->mesh->inst_buffer);
+        context->set_index_buffer(mesh->mesh->index_buffer);
+    
+        
+
+        for(auto i = 0; i < mesh->mesh->get_num_materials();i++) {
+        
+            if(i >= materials.size()) {break;}
+            auto mat = materials[i];
+
+            render_system->set_cull_mode(mat->get_culling_mode());
+
+            mat->set_buffer_data(&const_data,sizeof(Const_Buff));
+
+            context->set_constant_buffer(mat->vert_shader,mat->const_buffer);
+            context->set_constant_buffer(mat->pix_shader,mat->const_buffer);
+            
+            context->set_vertex_shader(mat->vert_shader);
+            context->set_pixel_shader(mat->pix_shader);
+            
+            context->set_texture(&mat->textures[0],mat->textures.size());
+
+            auto slot = mesh->mesh->get_material_slot((UINT)i);
+            auto inst_slot = mesh->mesh->get_inst_slot();
+            context->draw_indexed_instanced(slot.num_indeces, inst_slot.num_instances, slot.start_index,0,inst_slot.start_index);
+
+
+        }
+    }
+
     //==========
     // GUI Rendering
     //==========

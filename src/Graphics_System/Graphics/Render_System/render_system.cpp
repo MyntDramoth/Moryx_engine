@@ -121,6 +121,8 @@ void Render_System::compile_private_shaders() {
     Microsoft::WRL::ComPtr<ID3DBlob> inst_err_blob {nullptr};
     Microsoft::WRL::ComPtr<ID3DBlob> inst_shader {nullptr};
 
+    Microsoft::WRL::ComPtr<ID3DBlob> comb_shader {nullptr};
+
     auto mesh_layout_code = R"(
         struct VS_INPUT {
             float4 pos: POSITION0;
@@ -155,17 +157,29 @@ void Render_System::compile_private_shaders() {
     mesh_layout_size = shader->GetBufferSize();
 
     auto instance_mesh_layout_code = R"(
-        struct INST_INPUT {
-            float4 pos: INSTANCE_POS0;
-            float2 uv: INSTANCE_UV0;
+        
+        struct VS_INPUT {
+            float4 pos: POSITION0;
+            float2 uv: TEXCOORD0;
+            float3 normal: NORMAL0;
+            float3 tangent: TANGENT0;
+            float3 binormal: BINORMAL0;
+            float4 pos_inst: POSITION1;
+            float2 uv_inst: TEXCOORD1; 
+            float2 offset: TEXCOORD2; 
         };
 
         struct VS_OUTPUT {
+            float4 pos_inst :POSITION1;
+            float2 uv_inst: TEXCOORD0;
+
             float4 pos :SV_POSITION;
-            float2 uv: INSTANCE_UV0;
+            float2 uv: TEXCOORD0;
+            float3 normal: NORMAL0;
+            float3 camera_dir: TEXCOORD1;
         };
 
-        VS_OUTPUT main(INST_INPUT input) {
+        VS_OUTPUT main(VS_INPUT input) {
             VS_OUTPUT output = (VS_OUTPUT)0;
             
             return output;   

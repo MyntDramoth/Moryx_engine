@@ -5,11 +5,12 @@
 #include "../render_system.h"
 
 Instance_Buffer::Instance_Buffer(void* instances, UINT inst_size, UINT inst_num, Render_System* system) : input_layout(0), buffer(0), render_system(system) {
+   
     D3D11_BUFFER_DESC buffer_desc = {};
-    buffer_desc.Usage = D3D11_USAGE_DEFAULT; //default alows read and write operations by both CPU and GPU
+    buffer_desc.Usage = D3D11_USAGE_DYNAMIC; //default alows read and write operations by both CPU and GPU
     buffer_desc.ByteWidth = (inst_size * inst_num);
     buffer_desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-    buffer_desc.CPUAccessFlags = 0;
+    buffer_desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
     buffer_desc.MiscFlags = 0;
 
     D3D11_SUBRESOURCE_DATA init_data = {};
@@ -29,9 +30,15 @@ Instance_Buffer::Instance_Buffer(void* instances, UINT inst_size, UINT inst_num,
 
     D3D11_INPUT_ELEMENT_DESC layout[] = {
         //SEMANTIC NAME - SEMANTIC INDEX - FORMAT - INPUT SLOT - ALLIGNED BYTE OFFSET - INPUT SLOT CLASS - INSTANCE DATA STEP RATE
-
-        {"INSTANCE_POS", 0, DXGI_FORMAT_R32G32B32_FLOAT, 1, 0, D3D11_INPUT_PER_INSTANCE_DATA, 1},
-        {"INSTANCE_UV", 0, DXGI_FORMAT_R32G32_FLOAT, 1, 12, D3D11_INPUT_PER_INSTANCE_DATA, 1}
+    
+        {"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 44, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"POSITION", 1, DXGI_FORMAT_R32G32B32_FLOAT, 1, 0, D3D11_INPUT_PER_INSTANCE_DATA, 1},
+        {"TEXCOORD", 1, DXGI_FORMAT_R32G32_FLOAT, 1, 12, D3D11_INPUT_PER_INSTANCE_DATA, 1},
+        {"TEXCOORD", 2, DXGI_FORMAT_R32G32_FLOAT, 1, 24, D3D11_INPUT_PER_INSTANCE_DATA, 1}
     };
 
     UINT layout_size = ARRAYSIZE(layout);

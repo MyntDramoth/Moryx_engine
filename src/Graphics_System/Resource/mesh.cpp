@@ -241,8 +241,9 @@ Mesh::Mesh(const wchar_t *full_path, Resource_Manager *manager, Instance_Data *i
                 index_global_offset += num_face_verts;
             }
         }
-
         material_slots[m].num_indeces = index_global_offset - material_slots[m].start_index;
+        instance_slots.num_instances = instance_list_size;
+        instance_slots.start_index = 0;
     }
 
     auto render_sys = manager->get_game()->get_graphics_engine()->get_render_system();
@@ -257,11 +258,14 @@ Mesh::Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT i
 
     vertex_buffer = render_sys->create_vertex_buffer(vert_list,sizeof(Vertex_Mesh),vert_list_size);
     inst_buffer = render_sys->create_instance_buffer(inst_list,sizeof(Instance_Data),instance_list_size);
+    //MORYX_INFO("inst buffer: " << inst_buffer);
     index_buffer = render_sys->create_index_buffer(index_list,index_list_size);
     material_slots.resize(slot_list_size);
     for(UINT i =0; i < slot_list_size;i++) {
         material_slots[i] = material_slot_list[i];
     }
+    instance_slots.num_instances = instance_list_size;
+    instance_slots.start_index = 0;
 }
 
 Mesh::~Mesh() {

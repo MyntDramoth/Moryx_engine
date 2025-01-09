@@ -56,15 +56,27 @@ void Device_Context::set_vertex_buffer(const vert_buffer_sptr& vertex_buffer) {
 }
 
 void Device_Context::set_instance_and_vertex_buffer(const vert_buffer_sptr &vertex_buffer, const instance_buffer_sptr &instance_buffer) {
-    UINT stride[2] = {vertex_buffer->vert_size,instance_buffer->vert_size};
+    UINT stride[2] = {vertex_buffer->vert_size,(instance_buffer->vert_size)};
     UINT offset[2] = {0,0};
 
     ID3D11Buffer* buffer[2] = {vertex_buffer->buffer.Get(),instance_buffer->buffer.Get()};
-    ID3D11InputLayout* layout[2] = {vertex_buffer->input_layout.Get(),instance_buffer->input_layout.Get()};
+    ID3D11InputLayout* layouts[2] {vertex_buffer->input_layout.Get(),instance_buffer->input_layout.Get()};
 
     device_context->IASetVertexBuffers(0,2,buffer,stride,offset);
 
-    device_context->IASetInputLayout(*layout);
+    device_context->IASetInputLayout(instance_buffer->input_layout.Get());
+}
+
+void Device_Context::set_instance_buffer(const instance_buffer_sptr &instance_buffer) {
+    UINT stride = instance_buffer->vert_size;
+    UINT offset = 0;
+
+    auto buffer = instance_buffer->buffer.Get();
+    auto layout = instance_buffer->input_layout.Get();
+
+    device_context->IASetVertexBuffers(0,1,&buffer,&stride,&offset);
+
+    device_context->IASetInputLayout(layout);
 }
 
 void Device_Context::draw_triangle_list(UINT vertex_count, UINT start_index) {
@@ -86,6 +98,7 @@ void Device_Context::draw_triangle_strip(UINT vertex_count, UINT start_index) {
 }
 
 void Device_Context::draw_indexed_instanced(UINT index_count, UINT instance_count, UINT start_index, INT base_vert_location, UINT start_instance_location) {
+    //device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
     device_context->DrawIndexedInstanced(index_count, instance_count, start_index, base_vert_location, start_instance_location);
 }
 

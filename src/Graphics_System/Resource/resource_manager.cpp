@@ -32,7 +32,7 @@ resource_sptr Resource_Manager::create_resource_from_file_concrete(const wchar_t
     if(iterator != resources_map.end()) {
         auto mat = std::dynamic_pointer_cast<Material>(iterator->second);
         if(mat) {
-            MORYX_INFO("Found material?");
+            MORYX_INFO("Found material / material exists");
             return std::make_shared<Material>(mat,this);}
         return iterator->second;
     }

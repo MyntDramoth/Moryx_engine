@@ -35,6 +35,8 @@ public:
 
     
     Material_Slot get_material_slot(UINT slot);
+    Instance_Slot get_inst_slot() {return instance_slots;}
+    instance_buffer_sptr get_inst_buff() {return inst_buffer;};
     size_t get_num_materials();
 
 private:
@@ -50,6 +52,7 @@ private:
     index_buffer_sptr index_buffer = nullptr;
     instance_buffer_sptr inst_buffer = nullptr;
 
+    Instance_Slot instance_slots;
     std::vector<Material_Slot> material_slots;
 
     friend class Device_Context;

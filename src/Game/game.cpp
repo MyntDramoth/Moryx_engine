@@ -19,13 +19,13 @@ Game::Game() {
     auto pallete = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/color_pallete.png");
 
     std::vector<Vertex_Mesh> mesh_V = {
-            Vertex_Mesh(Vector3D(0.0f,0.0f,0.0f), Vector2D(0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
-        , 
             Vertex_Mesh(Vector3D(0.0f,0.0f,1.0f), Vector2D(0.0f,1.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
+        , 
+            Vertex_Mesh(Vector3D(1.0f,0.0f,1.0f), Vector2D(1.0f,1.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
+        ,
+            Vertex_Mesh(Vector3D(0.0f,0.0f,0.0f), Vector2D(0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
         ,
             Vertex_Mesh(Vector3D(1.0f,0.0f,0.0f), Vector2D(1.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
-        ,
-            Vertex_Mesh(Vector3D(1.0f,0.0f,1.0f), Vector2D(1.0f,1.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
     };
 
    std::vector<UINT> indexes = {
@@ -34,12 +34,32 @@ Game::Game() {
   
 
     std::vector<Material_Slot> ssssslot = {{0,6,0}};
+    Vector2D atlas = Vector2D(1/8.0f,1/8.0f);
     
-     std::vector<Instance_Data> inst_data = {{Vector3D(0.0f,0.0f,0.0f),Vector2D(0.0f,0.0f)}};
+     std::vector<Instance_Data> inst_data = {
+        {Vector3D(1.0f,1.0f,1.0f),atlas, Vector2D(1/2.0f,1/2.0f)},
+        {Vector3D(2.0f,1.0f,1.0f),atlas, Vector2D(1/8.0f,1/8.0f)},
+        {Vector3D(3.0f,1.0f,1.0f),atlas, Vector2D(1/4.0f,1/4.0f)},
+        {Vector3D(4.0f,1.0f,1.0f),atlas, Vector2D(1.0f,1/8.0f)}
+     };
     //inst_data[0] = Instance_Data(Vector3D(0.0f,0.0f,0.0f),Vector2D(0.0f,0.0f));
 
-    auto test_mesh = resource_manager->create_custom_mesh(mesh_V.data(),4,indexes.data(),6,inst_data.data(),1,ssssslot.data(),1);
+    auto tile_map_mesh = resource_manager->create_custom_mesh( mesh_V.data(),4, indexes.data(),6, inst_data.data(),4, ssssslot.data(),1);
 
+    auto tile_material = resource_manager->create_resource_from_file<Material>(L"../../src/shaders/tilemap.hlsl");
+    //auto tile_material = resource_manager->create_resource_from_file<Material>(L"../../src/shaders/inst_mesh_layout.hlsl");
+    tile_material->add_texture(pallete);
+    tile_material->set_culling_mode(CULL_MODE::FRONT_CULLING);
+    auto tmap = handler->create_entity("tmap");
+    tmap.add<Transform>();
+    tmap.get_ref<Transform>()->scale = Vector3D(10.0f,0.0f,10.0f);
+    tmap.get_ref<Transform>()->position = Vector3D(0.0f,10.0f,0.0f);
+    tmap.get_ref<Transform>()->compute_world_matrix();
+    handler->register_instance_mesh(tmap);
+    tmap.get_ref<M_Mesh>()->mesh = tile_map_mesh;
+    tmap.get_ref<M_Mesh>()->materials.push_back(tile_material);
+
+    //std::cout << "inst buffer: " << tmap.get_ref<M_Mesh>()->mesh->get_inst_buff();
 
     //tile_mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/plane.obj");
 
@@ -54,7 +74,7 @@ Game::Game() {
     auto floor = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/Sponza/sponza_floor_a_diff.jpg");
     auto fmat = resource_manager->create_resource_from_file<Material>(L"../../src/shaders/mono_shader.hlsl");
     fmat->add_texture(pallete);
-
+/*
     {
         auto sky_mesh = resource_manager->create_resource_from_file<Mesh>(L"../../src/Assets/Meshes/sphere.obj");
         auto sky_tex = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/sky.jpg");
@@ -69,7 +89,7 @@ Game::Game() {
         handler->register_mesh(sky);
         sky.get_ref<M_Mesh>()->mesh = sky_mesh;
         sky.get_ref<M_Mesh>()->materials.push_back(sky_mat);
-    }
+    }*/
 
     {
         auto light = handler->create_light("light 1");
@@ -80,13 +100,13 @@ Game::Game() {
         light.get_ref<Light>()->color = Vector4D(1.0f,0.0f,0.0f,1.0f);
 
     }
-
+    /*
     auto n = handler->create_entity("floor");
     n.add<Transform>();
     n.get_ref<Transform>()->compute_world_matrix();
     handler->register_mesh(n);
     n.get_ref<M_Mesh>()->mesh = terrain;
-    n.get_ref<M_Mesh>()->materials.push_back(fmat);
+    n.get_ref<M_Mesh>()->materials.push_back(fmat);*/
 
     input->set_lock_area(display->get_client_size());
    

@@ -19,6 +19,8 @@ private:
 
     Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
     Microsoft::WRL::ComPtr<ID3D11InputLayout> input_layout;
+    Microsoft::WRL::ComPtr<ID3D11InputLayout> combined_layout;
+    
     Render_System* render_system {nullptr};
 
     friend class Device_Context;

@@ -35,6 +35,7 @@ Vertex_Buffer::Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, 
         {"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0},
         {"TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0},
         {"BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 44, D3D11_INPUT_PER_VERTEX_DATA, 0}
+        
     };
 
     UINT layout_size = ARRAYSIZE(layout);

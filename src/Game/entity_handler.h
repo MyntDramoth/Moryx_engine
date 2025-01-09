@@ -18,6 +18,7 @@ public:
     flecs::entity create_UI_image(const char* name);
     flecs::entity create_animated_sprite(const char* name);
     void register_mesh(flecs::entity entity);
+    void register_instance_mesh(flecs::entity entity);
     
     std::map<size_t,flecs::entity> get_meshes() {return meshes;}
     std::map<size_t,flecs::entity> get_cams() {return cameras;}
@@ -25,6 +26,8 @@ public:
     std::map<size_t,flecs::entity> get_text() {return text;}
     std::map<size_t,flecs::entity> get_images() {return images;}
     std::map<size_t,flecs::entity> get_sprites() {return sprites;}
+
+      std::map<size_t,flecs::entity> get_instances() {return instance_meshes;}
 
 private:
     flecs::world world;
@@ -35,4 +38,6 @@ private:
     std::map<size_t,flecs::entity> text;
     std::map<size_t,flecs::entity> images;
     std::map<size_t,flecs::entity> sprites;
+
+    std::map<size_t,flecs::entity> instance_meshes;
 };
