@@ -44,9 +44,11 @@ void Graphics_Engine::update(float delta_time) {
     auto win_size = game->display->get_client_size();
     context->set_viewport_size(win_size.width,win_size.height);
 
+    Vector2D atlas = Vector2D(1/8.0f,1/8.0f);
+
     Const_Buff const_data = {};
-    
-   
+    std::vector<Instance_Data> inst_data = {};
+
     for(auto cam_entity : entity_system->get_cams()) {
         auto cam = cam_entity.second.get_ref<Camera>();
         auto tr = cam_entity.second.get_mut<Transform>();
@@ -106,13 +108,21 @@ void Graphics_Engine::update(float delta_time) {
     // Instance Rendering
     //====================
 
+    for(float x = 0.0f; x < 100.0f;x++) {
+        for(float y = 0.0f; y < 100.0f;y++) {
+             auto var = rand() % 64 + 1;
+            inst_data.push_back({Vector3D(x,1.0f,y),atlas,Vector2D((var/8.0f),(var/8.0f))});
+        }
+    }
+
     for(auto inst_entity : entity_system->get_instances()) {
         auto mesh = inst_entity.second.get_ref<M_Mesh>();
+        
+        mesh->mesh->inst_buffer->UpdateInstanceBuffer(context, inst_data);
         auto transform = inst_entity.second.get_mut<Transform>();
         const_data.world_space =  transform->world_matrix;
         const auto materials = mesh->materials;
-
-
+        
         context->set_instance_and_vertex_buffer(mesh->mesh->vertex_buffer,mesh->mesh->inst_buffer);
         context->set_index_buffer(mesh->mesh->index_buffer);
     
@@ -181,6 +191,6 @@ void Graphics_Engine::update(float delta_time) {
     }
 
 
-    swapchain->present(true);
+    swapchain->present(false);
     render_system->clear_state();
 }

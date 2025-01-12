@@ -49,6 +49,25 @@ Instance_Buffer::Instance_Buffer(void* instances, UINT inst_size, UINT inst_num,
     }
 }
 
+void Instance_Buffer::UpdateInstanceBuffer(device_context_sptr context,  std::vector<Instance_Data> data) {
+
+    //MORYX_INFO("data sample: " << data[0].atlas_offset.y);
+
+    D3D11_MAPPED_SUBRESOURCE mappedResource;
+    ZeroMemory(&mappedResource, sizeof(D3D11_MAPPED_SUBRESOURCE));
+    
+    HRESULT hr = context->device_context->Map(this->buffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
+
+    if (FAILED(hr)) {
+        MORYX_ERROR("failed to map instance buffer");
+        return;
+    }
+   
+    memcpy(mappedResource.pData, data.data(), (sizeof(Instance_Data) * data.size())); 
+    context->device_context->Unmap(this->buffer.Get(), 0);
+
+}
+
 Instance_Buffer::~Instance_Buffer()
 {
 

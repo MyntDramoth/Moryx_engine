@@ -31,7 +31,7 @@ VS_OUTPUT vs_main(VS_INPUT input) {
 	output.pos = mul(output.pos, view_space);
 	output.pos = mul(output.pos, projection);
 	
-    float2 atlas_uv = (input.uv * input.uv_inst) + input.offset;
+    float2 atlas_uv = ((input.uv * input.uv_inst) + input.offset);
     
     output.uv = atlas_uv;
     return output;   

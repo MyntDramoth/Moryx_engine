@@ -36,15 +36,19 @@ Game::Game() {
     std::vector<Material_Slot> ssssslot = {{0,6,0}};
     Vector2D atlas = Vector2D(1/8.0f,1/8.0f);
     
-     std::vector<Instance_Data> inst_data = {
-        {Vector3D(1.0f,1.0f,1.0f),atlas, Vector2D(1/2.0f,1/2.0f)},
-        {Vector3D(2.0f,1.0f,1.0f),atlas, Vector2D(1/8.0f,1/8.0f)},
-        {Vector3D(3.0f,1.0f,1.0f),atlas, Vector2D(1/4.0f,1/4.0f)},
-        {Vector3D(4.0f,1.0f,1.0f),atlas, Vector2D(1.0f,1/8.0f)}
-     };
+    //offset in y spot = up to (L * W) / ((L * W)/2)?
+    // for 8x8 its max 64/8
+
+     
+
+    for(float x = 0.0f; x < 100.0f;x++) {
+        for(float y = 0.0f; y < 100.0f;y++) {
+            inst_data.push_back({Vector3D(x,1.0f,y),atlas,Vector2D(1/8,1/8)});
+        }
+    }
     //inst_data[0] = Instance_Data(Vector3D(0.0f,0.0f,0.0f),Vector2D(0.0f,0.0f));
 
-    auto tile_map_mesh = resource_manager->create_custom_mesh( mesh_V.data(),4, indexes.data(),6, inst_data.data(),4, ssssslot.data(),1);
+    auto tile_map_mesh = resource_manager->create_custom_mesh( mesh_V.data(),4, indexes.data(),6, inst_data.data(),inst_data.size(), ssssslot.data(),1);
 
     auto tile_material = resource_manager->create_resource_from_file<Material>(L"../../src/shaders/tilemap.hlsl");
     //auto tile_material = resource_manager->create_resource_from_file<Material>(L"../../src/shaders/inst_mesh_layout.hlsl");
@@ -253,6 +257,11 @@ void Game::on_update_internal()
     cam.get_ref<Transform>()->rotation = Vector3D(rot_x,rot_y,0.0f);
     cam.get_ref<Transform>()->position = cam_pos;
     cam.get_ref<Transform>()->compute_world_matrix();
+/*
+    for(auto t : inst_data) {
+        auto var = rand() % 64 + 1;
+        t.atlas_offset = Vector2D((var/8),(var/8)); 
+    }*/
    
     physics->physics_update(delta_time);
     for(auto sprite_entity : handler->get_sprites()) {

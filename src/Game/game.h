@@ -45,7 +45,7 @@ private:
     //------------------------
     // TEMP RESOURCE STORAGE
     //------------------------
-
+    std::vector<Instance_Data> inst_data = {};
     mesh_sptr mesh;
     material_sptr material;
 

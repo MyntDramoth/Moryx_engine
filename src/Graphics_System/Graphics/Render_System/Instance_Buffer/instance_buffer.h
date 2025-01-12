@@ -4,6 +4,8 @@
 #include "../Device_Context/device_context.h"
 
 #include "../../../prerequisites.h"
+#include "../../../Math/instance_data.h"
+#include <vector>
 
 class Instance_Buffer
 {
@@ -12,7 +14,7 @@ public:
     ~Instance_Buffer();
 
     UINT get_num_vertices();
-
+    void UpdateInstanceBuffer(device_context_sptr context, std::vector<Instance_Data> data);
 private:
     UINT vert_size;
     UINT vert_num;
