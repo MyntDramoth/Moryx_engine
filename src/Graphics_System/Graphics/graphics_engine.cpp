@@ -7,6 +7,7 @@
 #include "../Resource/font.h"
 #include "Render_System/Font/font_internal.h"
 
+
 struct Light_Data {
     Vector4D color;
     Vector4D direction;
@@ -107,18 +108,32 @@ void Graphics_Engine::update(float delta_time) {
     //====================
     // Instance Rendering
     //====================
-
+    /*
     for(float x = 0.0f; x < 100.0f;x++) {
         for(float y = 0.0f; y < 100.0f;y++) {
-             auto var = rand() % 64 + 1;
-            inst_data.push_back({Vector3D(x,1.0f,y),atlas,Vector2D((var/8.0f),(var/8.0f))});
+            float var;
+            float blck = 1.0f;
+            //for (float z = 0.0f; z < 10.0f;z++) {
+                //var = fnSimplex->GenSingle3D(x,y,1,12121);
+                //var = rand() % 64 + 1;
+            //}
+             //auto var = rand() % 64 + 1;
+             //var = fnSimplex->GenSingle3D(x,y,1,12121);
+             //if(var < 0.6f) {
+              //  blck = 2.0f;
+            //}
+            
+           
+           // if(output[(int)(x+y)] < 0.05f) {blck = 2.0f;}
+            inst_data.push_back({Vector3D(x,1.0f,y),atlas,Vector2D((blck/8.0f),(blck/8.0f))});
         }
-    }
-
+    }*/
+    
+    //inst_data = *game->get_instance_data();
     for(auto inst_entity : entity_system->get_instances()) {
         auto mesh = inst_entity.second.get_ref<M_Mesh>();
         
-        mesh->mesh->inst_buffer->UpdateInstanceBuffer(context, inst_data);
+        mesh->mesh->inst_buffer->UpdateInstanceBuffer(context, /*inst_data*/ game->get_instance_data());
         auto transform = inst_entity.second.get_mut<Transform>();
         const_data.world_space =  transform->world_matrix;
         const auto materials = mesh->materials;

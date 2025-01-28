@@ -16,9 +16,6 @@
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\varnt.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\Kore\Kore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

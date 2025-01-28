@@ -18,6 +18,7 @@ public:
 
     Graphics_Engine* get_graphics_engine() { return graphics.get();}
     entity_handler* get_entity_handler() {return handler.get();}
+    std::vector<Instance_Data> get_instance_data() {return inst_data;}
 
 protected:
     virtual void on_create() {};
@@ -45,7 +46,9 @@ private:
     //------------------------
     // TEMP RESOURCE STORAGE
     //------------------------
+    float move = 0;
     std::vector<Instance_Data> inst_data = {};
+    size_t tile_data[100][100][10];
     mesh_sptr mesh;
     material_sptr material;
 

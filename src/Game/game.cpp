@@ -58,6 +58,7 @@ Game::Game() {
     tmap.add<Transform>();
     tmap.get_ref<Transform>()->scale = Vector3D(10.0f,0.0f,10.0f);
     tmap.get_ref<Transform>()->position = Vector3D(0.0f,10.0f,0.0f);
+    //tmap.get_ref<Transform>()->rotation = Vector3D::quaternion_to_euler(180.0f,0.0f,0.0f);
     tmap.get_ref<Transform>()->compute_world_matrix();
     handler->register_instance_mesh(tmap);
     tmap.get_ref<M_Mesh>()->mesh = tile_map_mesh;
@@ -240,6 +241,100 @@ void Game::on_update_internal()
     if(input->is_key_down(Key::SHIFT)) {
        cam_pos.y -= 1;
     }
+    Vector2D atlas = Vector2D(1/8.0f,1/8.0f);
+    auto fnSimplex = FastNoise::New<FastNoise::Simplex>();
+
+    
+    if(input->is_key_down(Key::G)){
+        //inst_data = {};
+        std::vector<Instance_Data> data2 = {};
+        //MORYX_INFO("inst data size: " << inst_data.size());
+        //for(int z = 0; z < 10;z++) {
+            for(auto inst : inst_data) {
+                // float var = fnSimplex->GenSingle3D(inst.pos.x,inst.pos.z,z + move,12121);
+                //     //if(z == 0) {MORYX_INFO("noise val: " << var);}
+                //     float overblock = fnSimplex->GenSingle3D(inst.pos.x,inst.pos.z,z + 1 + move,12121);
+                //     float offset_y = inst.pos.z + (z*2);
+                //     int offset_2D = (inst.pos.x + offset_y * 100);
+
+                //     int X = inst.pos.x;
+                //     int Y = inst.pos.z;
+                //     if(var > 0.0f && offset_y < 100) {
+                        
+                //         if( overblock > 0.0f) {
+                //             tile_data[X][Y][z] = 5;
+                //             if(z!=0) {
+                //                 data2.at((size_t)offset_2D).atlas_offset = Vector2D(5.0f/8.0f,5.0f/8.0f);
+                //                 data2.at((size_t)offset_2D).pos.y = (float)z;
+                //             }
+                //             inst.atlas_offset = Vector2D(5.0f/8.0f,5.0f/8.0f);
+                //             if(z == 10) {
+                //                 tile_data[X][Y][z] = 400;
+                //                 data2.at((size_t)offset_2D).atlas_offset = Vector2D(64.0f/8.0f,64.0f/8.0f);
+                //                 data2.at((size_t)offset_2D).pos.y = (float)z;
+                //             }
+                //         } else {
+                //             tile_data[X][Y][z] = 1;
+                //             if(z!=0){
+                //                 data2.at((size_t)offset_2D).atlas_offset = Vector2D(2.0f/8.0f,2.0f/8.0f);
+                //                 data2.at((size_t)offset_2D).pos.y = (float)z;
+                //             }
+                //             inst.atlas_offset = Vector2D(2.0f/8.0f,2.0f/8.0f);
+                //         }
+                //     } else {
+                //         tile_data[X][Y][z] = 0;
+                //         if(z!=0){
+                //             data2.at((size_t)(X + inst.pos.z * 100)).atlas_offset = Vector2D(1.0f/8.0f,1.0f/8.0f);
+                //             data2.at((size_t)(X + inst.pos.z * 100)).pos.y = (float)z;
+                //         }
+                //         inst.atlas_offset = Vector2D(1.0f/8.0f,1.0f/8.0f);
+                //     }
+                //     inst.pos.y = (float)z;
+                   
+                //if(z == 0) {data2.push_back(inst);}
+            
+           // }
+           data2.push_back(inst);
+        }
+        
+       for(int z = 0; z < 10;z++) {
+            for(int x = 0; x < 100;x++) {
+                for (int y = 0; y < 100;y++) {
+                
+                   
+                    float var = fnSimplex->GenSingle3D(y,x,z + move,12121);
+                    //if(z == 0) {MORYX_INFO("noise val: " << var);}
+                    float overblock = fnSimplex->GenSingle3D(y,x,z + 1 + move,12121);
+                    float offset_y = y + (z*2);
+                    int offset_2D = (x + offset_y * 100);
+                    if(var > 0.0f && offset_y < 100) {
+                        
+                        if( overblock > 0.0f) {
+                            tile_data[x][y][z] = 5;
+                            data2.at((size_t)offset_2D).atlas_offset = Vector2D(5.0f/8.0f,5.0f/8.0f);
+                            if(z == 10) {
+                                tile_data[x][y][z] = 400;
+                                data2.at((size_t)offset_2D).atlas_offset = Vector2D(64.0f/8.0f,64.0f/8.0f);
+                                data2.at((size_t)offset_2D).pos.y = (float)z;
+                            }
+                        } else {
+                            tile_data[x][y][z] = 1;
+                            data2.at((size_t)offset_2D).atlas_offset = Vector2D(2.0f/8.0f,2.0f/8.0f);
+                            data2.at((size_t)offset_2D).pos.y = (float)z;
+                        }
+                    } else {
+                        tile_data[x][y][z] = 0;
+                        data2.at((size_t)(x + y * 100)).atlas_offset = Vector2D(1.0f/8.0f,1.0f/8.0f);
+                        data2.at((size_t)x + y * 100).pos.y = (float)z;
+                    }
+                }
+            }
+       }
+       inst_data = {};
+       inst_data = std::move(data2);
+
+        move += delta_time;
+    }
 
     int FPS = (1/delta_time);
     
@@ -249,13 +344,15 @@ void Game::on_update_internal()
     auto d_pos = input->get_delta_mouse_pos();
     //MORYX_INFO("Mouse X_pos: " << d_pos.x << " || Mouse Y_pos: "<< d_pos.y);
     rot += delta_time;
-    player.get_ref<Transform>()->rotation = Vector3D(0.0f,sin(rot),0.0f);
-    player.get_ref<Transform>()->compute_world_matrix();
+    // player.get_ref<Transform>()->rotation = Vector3D(0.0f,sin(rot),0.0f);
+    // player.get_ref<Transform>()->compute_world_matrix();
     rot_y += d_pos.x * 0.001f;
     rot_x += d_pos.y * 0.001f;
 
     cam.get_ref<Transform>()->rotation = Vector3D(rot_x,rot_y,0.0f);
     cam.get_ref<Transform>()->position = cam_pos;
+    //cam.get_ref<Transform>()->rotation = Vector3D::degrees_to_euler(-90.0f,180.0f,180.0f);
+    //cam.get_ref<Transform>()->position = Vector3D(200.0f,cam_pos.y,200.0f);
     cam.get_ref<Transform>()->compute_world_matrix();
 /*
     for(auto t : inst_data) {

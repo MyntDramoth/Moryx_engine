@@ -14,6 +14,7 @@ struct VS_INPUT {
 struct VS_OUTPUT {
     float4 pos :SV_POSITION;
     float2 uv: TEXCOORD2;
+    uint depth: TEXCOORD3;
 };
 
 
@@ -27,12 +28,13 @@ cbuffer Constant: register(b0) {
 
 VS_OUTPUT vs_main(VS_INPUT input) {
     VS_OUTPUT output = (VS_OUTPUT)0;
+    
     output.pos = mul(input.pos + input.pos_inst, world_space);
 	output.pos = mul(output.pos, view_space);
 	output.pos = mul(output.pos, projection);
 	
     float2 atlas_uv = ((input.uv * input.uv_inst) + input.offset);
-    
+    output.depth = input.pos_inst.y;
     output.uv = atlas_uv;
     return output;   
 }
@@ -43,6 +45,7 @@ sampler TextureSampler: register(s0);
 struct PS_INPUT {
     float4 pos: SV_POSITION;
     float2 uv: TEXCOORD2;
+    uint depth: TEXCOORD3;
 };
 
 float4 ps_main(PS_INPUT input): SV_TARGET {
@@ -54,8 +57,11 @@ float4 ps_main(PS_INPUT input): SV_TARGET {
     //AMBIENT LIGHT
     //=============
     float ambient_ref = 8.5;
-    float3 ambient_col = float3(0.09,0.082,0.082);
+    //float3 ambient_col = float3(0.09,0.082,0.082);
+    float3 ambient_col = float3(0.3,0.3,0.3);
     ambient_col *= (texture_col.rgb);
+    float depth_col = 1.0f-input.depth/10.0f;
+    ambient_col *=  float3(depth_col,depth_col,depth_col);
 
     float3 ambient_light = ambient_ref * ambient_col;
 

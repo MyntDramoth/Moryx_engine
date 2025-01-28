@@ -2,6 +2,8 @@
 #include <cmath>
 #include <memory>
 
+constexpr auto M_PI = 3.14159265358979323846;
+
 class Vector3D {
 public:
     Vector3D() : x(0.0f),y(0.0f),z(0.0f)
@@ -46,6 +48,18 @@ public:
        memcpy((void*)&x,&in_vect.x,sizeof(float));
        memcpy((void*)&y,&in_vect.y,sizeof(float));
        memcpy((void*)&z,&in_vect.z,sizeof(float));
+    };
+
+    static Vector3D degrees_to_euler(float x, float y, float z) {
+        
+        auto to_radians = M_PI/180.0f;
+       
+        return Vector3D(x * to_radians, y * to_radians, z * to_radians);
+    };
+
+    static Vector3D degrees_to_euler(const Vector3D& in_vect) {
+        auto to_radians = M_PI/180.0f;
+        return in_vect*to_radians;
     };
 
     Vector3D operator +(const Vector3D& in_vect) const {

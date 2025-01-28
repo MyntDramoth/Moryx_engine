@@ -330,7 +330,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\game.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\i_game_project_manager.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\main.cpp" />
-    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game\varnt.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\Kore\Kore.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\Kore\Terrain_Generation\octree.cpp" />
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Game_Directories\Kore\chunk_generator.cpp" />
