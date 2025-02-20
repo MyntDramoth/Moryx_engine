@@ -5,8 +5,10 @@
 #include "game_engine.h"
 
 #include "../Game_Directories/Kore/chunk_generator.h"
-
-
+#include <thread>
+#include <mutex>
+#include <atomic>
+void  work_thread(float mpos, Game* game, FastNoise::SmartNode<FastNoise::Simplex> i_simplex);
 class Game
 {
 public:
@@ -19,6 +21,16 @@ public:
     Graphics_Engine* get_graphics_engine() { return graphics.get();}
     entity_handler* get_entity_handler() {return handler.get();}
     std::vector<Instance_Data> get_instance_data() {return inst_data;}
+    
+    void StartTerrainThread(float move,FastNoise::SmartNode<FastNoise::Simplex> i_simplex) {
+        terrain_processing_done = true;
+        std::thread terrainThread(work_thread, move,this,i_simplex);
+        terrainThread.detach(); // Run asynchronously
+    };
+    std::mutex data_mutex;
+    std::atomic<bool> terrain_processing_done = false;
+    //FastNoise::SmartNode<FastNoise::Simplex> i_simplex;
+    std::vector<Instance_Data> inst_data = {};
 
 protected:
     virtual void on_create() {};
@@ -26,7 +38,7 @@ protected:
     virtual void on_quit() {};
 
    
-
+    
 private:
     void on_display_size_change(const Rect& size);
     void on_update_internal();
@@ -47,8 +59,9 @@ private:
     // TEMP RESOURCE STORAGE
     //------------------------
     float move = 0;
-    std::vector<Instance_Data> inst_data = {};
+    
     size_t tile_data[100][100][10];
+    
     mesh_sptr mesh;
     material_sptr material;
 

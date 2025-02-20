@@ -12,6 +12,7 @@ Game::Game() {
     resource_manager = std::make_unique<Resource_Manager>(this);
     handler = std::make_unique<entity_handler>();
     physics = std::make_unique<Physics>();
+   
 
     //=====================//
     // IMPORTANT RESOURCES //
@@ -44,6 +45,7 @@ Game::Game() {
     for(float x = 0.0f; x < 100.0f;x++) {
         for(float y = 0.0f; y < 100.0f;y++) {
             inst_data.push_back({Vector3D(x,1.0f,y),atlas,Vector2D(1/8,1/8)});
+            
         }
     }
     //inst_data[0] = Instance_Data(Vector3D(0.0f,0.0f,0.0f),Vector2D(0.0f,0.0f));
@@ -139,38 +141,38 @@ Game::Game() {
     text.get_ref<Text>()->text = L"Testing Text";
     text.get_ref<Text>()->font = resource_manager->create_resource_from_file<Font>(L"../../src/Assets/Fonts/Bahnschrift.font");
     
-    auto image = handler->create_UI_image("UI 1");
-    image.get_ref<Transform>()->position = Vector3D(50.0f,0.0f,0.0f);
-    image.get_ref<Image>()->image = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/UI/cross.png");
-    image.get_ref<Image>()->size = {50,50,0,0};
+    // auto image = handler->create_UI_image("UI 1");
+    // image.get_ref<Transform>()->position = Vector3D(50.0f,0.0f,0.0f);
+    // image.get_ref<Image>()->image = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/UI/cross.png");
+    // image.get_ref<Image>()->size = {50,50,0,0};
 
-    auto anim = handler->create_animated_sprite("bettle");
-    anim.get_ref<Transform>()->position = Vector3D(100.0f,0.0f,0.0f);
-    anim.get_ref<Animation_2D>()->size = {50,50,0,0};
-    anim.get_ref<Animation_2D>()->sprites.push_back( resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle1.png"));
-    //image.get_ref<Animation_2D>()->sprites.push_back(bettle);
-    auto bettle = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle2.png");
-    anim.get_ref<Animation_2D>()->sprites.push_back(bettle);
-    bettle = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle3.png");
-    anim.get_ref<Animation_2D>()->sprites.push_back(bettle);
-    bettle = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle4.png");
-    anim.get_ref<Animation_2D>()->sprites.push_back(bettle);
-    anim.get_ref<Animation_2D>()->duration = 0.1f;
+    // auto anim = handler->create_animated_sprite("bettle");
+    // anim.get_ref<Transform>()->position = Vector3D(100.0f,0.0f,0.0f);
+    // anim.get_ref<Animation_2D>()->size = {50,50,0,0};
+    // anim.get_ref<Animation_2D>()->sprites.push_back( resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle1.png"));
+    // //image.get_ref<Animation_2D>()->sprites.push_back(bettle);
+    // auto bettle = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle2.png");
+    // anim.get_ref<Animation_2D>()->sprites.push_back(bettle);
+    // bettle = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle3.png");
+    // anim.get_ref<Animation_2D>()->sprites.push_back(bettle);
+    // bettle = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/TEMP/Characters/Chibi_Enemies_Pack/Sprites/Bettle/bettle4.png");
+    // anim.get_ref<Animation_2D>()->sprites.push_back(bettle);
+    // anim.get_ref<Animation_2D>()->duration = 0.1f;
 
     
-    auto tf = anim.get_ref<Transform>();
-    auto a_im = anim.get_ref<Animation_2D>()->size;
+    //auto tf = anim.get_ref<Transform>();
+    //auto a_im = anim.get_ref<Animation_2D>()->size;
    
-    physics->physics_body_create({tf->position.x, tf->position.y},{1.0f,1.0f},{0.0f,0.0f},1,1,false,hit_sprite,nullptr,0);
-    tf->body_id = 0;
-    auto plat = handler->create_UI_image("UI 2");
-    plat.get_ref<Transform>()->position = Vector3D(100.0f,100.0f,0.0f);
-    plat.get_ref<Image>()->image = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/brick_d.jpg");
-    plat.get_ref<Image>()->size = {150,50,0,0};
-    auto ptf = plat.get_ref<Transform>();
-    a_im = plat.get_ref<Animation_2D>()->size;
+    //physics->physics_body_create({tf->position.x, tf->position.y},{1.0f,1.0f},{0.0f,0.0f},1,1,false,hit_sprite,nullptr,0);
+    //tf->body_id = 0;
+    // auto plat = handler->create_UI_image("UI 2");
+    // plat.get_ref<Transform>()->position = Vector3D(100.0f,100.0f,0.0f);
+    // plat.get_ref<Image>()->image = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/brick_d.jpg");
+    // plat.get_ref<Image>()->size = {150,50,0,0};
+    // auto ptf = plat.get_ref<Transform>();
+    // a_im = plat.get_ref<Animation_2D>()->size;
 
-    physics->physics_static_body_create({ptf->position.x,ptf->position.y},{3.0f,1.0f},1);
+    //physics->physics_static_body_create({ptf->position.x,ptf->position.y},{3.0f,1.0f},1);
     //input->lock_cursor(true);
 
 
@@ -208,6 +210,7 @@ void Game::on_update_internal()
     auto delta_time = (float)elapsed_time.count(); //measured in seconds
     input->update();
     handler->purge_entities(delta_time);
+    float cam_speed = 100.0f;
     if(input->is_key_up(Key::ESCAPE)) {
         quit();
     }
@@ -216,129 +219,46 @@ void Game::on_update_internal()
     }
     if(input->is_key_down(Key::W)) {
        
-       cam_pos.z += cam.get_ref<Transform>()->world_matrix.get_z_direction().z ;
-       cam_pos.x += cam.get_ref<Transform>()->world_matrix.get_z_direction().x ;
-       cam_pos.y += cam.get_ref<Transform>()->world_matrix.get_z_direction().y ;
+       cam_pos.z += delta_time * cam.get_ref<Transform>()->world_matrix.get_z_direction().z *cam_speed;
+       cam_pos.x += delta_time * cam.get_ref<Transform>()->world_matrix.get_z_direction().x *cam_speed;
+       cam_pos.y += delta_time * cam.get_ref<Transform>()->world_matrix.get_z_direction().y *cam_speed;
     }
     if(input->is_key_down(Key::S)) {
-       cam_pos.z -= cam.get_ref<Transform>()->world_matrix.get_z_direction().z ;
-       cam_pos.x -= cam.get_ref<Transform>()->world_matrix.get_z_direction().x ;
-       cam_pos.y -= cam.get_ref<Transform>()->world_matrix.get_z_direction().y ;
+       cam_pos.z -= delta_time * cam.get_ref<Transform>()->world_matrix.get_z_direction().z *cam_speed;
+       cam_pos.x -= delta_time * cam.get_ref<Transform>()->world_matrix.get_z_direction().x *cam_speed;
+       cam_pos.y -= delta_time * cam.get_ref<Transform>()->world_matrix.get_z_direction().y *cam_speed;
     }
     if(input->is_key_down(Key::A)) {
-       cam_pos.z -= cam.get_ref<Transform>()->world_matrix.get_x_direction().z ;
-       cam_pos.x -= cam.get_ref<Transform>()->world_matrix.get_x_direction().x ;
-       cam_pos.y -= cam.get_ref<Transform>()->world_matrix.get_x_direction().y ;
+       cam_pos.z -= delta_time * cam.get_ref<Transform>()->world_matrix.get_x_direction().z *cam_speed;
+       cam_pos.x -= delta_time * cam.get_ref<Transform>()->world_matrix.get_x_direction().x *cam_speed;
+       cam_pos.y -= delta_time * cam.get_ref<Transform>()->world_matrix.get_x_direction().y *cam_speed;
     }
     if(input->is_key_down(Key::D)) {
-       cam_pos.z += cam.get_ref<Transform>()->world_matrix.get_x_direction().z ;
-       cam_pos.x += cam.get_ref<Transform>()->world_matrix.get_x_direction().x ;
-       cam_pos.y += cam.get_ref<Transform>()->world_matrix.get_x_direction().y ;
+       cam_pos.z += delta_time * cam.get_ref<Transform>()->world_matrix.get_x_direction().z *cam_speed;
+       cam_pos.x += delta_time * cam.get_ref<Transform>()->world_matrix.get_x_direction().x *cam_speed;
+       cam_pos.y += delta_time * cam.get_ref<Transform>()->world_matrix.get_x_direction().y *cam_speed;
     }
     if(input->is_key_down(Key::SPACE)) {
-       cam_pos.y += 1;
+       cam_pos.y += delta_time*cam_speed;
     }
     if(input->is_key_down(Key::SHIFT)) {
-       cam_pos.y -= 1;
+       cam_pos.y -= delta_time*cam_speed;
     }
     Vector2D atlas = Vector2D(1/8.0f,1/8.0f);
     auto fnSimplex = FastNoise::New<FastNoise::Simplex>();
-
+    auto SIMD_Simplex = FastSIMD::New<FastNoise::Perlin>();
     
     if(input->is_key_down(Key::G)){
-        //inst_data = {};
-        std::vector<Instance_Data> data2 = {};
-        //MORYX_INFO("inst data size: " << inst_data.size());
-        //for(int z = 0; z < 10;z++) {
-            for(auto inst : inst_data) {
-                // float var = fnSimplex->GenSingle3D(inst.pos.x,inst.pos.z,z + move,12121);
-                //     //if(z == 0) {MORYX_INFO("noise val: " << var);}
-                //     float overblock = fnSimplex->GenSingle3D(inst.pos.x,inst.pos.z,z + 1 + move,12121);
-                //     float offset_y = inst.pos.z + (z*2);
-                //     int offset_2D = (inst.pos.x + offset_y * 100);
-
-                //     int X = inst.pos.x;
-                //     int Y = inst.pos.z;
-                //     if(var > 0.0f && offset_y < 100) {
-                        
-                //         if( overblock > 0.0f) {
-                //             tile_data[X][Y][z] = 5;
-                //             if(z!=0) {
-                //                 data2.at((size_t)offset_2D).atlas_offset = Vector2D(5.0f/8.0f,5.0f/8.0f);
-                //                 data2.at((size_t)offset_2D).pos.y = (float)z;
-                //             }
-                //             inst.atlas_offset = Vector2D(5.0f/8.0f,5.0f/8.0f);
-                //             if(z == 10) {
-                //                 tile_data[X][Y][z] = 400;
-                //                 data2.at((size_t)offset_2D).atlas_offset = Vector2D(64.0f/8.0f,64.0f/8.0f);
-                //                 data2.at((size_t)offset_2D).pos.y = (float)z;
-                //             }
-                //         } else {
-                //             tile_data[X][Y][z] = 1;
-                //             if(z!=0){
-                //                 data2.at((size_t)offset_2D).atlas_offset = Vector2D(2.0f/8.0f,2.0f/8.0f);
-                //                 data2.at((size_t)offset_2D).pos.y = (float)z;
-                //             }
-                //             inst.atlas_offset = Vector2D(2.0f/8.0f,2.0f/8.0f);
-                //         }
-                //     } else {
-                //         tile_data[X][Y][z] = 0;
-                //         if(z!=0){
-                //             data2.at((size_t)(X + inst.pos.z * 100)).atlas_offset = Vector2D(1.0f/8.0f,1.0f/8.0f);
-                //             data2.at((size_t)(X + inst.pos.z * 100)).pos.y = (float)z;
-                //         }
-                //         inst.atlas_offset = Vector2D(1.0f/8.0f,1.0f/8.0f);
-                //     }
-                //     inst.pos.y = (float)z;
-                   
-                //if(z == 0) {data2.push_back(inst);}
-            
-           // }
-           data2.push_back(inst);
+        if(!terrain_processing_done) {
+            StartTerrainThread(move,fnSimplex);
+           
         }
-        
-       for(int z = 0; z < 10;z++) {
-            for(int x = 0; x < 100;x++) {
-                for (int y = 0; y < 100;y++) {
-                
-                   
-                    float var = fnSimplex->GenSingle3D(y,x,z + move,12121);
-                    //if(z == 0) {MORYX_INFO("noise val: " << var);}
-                    float overblock = fnSimplex->GenSingle3D(y,x,z + 1 + move,12121);
-                    float offset_y = y + (z*2);
-                    int offset_2D = (x + offset_y * 100);
-                    if(var > 0.0f && offset_y < 100) {
-                        
-                        if( overblock > 0.0f) {
-                            tile_data[x][y][z] = 5;
-                            data2.at((size_t)offset_2D).atlas_offset = Vector2D(5.0f/8.0f,5.0f/8.0f);
-                            if(z == 10) {
-                                tile_data[x][y][z] = 400;
-                                data2.at((size_t)offset_2D).atlas_offset = Vector2D(64.0f/8.0f,64.0f/8.0f);
-                                data2.at((size_t)offset_2D).pos.y = (float)z;
-                            }
-                        } else {
-                            tile_data[x][y][z] = 1;
-                            data2.at((size_t)offset_2D).atlas_offset = Vector2D(2.0f/8.0f,2.0f/8.0f);
-                            data2.at((size_t)offset_2D).pos.y = (float)z;
-                        }
-                    } else {
-                        tile_data[x][y][z] = 0;
-                        data2.at((size_t)(x + y * 100)).atlas_offset = Vector2D(1.0f/8.0f,1.0f/8.0f);
-                        data2.at((size_t)x + y * 100).pos.y = (float)z;
-                    }
-                }
-            }
-       }
-       inst_data = {};
-       inst_data = std::move(data2);
-
-        move += delta_time;
+         move += delta_time;
     }
 
     int FPS = (1/delta_time);
     
-
+   
     text.get_ref<Text>()->text = std::to_wstring(FPS);
 
     auto d_pos = input->get_delta_mouse_pos();
@@ -349,10 +269,10 @@ void Game::on_update_internal()
     rot_y += d_pos.x * 0.001f;
     rot_x += d_pos.y * 0.001f;
 
-    cam.get_ref<Transform>()->rotation = Vector3D(rot_x,rot_y,0.0f);
-    cam.get_ref<Transform>()->position = cam_pos;
-    //cam.get_ref<Transform>()->rotation = Vector3D::degrees_to_euler(-90.0f,180.0f,180.0f);
-    //cam.get_ref<Transform>()->position = Vector3D(200.0f,cam_pos.y,200.0f);
+    //cam.get_ref<Transform>()->rotation = Vector3D(rot_x,rot_y,0.0f);
+    //cam.get_ref<Transform>()->position = cam_pos;
+    cam.get_ref<Transform>()->rotation = Vector3D::degrees_to_euler(-90.0f,180.0f,180.0f);
+    cam.get_ref<Transform>()->position = Vector3D(200.0f,cam_pos.y,200.0f);
     cam.get_ref<Transform>()->compute_world_matrix();
 /*
     for(auto t : inst_data) {
@@ -370,4 +290,46 @@ void Game::on_update_internal()
 
 void Game::quit() {
     is_running = false;
+}
+
+void work_thread(float mpos, Game* game, FastNoise::SmartNode<FastNoise::Simplex> i_simplex)
+{
+    std::vector<Instance_Data> data2;
+
+    // Copy inst_data safely
+    {
+        std::lock_guard<std::mutex> lock(game->data_mutex);
+        data2 = game->inst_data;
+    }
+
+    // Terrain generation loop
+    for (int z = 0; z < 10; z++) {
+        for (int x = 0; x < 100; x++) {
+            for (int y = 0; y < 100; y++) {
+                float var = i_simplex->GenSingle3D(x, y, z + mpos, 12121);
+                float overblock = i_simplex->GenSingle3D(x, y, z + 1 + mpos, 12121);
+                float prevblock = i_simplex->GenSingle3D(x, y - 1, z + mpos, 12121);
+                float offset_y = y + (z * 2);
+                int offset_2D = (x * 100 + offset_y);
+
+                if (var > 0.0f && offset_y < 100) {
+                    data2.at((size_t)offset_2D).atlas_offset = Vector2D(2.0f / 8.0f, 2.0f / 8.0f);
+                    data2.at((size_t)offset_2D).pos.y = (float)z;
+                }
+                if (prevblock > 0.0f && offset_y < 100) {
+                    data2.at((size_t)offset_2D).atlas_offset = Vector2D(5.0f / 8.0f, 5.0f / 8.0f);
+                    data2.at((size_t)offset_2D).pos.y = (float)z;
+                }
+            }
+        }
+    }
+
+    // Update inst_data safely
+    {
+        std::lock_guard<std::mutex> lock(game->data_mutex);
+        game->inst_data.clear();
+        game->inst_data = std::move(data2);
+    }
+
+    game->terrain_processing_done = false;
 }

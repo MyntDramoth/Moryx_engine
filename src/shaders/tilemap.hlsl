@@ -28,8 +28,19 @@ cbuffer Constant: register(b0) {
 
 VS_OUTPUT vs_main(VS_INPUT input) {
     VS_OUTPUT output = (VS_OUTPUT)0;
+     float true_y = input.pos_inst.y;
+
+    float scaleFactor = 1.0 + (true_y * 0.1); // Increase scale with height
     
-    output.pos = mul(input.pos + input.pos_inst, world_space);
+    // Scale the X and Y values
+    float y_offset = (scaleFactor - 1.0) * 0.5;
+    float4 scaledPos = float4((input.pos.x - y_offset*50) * scaleFactor,input.pos.y,(input.pos.z - y_offset*25) * scaleFactor ,input.pos.w);
+  
+    input.pos_inst.xz *= scaleFactor;
+    
+    
+    output.pos = mul(scaledPos + input.pos_inst, world_space);
+    output.pos.y += true_y;
 	output.pos = mul(output.pos, view_space);
 	output.pos = mul(output.pos, projection);
 	
@@ -58,10 +69,14 @@ float4 ps_main(PS_INPUT input): SV_TARGET {
     //=============
     float ambient_ref = 8.5;
     //float3 ambient_col = float3(0.09,0.082,0.082);
-    float3 ambient_col = float3(0.3,0.3,0.3);
+    //float3 ambient_col = float3(0.09,0.09,0.09);
+    float col_mult = 0.09f;
+    float3 ambient_col = float3(col_mult,col_mult,col_mult);
     ambient_col *= (texture_col.rgb);
-    float depth_col = 1.0f-input.depth/10.0f;
-    ambient_col *=  float3(depth_col,depth_col,depth_col);
+    float depth = input.depth/10.0f;
+    
+    float depth_col = 1-(depth);
+    ambient_col =  lerp(col_mult,ambient_col,depth_col+1.0f);
 
     float3 ambient_light = ambient_ref * ambient_col;
 
