@@ -1,0 +1,1 @@
+This is a copy of the Moryx Engine an engine designed for both 3D and 2D game development, with 2D having the most features. It is highly optimized for procedural generation and the included file is a compilation of a test for 2D terrain Generation using 3D noise. Shift and Space Bar move the camera back and forth, G steps the noise function.
