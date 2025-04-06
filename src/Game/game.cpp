@@ -2,7 +2,6 @@
 
 #include "i_game_project_manager.h"
 
-#include "../Game_Directories/Kore/chunk_generator.h"
 #include <FastNoise/FastNoise.h>
 
 Game::Game() {
@@ -17,7 +16,7 @@ Game::Game() {
     //=====================//
     // IMPORTANT RESOURCES //
     //=====================//
-    auto pallete = resource_manager->create_resource_from_file<Texture>(L"../../src/Game_Directories/Kore/Assets/Textures/color_pallete.png");
+    auto pallete = resource_manager->create_resource_from_file<Texture>(L"../../src/Assets/Textures/color_pallete.png");
 
     std::vector<Vertex_Mesh> mesh_V = {
             Vertex_Mesh(Vector3D(0.0f,0.0f,1.0f), Vector2D(0.0f,1.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f), Vector3D(0.0f,0.0f,0.0f))
@@ -177,6 +176,7 @@ Game::Game() {
 
 
     //physics->physics_body_create()
+    cam_pos.y = 200;
 
     lua_State* L = luaL_newstate();
     luaL_dostring(L,"x = 42");
