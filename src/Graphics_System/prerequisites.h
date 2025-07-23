@@ -38,6 +38,7 @@ class Mesh;
 class Material;
 class Font_Internal;
 class Font;
+class Sound;
 
 //*********
 // POINTERS
@@ -68,6 +69,7 @@ typedef std::shared_ptr<Mesh> mesh_sptr;
 typedef std::shared_ptr<Material> material_sptr;
 typedef std::shared_ptr<Font_Internal> font_internal_sptr;
 typedef std::shared_ptr<Font> font_sptr;
+typedef std::shared_ptr<Sound> sound_sptr;
 
 
 enum class Camera_Type {
@@ -102,18 +104,21 @@ struct Instance_Slot {
 // MACROS
 //---------
 
+
+//color codes coresponding to the message type:
+//Red: Error || Green: Info || Yellow: warning
 #define MORYX_ERROR(message)\
 {\
-    std::wclog << "Moryx Error: " << message <<std::endl;\
+    std::wclog <<"\033[31m" <<"Moryx Error: " << message << "\033[0m"<<std::endl;\
     throw std::runtime_error("");\
 }
 
 #define MORYX_WARNING(message)\
 {\
-    std::wclog << "Moryx Warning: " << message <<std::endl;\
+    std::wclog <<"\033[33m" << "Moryx Warning: " << message << "\033[0m"<<std::endl;\
 }
 
 #define MORYX_INFO(message)\
 {\
-    std::wclog << "Moryx Info: " << message <<std::endl;\
+    std::wclog <<"\033[32m" << "Moryx Info: " << message << "\033[0m"<<std::endl;\
 }

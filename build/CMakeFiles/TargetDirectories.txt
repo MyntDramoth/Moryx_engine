@@ -13,3 +13,11 @@ C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master/CMakeFiles/f
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master/CMakeFiles/flecs_static.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master/CMakeFiles/INSTALL.dir
 C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master/CMakeFiles/ALL_BUILD.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/miniaudio-master/CMakeFiles/miniaudio.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/miniaudio-master/CMakeFiles/miniaudio_channel_combiner_node.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/miniaudio-master/CMakeFiles/miniaudio_channel_separator_node.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/miniaudio-master/CMakeFiles/miniaudio_ltrim_node.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/miniaudio-master/CMakeFiles/miniaudio_reverb_node.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/miniaudio-master/CMakeFiles/miniaudio_vocoder_node.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/miniaudio-master/CMakeFiles/INSTALL.dir
+C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/miniaudio-master/CMakeFiles/ALL_BUILD.dir

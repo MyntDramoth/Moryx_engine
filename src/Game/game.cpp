@@ -184,6 +184,10 @@ Game::Game() {
     lua_Number num = lua_tonumber(L,1);
     std::cout<<num<<" :LUA number.\n";
     lua_close(L);
+
+    sound_sptr explode = resource_manager->create_resource_from_file<Sound>(L"../../Assets/breezys_mega_quest_stage_1.mp3");
+   
+    explode->play(1.0f);
 }
 
 

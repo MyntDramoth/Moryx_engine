@@ -37,6 +37,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lua-5.4.6/cmake_install.cmake")
   include("C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/FastNoise2/cmake_install.cmake")
   include("C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/flecs-master/cmake_install.cmake")
+  include("C:/Users/zachm/OneDrive/Desktop/Moryx_engine/build/lib/miniaudio-master/cmake_install.cmake")
 
 endif()
 

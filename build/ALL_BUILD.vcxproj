@@ -193,6 +193,30 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{10566C9E-6C93-34CA-A778-0871F6AF8A14}</Project>
       <Name>flecs_static</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lib\miniaudio-master\miniaudio.vcxproj">
+      <Project>{BD94CC41-AC02-3360-853C-0280A186398D}</Project>
+      <Name>miniaudio</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lib\miniaudio-master\miniaudio_channel_combiner_node.vcxproj">
+      <Project>{43E31D6D-506A-3D60-94AA-35DD3B5D0580}</Project>
+      <Name>miniaudio_channel_combiner_node</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lib\miniaudio-master\miniaudio_channel_separator_node.vcxproj">
+      <Project>{F7C443D8-6015-3624-95B4-93CB0E921D3E}</Project>
+      <Name>miniaudio_channel_separator_node</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lib\miniaudio-master\miniaudio_ltrim_node.vcxproj">
+      <Project>{F2A656F9-43F6-37D4-AC94-393B86019DD0}</Project>
+      <Name>miniaudio_ltrim_node</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lib\miniaudio-master\miniaudio_reverb_node.vcxproj">
+      <Project>{71A08735-F720-31ED-ABDF-57024D96C4C7}</Project>
+      <Name>miniaudio_reverb_node</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\build\lib\miniaudio-master\miniaudio_vocoder_node.vcxproj">
+      <Project>{D8EA17C4-FADD-3A5C-B76C-1010EA3B5C84}</Project>
+      <Name>miniaudio_vocoder_node</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,7 +24,7 @@ set(FASTNOISE2_NOISETOOL OFF CACHE BOOL "Build Noise Tool" FORCE) #example if do
 
 add_subdirectory(lib/FastNoise2)
 add_subdirectory(lib/flecs-master)
-
+add_subdirectory(lib/miniaudio-master)
 #set asset directory
 
 
@@ -37,7 +37,7 @@ endif()
 set(STB_IMAGE_PATH include/STB_Image)
 set(DIRECTX_TEX_PATH lib/DirectXTex)
 set(DIRECTX_TK_PATH lib/DirectXTK)
-
+set(JSON_PATH include/nlohmann_json)
 
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
  
@@ -63,6 +63,7 @@ if (WIN32)
     ${PROJECT_SOURCE_DIR}/src
     ${TINYOBJ_PATH}
     ${STB_IMAGE_PATH}
+    ${JSON_PATH}
     ${DIRECTX_TEX_PATH}/include
     ${DIRECTX_TK_PATH}/include
     
@@ -81,6 +82,7 @@ elseif (UNIX)
       ${PROJECT_SOURCE_DIR}/src
       ${TINYOBJ_PATH}
       ${STB_IMAGE_PATH}
+      ${JSON_PATH}
       ${FASTNOISE2_NOISETOOL}
       ${DIRECTX_TEX_PATH}/include
     )

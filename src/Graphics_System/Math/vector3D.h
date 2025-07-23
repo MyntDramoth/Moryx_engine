@@ -2,7 +2,7 @@
 #include <cmath>
 #include <memory>
 
-constexpr auto M_PI = 3.14159265358979323846;
+constexpr auto M_PII = 3.14159265358979323846;
 
 class Vector3D {
 public:
@@ -52,13 +52,13 @@ public:
 
     static Vector3D degrees_to_euler(float x, float y, float z) {
         
-        auto to_radians = M_PI/180.0f;
+        auto to_radians = M_PII/180.0f;
        
         return Vector3D(x * to_radians, y * to_radians, z * to_radians);
     };
 
     static Vector3D degrees_to_euler(const Vector3D& in_vect) {
-        auto to_radians = M_PI/180.0f;
+        auto to_radians = M_PII/180.0f;
         return in_vect*to_radians;
     };
 

@@ -70,6 +70,9 @@
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Resource\resource_manager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Resource\sound.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\zachm\OneDrive\Desktop\Moryx_engine\src\Graphics_System\Resource\texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

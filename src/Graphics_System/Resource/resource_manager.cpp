@@ -3,6 +3,7 @@
 #include "texture.h"
 #include "material.h"
 #include "font.h"
+#include "sound.h"
 
 
 Resource_Manager::Resource_Manager(Game* game):game(game) {
@@ -52,6 +53,9 @@ resource_sptr Resource_Manager::create_resource_from_file_concrete(const wchar_t
     }
     else if(!extension.compare(L".font")) {
         resource = std::make_shared<Font>(resource_path.c_str(),this);
+    }
+    else if(!extension.compare(L".wav") || !extension.compare(L".mp3") || !extension.compare(L".ogg")) {
+        resource = std::make_shared<Sound>(resource_path.c_str(),this);
     }
 
     if(resource) {
