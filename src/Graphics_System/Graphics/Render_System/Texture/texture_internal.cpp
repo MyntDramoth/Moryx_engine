@@ -36,6 +36,7 @@ Texture_Internal::Texture_Internal(const wchar_t* full_path, Render_System* rend
         sampler_desc.Filter = D3D11_FILTER_ANISOTROPIC;
         sampler_desc.MinLOD = 0;
         sampler_desc.MaxLOD = (float)image_data.GetMetadata().mipLevels;
+       
 
         res = render_system->device->CreateSamplerState(&sampler_desc,&sampler_state);
 

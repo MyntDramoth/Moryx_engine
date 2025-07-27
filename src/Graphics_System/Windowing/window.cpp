@@ -2,6 +2,9 @@
 #include <exception>
 #include <Windows.h>
 #include "../prerequisites.h"
+#include <Dbt.h>
+#include <ks.h>
+#include <ksmedia.h>
 
 LRESULT CALLBACK WndProc(HWND hwnd,UINT msg, WPARAM wparam, LPARAM lparam) {
     switch(msg) {
@@ -50,6 +53,28 @@ LRESULT CALLBACK WndProc(HWND hwnd,UINT msg, WPARAM wparam, LPARAM lparam) {
             //PostQuitMessage(0);
             break;
         }
+        case WM_DEVICECHANGE:
+        {
+            Window* window = (Window*)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+            if ( wparam == DBT_DEVICEARRIVAL )
+            {
+                auto pDev = reinterpret_cast<PDEV_BROADCAST_HDR>( lparam );
+                if( pDev )
+                {
+                    if ( pDev->dbch_devicetype == DBT_DEVTYP_DEVICEINTERFACE )
+                    {
+                        auto pInter = reinterpret_cast<
+                            const PDEV_BROADCAST_DEVICEINTERFACE>( pDev );
+                        if ( pInter->dbcc_classguid == KSCATEGORY_AUDIO )
+                        {
+                            if (window)
+                                {window->on_new_audio_device();}
+                        }
+                    }
+                }
+            }
+            return 0;
+        }
         case WM_CLOSE:
         {
             PostQuitMessage(0);
@@ -71,7 +96,7 @@ Window::Window() {
     int width,height;
     width = 1024;
     height = 720;
-
+    
     WNDCLASSEX window_class = {};
  
     window_class.cbSize = sizeof(WNDCLASSEX);
@@ -97,6 +122,8 @@ Window::Window() {
 
     ShowWindow(win_hndl,SW_SHOW);
     UpdateWindow(win_hndl);
+
+    
 }
 
 /*
@@ -148,7 +175,22 @@ void Window::on_focus() {
 
 
 void Window::on_kill_focus() {
+    
+}
 
+void Window::on_new_audio_device() {
+    auto hwnd = static_cast<HWND>(window_handle);
+    HDEVNOTIFY new_audio = nullptr;
+    DEV_BROADCAST_DEVICEINTERFACE filter = {};
+        filter.dbcc_size = sizeof( filter );
+        filter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
+        filter.dbcc_classguid = KSCATEGORY_AUDIO;
+
+        new_audio = RegisterDeviceNotification( hwnd, &filter,
+            DEVICE_NOTIFY_WINDOW_HANDLE );
+        if(!new_audio) {
+            MORYX_ERROR("Audio device is not registered");
+        }
 }
 
 void Window::on_resize(const Rect& size) {

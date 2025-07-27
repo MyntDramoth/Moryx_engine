@@ -10,6 +10,7 @@ class Vertex_Buffer
 {
 public:
     Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, Render_System* system);
+    Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, Render_System* system, D3D11_BUFFER_DESC buffer_desc);
     ~Vertex_Buffer();
 
     UINT get_num_vertices();

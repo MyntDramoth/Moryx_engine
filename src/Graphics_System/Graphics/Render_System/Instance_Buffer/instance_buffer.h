@@ -11,6 +11,7 @@ class Instance_Buffer
 {
 public:
     Instance_Buffer(void* instances, UINT inst_size, UINT inst_num, Render_System* system);
+    Instance_Buffer(void* instances, UINT inst_size, UINT inst_num, Render_System* system, D3D11_BUFFER_DESC buffer_desc);
     ~Instance_Buffer();
 
     UINT get_num_vertices();

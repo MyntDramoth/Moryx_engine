@@ -38,7 +38,52 @@ Instance_Buffer::Instance_Buffer(void* instances, UINT inst_size, UINT inst_num,
         {"BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 44, D3D11_INPUT_PER_VERTEX_DATA, 0},
         {"POSITION", 1, DXGI_FORMAT_R32G32B32_FLOAT, 1, 0, D3D11_INPUT_PER_INSTANCE_DATA, 1},
         {"TEXCOORD", 1, DXGI_FORMAT_R32G32_FLOAT, 1, 12, D3D11_INPUT_PER_INSTANCE_DATA, 1},
-        {"TEXCOORD", 2, DXGI_FORMAT_R32G32_FLOAT, 1, 24, D3D11_INPUT_PER_INSTANCE_DATA, 1}
+        {"TEXCOORD", 2, DXGI_FORMAT_R32G32_FLOAT, 1, 20, D3D11_INPUT_PER_INSTANCE_DATA, 1},
+        {"TEXCOORD", 3, DXGI_FORMAT_R32G32_FLOAT, 1, 28, D3D11_INPUT_PER_INSTANCE_DATA, 1},
+
+        {"COLOR", 0, DXGI_FORMAT_R32G32_FLOAT, 1, 36, D3D11_INPUT_PER_INSTANCE_DATA, 1}
+        
+    };
+
+    UINT layout_size = ARRAYSIZE(layout);
+
+    hres = render_system->device->CreateInputLayout(layout,layout_size,render_system->instance_mesh_layout_bytecode,render_system->instance_mesh_layout_size,&input_layout);
+    if(FAILED(hres)) {
+       MORYX_ERROR("Failed to create Instance Input Layout!");
+    }
+}
+
+Instance_Buffer::Instance_Buffer(void *instances, UINT inst_size, UINT inst_num, Render_System *system, D3D11_BUFFER_DESC buffer_desc) {
+     D3D11_SUBRESOURCE_DATA init_data = {};
+    init_data.pSysMem = instances;
+
+
+    vert_size = inst_size;
+    vert_num = inst_num;
+
+    HRESULT hres = render_system->device->CreateBuffer(&buffer_desc,&init_data,&buffer);
+
+    if(FAILED(hres)) {
+        MORYX_ERROR("Failed to create Intance Buffer!");
+    }
+
+    //that 12 is the size of 3 32bit floats, 1 32bit float being 4 bytes.
+
+    D3D11_INPUT_ELEMENT_DESC layout[] = {
+        //SEMANTIC NAME - SEMANTIC INDEX - FORMAT - INPUT SLOT - ALLIGNED BYTE OFFSET - INPUT SLOT CLASS - INSTANCE DATA STEP RATE
+    
+        {"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 20, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 44, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"POSITION", 1, DXGI_FORMAT_R32G32B32_FLOAT, 1, 0, D3D11_INPUT_PER_INSTANCE_DATA, 1},
+        {"TEXCOORD", 1, DXGI_FORMAT_R32G32_FLOAT, 1, 12, D3D11_INPUT_PER_INSTANCE_DATA, 1},
+        {"TEXCOORD", 2, DXGI_FORMAT_R32G32_FLOAT, 1, 20, D3D11_INPUT_PER_INSTANCE_DATA, 1},
+        {"TEXCOORD", 3, DXGI_FORMAT_R32G32_FLOAT, 1, 28, D3D11_INPUT_PER_INSTANCE_DATA, 1},
+
+        {"COLOR", 0, DXGI_FORMAT_R32G32_FLOAT, 1, 36, D3D11_INPUT_PER_INSTANCE_DATA, 1}
+        
     };
 
     UINT layout_size = ARRAYSIZE(layout);

@@ -105,10 +105,10 @@ comp_shader_sptr Render_System::create_compute_shader(const wchar_t* full_path, 
 texture_internal_sptr Render_System::create_texture(const wchar_t *full_path) {
     return std::make_shared<Texture_Internal>(full_path,this);
 }
+
 texture_internal_sptr Render_System::create_texture(const Rect &size, Texture_Internal::Texture_Type tex_type) {
     return std::make_shared<Texture_Internal>(size,tex_type, this);
 }
-
 
 font_internal_sptr Render_System::create_font(const wchar_t *file_path) {  
     return std::make_shared<Font_Internal>(file_path, this); 
@@ -123,73 +123,28 @@ void Render_System::compile_private_shaders() {
 
     Microsoft::WRL::ComPtr<ID3DBlob> comb_shader {nullptr};
 
-    auto mesh_layout_code = R"(
-        struct VS_INPUT {
-            float4 pos: POSITION0;
-            float2 uv: TEXCOORD0;
-            float3 normal: NORMAL0;
-            float3 tangent: TANGENT0;
-            float3 binormal: BINORMAL0;
-        };
+    //=====================
+    // VERTEX SHADER LAYOUT
+    //=====================
+    UINT Empty_compile_flags = 0;
 
-        struct VS_OUTPUT {
-            float4 pos :SV_POSITION;
-            float2 uv: TEXCOORD0;
-            float3 normal: NORMAL0;
-            float3 camera_dir: TEXCOORD1;
-        };
-
-
-        VS_OUTPUT main(VS_INPUT input) {
-            VS_OUTPUT output = (VS_OUTPUT)0;
-            
-            return output;   
-        }
-    )";
-
-    auto code_size = strlen(mesh_layout_code);
-
-    HRESULT hres = D3DCompile(mesh_layout_code,code_size, "vert_mesh_layout",nullptr, nullptr, "main", "vs_5_0", 0,0, &shader, &err_blob);
-    if(FAILED(hres)) {
-       MORYX_ERROR("Failed to Compile layout shader");
+    HRESULT hres = D3DCompileFromFile(vert_shader_path, nullptr, nullptr, "main", "vs_5_0", Empty_compile_flags,Empty_compile_flags, &shader, &err_blob);
+  
+    if(FAILED(hres) || err_blob || !shader) {
+       MORYX_ERROR("Failed to Compile Vertex layout shader: " << vert_shader_path << " compiled with errors:\n" << (char*)err_blob->GetBufferPointer());
     }
+
     memcpy(mesh_layout_bytecode,shader->GetBufferPointer(),shader->GetBufferSize());
+    
     mesh_layout_size = shader->GetBufferSize();
 
-    auto instance_mesh_layout_code = R"(
-        
-        struct VS_INPUT {
-            float4 pos: POSITION0;
-            float2 uv: TEXCOORD0;
-            float3 normal: NORMAL0;
-            float3 tangent: TANGENT0;
-            float3 binormal: BINORMAL0;
-            float4 pos_inst: POSITION1;
-            float2 uv_inst: TEXCOORD1; 
-            float2 offset: TEXCOORD2; 
-        };
-
-        struct VS_OUTPUT {
-            float4 pos_inst :POSITION1;
-            float2 uv_inst: TEXCOORD0;
-
-            float4 pos :SV_POSITION;
-            float2 uv: TEXCOORD0;
-            float3 normal: NORMAL0;
-            float3 camera_dir: TEXCOORD1;
-        };
-
-        VS_OUTPUT main(VS_INPUT input) {
-            VS_OUTPUT output = (VS_OUTPUT)0;
-            
-            return output;   
-        }
-    )";
-
-    auto inst_code_size = strlen(instance_mesh_layout_code);
-    hres = D3DCompile(instance_mesh_layout_code,inst_code_size, "inst_mesh_layout",nullptr, nullptr, "main", "vs_5_0", 0,0, &inst_shader, &inst_err_blob);
-    if(FAILED(hres)) {
-       MORYX_ERROR("Failed to Compile instance layout shader");
+    //=======================
+    // INSTANCE SHADER LAYOUT
+    //=======================
+   
+    hres = D3DCompileFromFile(inst_shader_path, nullptr, nullptr, "main", "vs_5_0", Empty_compile_flags,Empty_compile_flags, &inst_shader, &inst_err_blob);
+    if(FAILED(hres) || inst_err_blob || !inst_shader) {
+       MORYX_ERROR("Failed to Compile instance layout shader: " << inst_shader_path << " compiled with errors:\n" << (char*)inst_err_blob->GetBufferPointer());
     }
     memcpy(instance_mesh_layout_bytecode,inst_shader->GetBufferPointer(),inst_shader->GetBufferSize());
     instance_mesh_layout_size = inst_shader->GetBufferSize();
@@ -205,7 +160,6 @@ void Render_System::set_cull_mode(const CULL_MODE& cull_mode) {
     else if(cull_mode == CULL_MODE::NONE){
         context->RSSetState(none_culling.Get());
     }
-
 
 }
 
@@ -238,16 +192,16 @@ void Render_System::intit_rasterizer_state() {
     device->CreateRasterizerState(&desc,&none_culling);
 
     D3D11_BLEND_DESC bdesc = {};
-    bdesc.AlphaToCoverageEnable = false;
-    bdesc.IndependentBlendEnable = false;
-    bdesc.RenderTarget[0].BlendEnable = true;
-    bdesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-    bdesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-    bdesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-    bdesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-    bdesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-    bdesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-    bdesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+    bdesc.AlphaToCoverageEnable = i_blend_desc.alpha_to_coverage_enable;
+    bdesc.IndependentBlendEnable = i_blend_desc.independent_blend_enable;
+    bdesc.RenderTarget[0].BlendEnable = i_blend_desc.blend_enable;
+    bdesc.RenderTarget[0].SrcBlend = i_blend_desc.src_blend;
+    bdesc.RenderTarget[0].DestBlend = i_blend_desc.dest_blend;
+    bdesc.RenderTarget[0].BlendOp = i_blend_desc.blend_op;
+    bdesc.RenderTarget[0].SrcBlendAlpha = i_blend_desc.src_blend_alpha;
+    bdesc.RenderTarget[0].DestBlendAlpha = i_blend_desc.dest_blend_alpha;
+    bdesc.RenderTarget[0].BlendOpAlpha = i_blend_desc.blend_op_alpha;
+    bdesc.RenderTarget[0].RenderTargetWriteMask = i_blend_desc.render_target_write_mask;
 
     device->CreateBlendState(&bdesc,&alpha_blending);
 }

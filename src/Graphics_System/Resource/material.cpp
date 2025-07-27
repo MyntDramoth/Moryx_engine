@@ -46,7 +46,7 @@ void Material::set_buffer_data(void *data, UINT data_size) {
     
     if(!const_buffer) {
         const_buffer = render_sys->create_constant_buffer(data, data_size);
-       
+        
     } else {
         const_buffer->update(render_sys->get_device_context(),data);
     }

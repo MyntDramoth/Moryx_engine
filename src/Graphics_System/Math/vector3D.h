@@ -2,7 +2,7 @@
 #include <cmath>
 #include <memory>
 
-constexpr auto M_PII = 3.14159265358979323846;
+constexpr double M_PII = 3.14159265358979323846;
 
 class Vector3D {
 public:

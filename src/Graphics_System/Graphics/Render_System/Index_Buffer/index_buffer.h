@@ -10,6 +10,7 @@ class Index_Buffer
 {
 public:
     Index_Buffer(void* indeces, UINT index_size, Render_System* system);
+    Index_Buffer(void* indeces, UINT index_size, Render_System* system, D3D11_BUFFER_DESC buffer_desc);
     ~Index_Buffer();
 
     UINT get_size_index_list();

@@ -12,6 +12,22 @@
 
 #include "Swapchain/swapchain.h"
 
+struct Moryx_DX11_Blend_Description {
+    bool alpha_to_coverage_enable = false;
+    bool independent_blend_enable = false;
+    bool blend_enable = true;
+
+    D3D11_BLEND src_blend = D3D11_BLEND_SRC_ALPHA;
+    D3D11_BLEND dest_blend = D3D11_BLEND_INV_SRC_ALPHA;
+    D3D11_BLEND src_blend_alpha = D3D11_BLEND_ONE;
+    D3D11_BLEND dest_blend_alpha = D3D11_BLEND_ZERO;
+
+    D3D11_BLEND_OP blend_op = D3D11_BLEND_OP_ADD;
+    D3D11_BLEND_OP blend_op_alpha = D3D11_BLEND_OP_ADD;
+
+    D3D11_COLOR_WRITE_ENABLE render_target_write_mask = D3D11_COLOR_WRITE_ENABLE_ALL;
+};
+
 class Render_System {
 public:
     Render_System();
@@ -41,11 +57,16 @@ public:
     void draw_image(const texture_internal_sptr& texture, const Rect& size);
 
     unsigned char mesh_layout_bytecode[1024];
-    unsigned char instance_mesh_layout_bytecode[1024];
+    unsigned char instance_mesh_layout_bytecode[2048];
     
     size_t mesh_layout_size = 0;
     size_t instance_mesh_layout_size = 0;
+
+
 private:
+
+    const wchar_t* vert_shader_path = L"../../src/shaders/vert_mesh_layout.hlsl";
+    const wchar_t* inst_shader_path = L"../../src/shaders/inst_mesh_layout.hlsl";
 
     void intit_rasterizer_state();
 
@@ -67,7 +88,8 @@ private:
     Microsoft::WRL::ComPtr<IDXGIFactory> dxgi_factory = nullptr;
 
     Microsoft::WRL::ComPtr<ID3DBlob> shader_blob = nullptr;
-    
+
+    Moryx_DX11_Blend_Description i_blend_desc;
     friend class Swapchain;
     friend class Index_Buffer;
     friend class Constant_Buffer;

@@ -22,6 +22,22 @@ struct Const_Buff {
     Light_Data light;
 };
 
+__declspec(align(16))
+struct Const_Buff_Index {
+    Matrix4x4 world_space;
+    Matrix4x4 view_space;
+    Matrix4x4 projection;
+    Vector4D camera_position;
+    Vector2D top_edge_uv;
+    Vector2D right_edge_uv;
+    Vector2D left_edge_uv;
+    Vector2D bottom_edge_uv;
+    Vector2D top_shadow_uv;
+    Vector2D right_shadow_uv;
+    Vector2D left_shadow_uv;
+    Vector2D bottom_shadow_uv;
+};
+
 Graphics_Engine::Graphics_Engine(Game* game): game(game) {
     render_system = std::make_unique<Render_System>();
 
@@ -48,7 +64,17 @@ void Graphics_Engine::update(float delta_time) {
     Vector2D atlas = Vector2D(1/8.0f,1/8.0f);
 
     Const_Buff const_data = {};
-    std::vector<Instance_Data> inst_data = {};
+    Const_Buff_Index inst_data = {};
+
+    inst_data.top_edge_uv = game->top_edge_uv;
+    inst_data.right_edge_uv = game->right_edge_uv;
+    inst_data.left_edge_uv =game->left_edge_uv;
+    inst_data.bottom_edge_uv = game->bottom_edge_uv;
+
+    inst_data.top_shadow_uv = game->top_shadow_uv;
+    inst_data.right_shadow_uv = game->right_shadow_uv;
+    inst_data.left_shadow_uv = game->left_shadow_uv;
+    inst_data.bottom_shadow_uv = game->bottom_shadow_uv;
 
     for(auto cam_entity : entity_system->get_cams()) {
         auto cam = cam_entity.second.get_ref<Camera>();
@@ -58,6 +84,11 @@ void Graphics_Engine::update(float delta_time) {
         const_data.view_space = cam->get_view(*tr);
         const_data.projection = cam->projection_matrix;
         const_data.camera_position = tr->position;
+
+        inst_data.view_space = cam->get_view(*tr);
+        inst_data.projection = cam->projection_matrix;
+        inst_data.camera_position = tr->position;  
+           
     }
 
     for(auto light_entity : entity_system->get_lights()) {
@@ -66,6 +97,7 @@ void Graphics_Engine::update(float delta_time) {
 
         const_data.light.direction = transform->world_matrix.get_z_direction();
         const_data.light.color = light->color;
+        
     }
 
     for(auto mesh_entity : entity_system->get_meshes()) {
@@ -108,36 +140,15 @@ void Graphics_Engine::update(float delta_time) {
     //====================
     // Instance Rendering
     //====================
-    /*
-    for(float x = 0.0f; x < 100.0f;x++) {
-        for(float y = 0.0f; y < 100.0f;y++) {
-            float var;
-            float blck = 1.0f;
-            //for (float z = 0.0f; z < 10.0f;z++) {
-                //var = fnSimplex->GenSingle3D(x,y,1,12121);
-                //var = rand() % 64 + 1;
-            //}
-             //auto var = rand() % 64 + 1;
-             //var = fnSimplex->GenSingle3D(x,y,1,12121);
-             //if(var < 0.6f) {
-              //  blck = 2.0f;
-            //}
-            
-           
-           // if(output[(int)(x+y)] < 0.05f) {blck = 2.0f;}
-            inst_data.push_back({Vector3D(x,1.0f,y),atlas,Vector2D((blck/8.0f),(blck/8.0f))});
-        }
-    }*/
     
-    //inst_data = *game->get_instance_data();
     for(auto inst_entity : entity_system->get_instances()) {
         auto mesh = inst_entity.second.get_ref<M_Mesh>();
         
-        mesh->mesh->inst_buffer->UpdateInstanceBuffer(context, /*inst_data*/ game->get_instance_data());
+        mesh->mesh->inst_buffer->UpdateInstanceBuffer(context, game->get_instance_data());
         auto transform = inst_entity.second.get_mut<Transform>();
-        const_data.world_space =  transform->world_matrix;
+        inst_data.world_space =  transform->world_matrix;
         const auto materials = mesh->materials;
-        
+
         context->set_instance_and_vertex_buffer(mesh->mesh->vertex_buffer,mesh->mesh->inst_buffer);
         context->set_index_buffer(mesh->mesh->index_buffer);
     
@@ -150,7 +161,7 @@ void Graphics_Engine::update(float delta_time) {
 
             render_system->set_cull_mode(mat->get_culling_mode());
 
-            mat->set_buffer_data(&const_data,sizeof(Const_Buff));
+            mat->set_buffer_data(&inst_data,sizeof(Const_Buff_Index));
 
             context->set_constant_buffer(mat->vert_shader,mat->const_buffer);
             context->set_constant_buffer(mat->pix_shader,mat->const_buffer);

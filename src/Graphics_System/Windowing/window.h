@@ -17,6 +17,7 @@ public:
 
     virtual void on_focus();
     virtual void on_kill_focus();
+    virtual void on_new_audio_device();
     virtual void on_resize(const Rect& size);
 
     Rect get_screen_size();
