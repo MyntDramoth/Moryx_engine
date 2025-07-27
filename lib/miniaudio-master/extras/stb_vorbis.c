@@ -1257,14 +1257,14 @@ static void compute_twiddle_factors(int n, float *A, float *B, float *C)
    int k,k2;
 
    for (k=k2=0; k < n4; ++k,k2+=2) {
-      A[k2  ] = (float)  cos(4*k*M_PII/n);
-      A[k2+1] = (float) -sin(4*k*M_PII/n);
-      B[k2  ] = (float)  cos((k2+1)*M_PII/n/2) * 0.5f;
-      B[k2+1] = (float)  sin((k2+1)*M_PII/n/2) * 0.5f;
+      A[k2  ] = (float)  cos(4*k*M_PI/n);
+      A[k2+1] = (float) -sin(4*k*M_PI/n);
+      B[k2  ] = (float)  cos((k2+1)*M_PI/n/2) * 0.5f;
+      B[k2+1] = (float)  sin((k2+1)*M_PI/n/2) * 0.5f;
    }
    for (k=k2=0; k < n8; ++k,k2+=2) {
-      C[k2  ] = (float)  cos(2*(k2+1)*M_PII/n);
-      C[k2+1] = (float) -sin(2*(k2+1)*M_PII/n);
+      C[k2  ] = (float)  cos(2*(k2+1)*M_PI/n);
+      C[k2+1] = (float) -sin(2*(k2+1)*M_PI/n);
    }
 }
 
@@ -1272,7 +1272,7 @@ static void compute_window(int n, float *window)
 {
    int n2 = n >> 1, i;
    for (i=0; i < n2; ++i)
-      window[i] = (float) sin(0.5 * M_PII * square((float) sin((i - 0 + 0.5) / n2 * 0.5 * M_PII)));
+      window[i] = (float) sin(0.5 * M_PI * square((float) sin((i - 0 + 0.5) / n2 * 0.5 * M_PI)));
 }
 
 static void compute_bitreverse(int n, uint16 *rev)
@@ -2296,13 +2296,13 @@ void inverse_mdct_slow(float *buffer, int n)
       float acc = 0;
       for (j=0; j < n2; ++j)
          // formula from paper:
-         //acc += n/4.0f * x[j] * (float) cos(M_PII / 2 / n * (2 * i + 1 + n/2.0)*(2*j+1));
+         //acc += n/4.0f * x[j] * (float) cos(M_PI / 2 / n * (2 * i + 1 + n/2.0)*(2*j+1));
          // formula from wikipedia
-         //acc += 2.0f / n2 * x[j] * (float) cos(M_PII/n2 * (i + 0.5 + n2/2)*(j + 0.5));
+         //acc += 2.0f / n2 * x[j] * (float) cos(M_PI/n2 * (i + 0.5 + n2/2)*(j + 0.5));
          // these are equivalent, except the formula from the paper inverts the multiplier!
          // however, what actually works is NO MULTIPLIER!?!
-         //acc += 64 * 2.0f / n2 * x[j] * (float) cos(M_PII/n2 * (i + 0.5 + n2/2)*(j + 0.5));
-         acc += x[j] * (float) cos(M_PII / 2 / n * (2 * i + 1 + n/2.0)*(2*j+1));
+         //acc += 64 * 2.0f / n2 * x[j] * (float) cos(M_PI/n2 * (i + 0.5 + n2/2)*(j + 0.5));
+         acc += x[j] * (float) cos(M_PI / 2 / n * (2 * i + 1 + n/2.0)*(2*j+1));
       buffer[i] = acc;
    }
    free(x);
@@ -2317,7 +2317,7 @@ void inverse_mdct_slow(float *buffer, int n, vorb *f, int blocktype)
    float *x = (float *) malloc(sizeof(*x) * n2);
    memcpy(x, buffer, sizeof(*x) * n2);
    for (i=0; i < 4*n; ++i)
-      mcos[i] = (float) cos(M_PII / 2 * i / n);
+      mcos[i] = (float) cos(M_PI / 2 * i / n);
 
    for (i=0; i < n; ++i) {
       float acc = 0;
@@ -2338,7 +2338,7 @@ void dct_iv_slow(float *buffer, int n)
    int n2 = n >> 1, nmask = (n << 3) - 1;
    memcpy(x, buffer, sizeof(*x) * n);
    for (i=0; i < 8*n; ++i)
-      mcos[i] = (float) cos(M_PII / 4 * i / n);
+      mcos[i] = (float) cos(M_PI / 4 * i / n);
    for (i=0; i < n; ++i) {
       float acc = 0;
       for (j=0; j < n; ++j)
@@ -2942,14 +2942,14 @@ void inverse_mdct_naive(float *buffer, int n)
    // set up twiddle factors
 
    for (k=k2=0; k < n4; ++k,k2+=2) {
-      A[k2  ] = (float)  cos(4*k*M_PII/n);
-      A[k2+1] = (float) -sin(4*k*M_PII/n);
-      B[k2  ] = (float)  cos((k2+1)*M_PII/n/2);
-      B[k2+1] = (float)  sin((k2+1)*M_PII/n/2);
+      A[k2  ] = (float)  cos(4*k*M_PI/n);
+      A[k2+1] = (float) -sin(4*k*M_PI/n);
+      B[k2  ] = (float)  cos((k2+1)*M_PI/n/2);
+      B[k2+1] = (float)  sin((k2+1)*M_PI/n/2);
    }
    for (k=k2=0; k < n8; ++k,k2+=2) {
-      C[k2  ] = (float)  cos(2*(k2+1)*M_PII/n);
-      C[k2+1] = (float) -sin(2*(k2+1)*M_PII/n);
+      C[k2  ] = (float)  cos(2*(k2+1)*M_PI/n);
+      C[k2+1] = (float) -sin(2*(k2+1)*M_PI/n);
    }
 
    // IMDCT algorithm from "The use of multirate filter banks for coding of high quality digital audio"

@@ -4,10 +4,11 @@
 
 #include "game_engine.h"
 
+#include <FastNoise/FastNoise.h>
 #include <thread>
 #include <mutex>
 #include <atomic>
-void  work_thread(float mpos, Game* game, FastNoise::SmartNode<FastNoise::Simplex> i_simplex);
+void  work_thread(Vector3D mpos, Game* game, FastNoise::SmartNode<FastNoise::Simplex> i_simplex);
 class Game
 {
 public:
@@ -21,22 +22,34 @@ public:
     entity_handler* get_entity_handler() {return handler.get();}
     std::vector<Instance_Data> get_instance_data() {return inst_data;}
     
-    void StartTerrainThread(float move,FastNoise::SmartNode<FastNoise::Simplex> i_simplex) {
+    void Start_terrain_thread(Vector3D move,FastNoise::SmartNode<FastNoise::Simplex> i_simplex) {
         terrain_processing_done = true;
-        std::thread terrainThread(work_thread, move,this,i_simplex);
-        terrainThread.detach(); // Run asynchronously
+        std::thread terrain_thread(work_thread, move,this,i_simplex);
+        terrain_thread.detach(); // Run asynchronously
     };
     std::mutex data_mutex;
     std::atomic<bool> terrain_processing_done = false;
     //FastNoise::SmartNode<FastNoise::Simplex> i_simplex;
     std::vector<Instance_Data> inst_data = {};
+    float atlas_size_x = 0.0;
+    float atlas_size_y = 0.0;
+
+    Vector2D top_edge_uv ={};
+    Vector2D right_edge_uv ={};
+    Vector2D left_edge_uv ={};
+    Vector2D bottom_edge_uv ={};
+
+    Vector2D top_shadow_uv ={};
+    Vector2D right_shadow_uv ={};
+    Vector2D left_shadow_uv ={};
+    Vector2D bottom_shadow_uv ={};
 
 protected:
     virtual void on_create() {};
     virtual void on_update(float delta_time) {};
     virtual void on_quit() {};
 
-   
+    
     
 private:
     void on_display_size_change(const Rect& size);
@@ -57,12 +70,15 @@ private:
     //------------------------
     // TEMP RESOURCE STORAGE
     //------------------------
-    float move = 0;
+    std::unique_ptr<DirectX::SoundEffect> m_explode;
+
+    Vector3D move = {0.0,0.0,0.0};
     
     size_t tile_data[100][100][10];
     
     mesh_sptr mesh;
     material_sptr material;
+    sound_sptr music;
 
     flecs::entity player;
     flecs::entity cam;
