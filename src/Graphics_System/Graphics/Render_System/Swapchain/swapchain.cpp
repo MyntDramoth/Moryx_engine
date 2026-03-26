@@ -4,9 +4,9 @@
 
 #include "../render_system.h"
 
-Swapchain::Swapchain(HWND hwnd,UINT width, UINT height, Render_System* system) : render_system(system)
+Swapchain::Swapchain(const HWND &hwnd,const uint32_t &width,const uint32_t &height,  const Render_System& system) : m_renderer(system)
 {
-    ID3D11Device* d3_device =  render_system->device.Get();
+    ID3D11Device* d3_device =  m_renderer.device.Get();
 
     DXGI_SWAP_CHAIN_DESC desc;
     ZeroMemory(&desc, sizeof(desc));
@@ -23,7 +23,7 @@ Swapchain::Swapchain(HWND hwnd,UINT width, UINT height, Render_System* system) :
     desc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
     desc.Windowed = TRUE;
 
-    HRESULT hres = render_system->dxgi_factory->CreateSwapChain(d3_device,&desc,&swapchain);
+    HRESULT hres = m_renderer.dxgi_factory->CreateSwapChain(d3_device,&desc,&swapchain);
     if(FAILED(hres)) {
         MORYX_ERROR("Failed to create Swap Chain!");
     }
@@ -36,7 +36,7 @@ Swapchain::~Swapchain()
    
 }
 
-void Swapchain::resize_swapchain(UINT width, UINT height) {
+void Swapchain::resize_swapchain(const uint32_t &width,const uint32_t &height) {
    if(target_view) {target_view.Reset();}
     if(stencil_view) {stencil_view.Reset();}
 
@@ -44,22 +44,22 @@ void Swapchain::resize_swapchain(UINT width, UINT height) {
     reload_buffers(width,height);
 }
 
-void Swapchain::set_fullsreen_state(bool is_fullscreen, UINT width, UINT height) {
+void Swapchain::set_fullsreen_state(const bool &is_fullscreen, const uint32_t &width, const uint32_t &height) {
     resize_swapchain(width,height);
     swapchain->SetFullscreenState(is_fullscreen,nullptr);
    
 }
 
-bool Swapchain::present(bool vsync)
+bool Swapchain::present(const bool &vsync)
 {
     swapchain->Present(vsync,NULL);
 
     return true;
 }
 
-void Swapchain::reload_buffers(UINT width, UINT height) {
+void Swapchain::reload_buffers(const uint32_t &width, const uint32_t &height) {
     ID3D11Texture2D* back_buffer = NULL;
-    auto d3_device =  render_system->device.Get();
+    auto d3_device =  m_renderer.device.Get();
     
     HRESULT hres = swapchain->GetBuffer(0,__uuidof(ID3D11Texture2D),(void**)&back_buffer);
     if(FAILED(hres)) {

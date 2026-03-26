@@ -9,7 +9,7 @@
 class Constant_Buffer
 {
 public:
-    Constant_Buffer(void* buffer, UINT buffer_size, Render_System *system);
+    Constant_Buffer(void* buffer, const uint32_t &buffer_size, const Render_System& system);
     ~Constant_Buffer();
     
     void update(device_context_sptr context, void* buffer);
@@ -17,7 +17,6 @@ public:
 private:
 
     Microsoft::WRL::ComPtr<ID3D11Buffer> i_buffer;
-    Render_System* render_system {nullptr};
-
+    const Render_System& m_renderer;
     friend class Device_Context;
 };

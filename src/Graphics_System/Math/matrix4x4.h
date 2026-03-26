@@ -23,7 +23,7 @@ public:
         matrix[3][2] = translation.z;
     };
 
-    void set_orthogonal_matrix(float width, float height, float near_plane, float far_plane) {
+    void set_orthogonal_matrix(const float &width,const float &height,const float &near_plane,const float &far_plane) {
         set_identity();
         matrix[0][0] = 2.0f/width;
         matrix[1][1] = 2.0f/height;
@@ -31,7 +31,7 @@ public:
         matrix[3][2] = -(near_plane/(far_plane - near_plane));
     };
 
-    void set_perspective_FOV(float FOV, float aspect, float near_plane, float far_plane) {
+    void set_perspective_FOV(const float &FOV,const float &aspect,const float &near_plane,const float &far_plane) {
         set_identity();
         float y_scale = 1.0f / tan(FOV/2.0f);
         float x_scale = y_scale/aspect;
@@ -50,21 +50,21 @@ public:
         matrix[2][2] = scale.z;
     };
 
-    void set_rotation_x (float x) {
+    void set_rotation_x (const float &x) {
         matrix[1][1] = cos(x);
         matrix[1][2] = sin(x);
         matrix[2][1] = -sin(x);
         matrix[2][2] = cos(x);
     };
 
-    void set_rotation_y (float y) {
+    void set_rotation_y (const float &y) {
         matrix[0][0] = cos(y);
         matrix[0][2] = -sin(y);
         matrix[2][0] = sin(y);
         matrix[2][2] = cos(y);
     };
 
-    void set_rotation_z (float z) {
+    void set_rotation_z (const float &z) {
         matrix[0][0] = cos(z);
         matrix[0][1] = sin(z);
         matrix[1][0] = -sin(z);

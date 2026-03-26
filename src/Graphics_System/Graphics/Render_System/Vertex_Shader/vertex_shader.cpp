@@ -3,7 +3,7 @@
 #include <exception>
 #include "../render_system.h"
 
-Vertex_Shader::Vertex_Shader(const wchar_t* full_path, const char* entry_point, Render_System *system) : render_system(system) {
+Vertex_Shader::Vertex_Shader(const wchar_t* full_path, const char* entry_point, const Render_System &system) : m_renderer(system) {
     Microsoft::WRL::ComPtr<ID3DBlob> err_blob {nullptr};
     Microsoft::WRL::ComPtr<ID3DBlob> shader {nullptr};
 
@@ -17,7 +17,7 @@ Vertex_Shader::Vertex_Shader(const wchar_t* full_path, const char* entry_point, 
         MORYX_ERROR("Vertex Shader" << full_path << " failed to compile!");
     }
 
-    hres = render_system->device->CreateVertexShader(shader->GetBufferPointer(),shader->GetBufferSize(),nullptr,&vertex_shader);
+    hres = m_renderer.device->CreateVertexShader(shader->GetBufferPointer(),shader->GetBufferSize(),nullptr,&vertex_shader);
     if(FAILED(hres)) {
         MORYX_ERROR("Failed to create Vertex Shader!");
     }

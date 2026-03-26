@@ -4,7 +4,7 @@
 
 #include "../render_system.h"
 
-Vertex_Buffer::Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, Render_System* system) : input_layout(0), buffer(0), render_system(system) {
+Vertex_Buffer::Vertex_Buffer(void* vertices, const uint32_t &vertex_size, const uint32_t &vertex_num, const Render_System& system) : input_layout(0), buffer(0), m_renderer(system) {
 
     D3D11_BUFFER_DESC buffer_desc = {};
     buffer_desc.Usage = D3D11_USAGE_DEFAULT; //default alows read and write operations by both CPU and GPU
@@ -20,7 +20,7 @@ Vertex_Buffer::Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, 
     vert_size = vertex_size;
     vert_num = vertex_num;
 
-    HRESULT hres = render_system->device->CreateBuffer(&buffer_desc,&init_data,&buffer);
+    HRESULT hres = m_renderer.device->CreateBuffer(&buffer_desc,&init_data,&buffer);
 
     if(FAILED(hres)) {
         MORYX_ERROR("Failed to create Vertex Buffer!");
@@ -38,16 +38,16 @@ Vertex_Buffer::Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, 
         
     };
 
-    UINT layout_size = ARRAYSIZE(layout);
+    uint32_t layout_size = ARRAYSIZE(layout);
 
-    hres = render_system->device->CreateInputLayout(layout,layout_size,render_system->mesh_layout_bytecode,render_system->mesh_layout_size,&input_layout);
+    hres = m_renderer.device->CreateInputLayout(layout,layout_size,m_renderer.mesh_layout_bytecode,m_renderer.mesh_layout_size,&input_layout);
     if(FAILED(hres)) {
        MORYX_ERROR("Failed to create Input Layout!");
     }
     
 }
 
-Vertex_Buffer::Vertex_Buffer(void *vertices, UINT vertex_size, UINT vertex_num, Render_System *system, D3D11_BUFFER_DESC buffer_desc) {
+Vertex_Buffer::Vertex_Buffer(void *vertices, const uint32_t &vertex_size, const uint32_t &vertex_num, const Render_System& system, const D3D11_BUFFER_DESC &buffer_desc) : m_renderer(system){
     D3D11_SUBRESOURCE_DATA init_data = {};
     init_data.pSysMem = vertices;
 
@@ -55,7 +55,7 @@ Vertex_Buffer::Vertex_Buffer(void *vertices, UINT vertex_size, UINT vertex_num, 
     vert_size = vertex_size;
     vert_num = vertex_num;
 
-    HRESULT hres = render_system->device->CreateBuffer(&buffer_desc,&init_data,&buffer);
+    HRESULT hres = m_renderer.device->CreateBuffer(&buffer_desc,&init_data,&buffer);
 
     if(FAILED(hres)) {
         MORYX_ERROR("Failed to create Vertex Buffer!");
@@ -73,9 +73,9 @@ Vertex_Buffer::Vertex_Buffer(void *vertices, UINT vertex_size, UINT vertex_num, 
         
     };
 
-    UINT layout_size = ARRAYSIZE(layout);
+    uint32_t layout_size = ARRAYSIZE(layout);
 
-    hres = render_system->device->CreateInputLayout(layout,layout_size,render_system->mesh_layout_bytecode,render_system->mesh_layout_size,&input_layout);
+    hres = m_renderer.device->CreateInputLayout(layout,layout_size,m_renderer.mesh_layout_bytecode,m_renderer.mesh_layout_size,&input_layout);
     if(FAILED(hres)) {
        MORYX_ERROR("Failed to create Input Layout!");
     }
@@ -85,6 +85,6 @@ Vertex_Buffer::~Vertex_Buffer() {
     
 }
 
-UINT Vertex_Buffer::get_num_vertices() {
+uint32_t Vertex_Buffer::get_num_vertices() {
     return this->vert_num;
 }

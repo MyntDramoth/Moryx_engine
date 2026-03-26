@@ -7,12 +7,12 @@
 class Compute_Shader
 {
 public:
-    Compute_Shader(const wchar_t* full_path, const char* entry_point, Render_System* system);
+    Compute_Shader(const wchar_t* full_path, const char* entry_point, const Render_System& system);
     ~Compute_Shader();
 
 private:
     Microsoft::WRL::ComPtr<ID3D11ComputeShader> compute_shader;
-    Render_System* render_system {nullptr};
+    const Render_System& m_renderer;
 
     friend class Render_System;
     friend class Device_Context;

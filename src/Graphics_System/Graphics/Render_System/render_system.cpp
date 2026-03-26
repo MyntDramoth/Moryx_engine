@@ -11,7 +11,6 @@
 #include "Constant_Buffer/constant_buffer.h"
 #include "Index_Buffer/index_buffer.h"
 #include "Instance_Buffer/instance_buffer.h"
-
 #include "Font/font_internal.h"
 
 #include <exception>
@@ -70,48 +69,48 @@ device_context_sptr Render_System::get_device_context() {
     return this->device_context;
 }
 
-swapchain_sptr Render_System::create_swap_chain(HWND hwnd,UINT width, UINT height) {
-    return std::make_shared<Swapchain>(hwnd,width,height,this); 
+swapchain_sptr Render_System::create_swap_chain(const HWND& hwnd,const uint32_t& width, const uint32_t& height) {
+    return std::make_shared<Swapchain>(hwnd,width,height,*this); 
 }
 
-index_buffer_sptr Render_System::create_index_buffer(void* indeces, UINT index_size) {
-    return std::make_shared<Index_Buffer>(indeces,index_size,this);
+index_buffer_sptr Render_System::create_index_buffer(void* indeces, const uint32_t& index_size) {
+    return std::make_shared<Index_Buffer>(indeces,index_size,*this);
 }
 
-const_buffer_sptr Render_System::create_constant_buffer(void* buffer, UINT buffer_size) {
-    return std::make_shared<Constant_Buffer>(buffer,buffer_size,this);
+const_buffer_sptr Render_System::create_constant_buffer(void* buffer, const uint32_t& buffer_size) {
+    return std::make_shared<Constant_Buffer>(buffer,buffer_size,*this);
 }
 
-vert_buffer_sptr Render_System::create_vertex_buffer(void* vertices, UINT vertex_size, UINT vertex_num) {
-    return std::make_shared<Vertex_Buffer>(vertices,vertex_size,vertex_num,this);
+vert_buffer_sptr Render_System::create_vertex_buffer(void* vertices, const uint32_t& vertex_size, const uint32_t& vertex_num) {
+    return std::make_shared<Vertex_Buffer>(vertices,vertex_size,vertex_num,*this);
 }
 
-instance_buffer_sptr Render_System::create_instance_buffer(void *instances, UINT inst_size, UINT inst_num) {
-    return std::make_shared<Instance_Buffer>(instances,inst_size,inst_num,this);
+instance_buffer_sptr Render_System::create_instance_buffer(void *instances, const uint32_t& inst_size, const uint32_t& inst_num) {
+    return std::make_shared<Instance_Buffer>(instances,inst_size,inst_num,*this);
 }
 
 vert_shader_sptr Render_System::create_vertex_shader(const wchar_t* full_path, const char* entry_point) {
-    return std::make_shared<Vertex_Shader>(full_path,entry_point, this);
+    return std::make_shared<Vertex_Shader>(full_path,entry_point, *this);
 }
 
 pix_shader_sptr Render_System::create_pixel_shader(const wchar_t* full_path, const char* entry_point) {
-    return std::make_shared<Pixel_Shader>(full_path,entry_point, this);
+    return std::make_shared<Pixel_Shader>(full_path,entry_point, *this);
 }
 
 comp_shader_sptr Render_System::create_compute_shader(const wchar_t* full_path, const char* entry_point) {
-    return std::make_shared<Compute_Shader>(full_path,entry_point, this);
+    return std::make_shared<Compute_Shader>(full_path,entry_point, *this);
 }
 
 texture_internal_sptr Render_System::create_texture(const wchar_t *full_path) {
-    return std::make_shared<Texture_Internal>(full_path,this);
+    return std::make_shared<Texture_Internal>(full_path,*this);
 }
 
-texture_internal_sptr Render_System::create_texture(const Rect &size, Texture_Internal::Texture_Type tex_type) {
-    return std::make_shared<Texture_Internal>(size,tex_type, this);
+texture_internal_sptr Render_System::create_texture(const Rect &size, Texture_Internal::Texture_Type tex_type, const uint32_t& array_size) {
+    return std::make_shared<Texture_Internal>(size,tex_type, *this, array_size);
 }
 
 font_internal_sptr Render_System::create_font(const wchar_t *file_path) {  
-    return std::make_shared<Font_Internal>(file_path, this); 
+    return std::make_shared<Font_Internal>(file_path, *this); 
 }
 
 void Render_System::compile_private_shaders() {

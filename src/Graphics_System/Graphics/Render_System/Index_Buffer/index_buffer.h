@@ -9,16 +9,16 @@
 class Index_Buffer
 {
 public:
-    Index_Buffer(void* indeces, UINT index_size, Render_System* system);
-    Index_Buffer(void* indeces, UINT index_size, Render_System* system, D3D11_BUFFER_DESC buffer_desc);
+    Index_Buffer(void* indeces,const uint32_t &index_size, const Render_System& system);
+    Index_Buffer(void* indeces,const uint32_t &index_size, const Render_System& system, const D3D11_BUFFER_DESC &buffer_desc);
     ~Index_Buffer();
 
-    UINT get_size_index_list();
+    uint32_t get_size_index_list();
 private:
-    UINT indeces_size;
+    uint32_t indeces_size;
 
      Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
-    Render_System* render_system {nullptr};
+    const Render_System& m_renderer;
     
     friend class Device_Context;
 

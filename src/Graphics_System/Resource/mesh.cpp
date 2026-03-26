@@ -109,7 +109,7 @@ Mesh::Mesh(const wchar_t* full_path, Resource_Manager* manager):Resource(full_pa
 
                     Vertex_Mesh vertex(Vector3D(vert_Xpos,vert_Ypos,vert_Zpos),Vector2D(tex_Xpos,tex_Ypos),Vector3D(norm_Xpos,norm_Ypos,norm_Zpos),v_tangent,v_binormal);
                     vertices.push_back(vertex);
-                    indeces.push_back((unsigned int)index_global_offset + verts);
+                    indeces.push_back((uint32_t)index_global_offset + verts);
                 }
 
                 index_offset += num_face_verts;
@@ -122,22 +122,22 @@ Mesh::Mesh(const wchar_t* full_path, Resource_Manager* manager):Resource(full_pa
 
     auto render_sys = manager->get_game()->get_graphics_engine()->get_render_system();
 
-    vertex_buffer = render_sys->create_vertex_buffer(&vertices[0],sizeof(Vertex_Mesh),(UINT)vertices.size());
-    index_buffer = render_sys->create_index_buffer(&indeces[0],(UINT)indeces.size());
+    vertex_buffer = render_sys->create_vertex_buffer(&vertices[0],sizeof(Vertex_Mesh),(uint32_t)vertices.size());
+    index_buffer = render_sys->create_index_buffer(&indeces[0],(uint32_t)indeces.size());
 }
 
-Mesh::Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Material_Slot *material_slot_list, UINT slot_list_size, Resource_Manager* manager):Resource(L"",manager) {
+Mesh::Mesh(Vertex_Mesh *vert_list, const uint32_t& vert_list_size, uint32_t *index_list, const uint32_t& index_list_size, Material_Slot *material_slot_list, const uint32_t& slot_list_size, Resource_Manager* manager):Resource(L"",manager) {
     auto render_sys = manager->get_game()->get_graphics_engine()->get_render_system();
 
     vertex_buffer = render_sys->create_vertex_buffer(vert_list,sizeof(Vertex_Mesh),vert_list_size);
     index_buffer = render_sys->create_index_buffer(index_list,index_list_size);
     material_slots.resize(slot_list_size);
-    for(UINT i =0; i < slot_list_size;i++) {
+    for(uint32_t i =0; i < slot_list_size;i++) {
         material_slots[i] = material_slot_list[i];
     }
 }
 
-Mesh::Mesh(const wchar_t *full_path, Resource_Manager *manager, Instance_Data *inst_list, UINT instance_list_size):Resource(full_path, manager)
+Mesh::Mesh(const wchar_t *full_path, Resource_Manager *manager, Instance_Data *inst_list,  const uint32_t& instance_list_size):Resource(full_path, manager)
 {
      if(!std::filesystem::exists(full_path)) {
         MORYX_ERROR("File path is wrong or file does not exist!" << " || File name: " << std::filesystem::path(full_path).filename()<<"\n");
@@ -248,12 +248,12 @@ Mesh::Mesh(const wchar_t *full_path, Resource_Manager *manager, Instance_Data *i
 
     auto render_sys = manager->get_game()->get_graphics_engine()->get_render_system();
 
-    vertex_buffer = render_sys->create_vertex_buffer(&vertices[0],sizeof(Vertex_Mesh),(UINT)vertices.size());
+    vertex_buffer = render_sys->create_vertex_buffer(&vertices[0],sizeof(Vertex_Mesh),(uint32_t)vertices.size());
     inst_buffer = render_sys->create_instance_buffer(inst_list,sizeof(Instance_Data),instance_list_size);
-    index_buffer = render_sys->create_index_buffer(&indeces[0],(UINT)indeces.size());
+    index_buffer = render_sys->create_index_buffer(&indeces[0],(uint32_t)indeces.size());
 }
 
-Mesh::Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Instance_Data *inst_list, UINT instance_list_size, Material_Slot *material_slot_list, UINT slot_list_size, Resource_Manager *manager):Resource(L"", manager) {
+Mesh::Mesh(Vertex_Mesh *vert_list,  const uint32_t& vert_list_size, uint32_t *index_list,  const uint32_t& index_list_size, Instance_Data *inst_list,  const uint32_t& instance_list_size, Material_Slot *material_slot_list,  const uint32_t& slot_list_size, Resource_Manager *manager):Resource(L"", manager) {
     auto render_sys = manager->get_game()->get_graphics_engine()->get_render_system();
 
     vertex_buffer = render_sys->create_vertex_buffer(vert_list,sizeof(Vertex_Mesh),vert_list_size);
@@ -261,7 +261,7 @@ Mesh::Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT i
     //MORYX_INFO("inst buffer: " << inst_buffer);
     index_buffer = render_sys->create_index_buffer(index_list,index_list_size);
     material_slots.resize(slot_list_size);
-    for(UINT i =0; i < slot_list_size;i++) {
+    for(uint32_t i =0; i < slot_list_size;i++) {
         material_slots[i] = material_slot_list[i];
     }
     instance_slots.num_instances = instance_list_size;
@@ -273,7 +273,7 @@ Mesh::~Mesh() {
 }
 
 
-Material_Slot Mesh::get_material_slot(UINT slot) {
+Material_Slot Mesh::get_material_slot(const uint32_t& slot) {
    if(slot >= material_slots.size()) {return Material_Slot();}
    return material_slots[slot];
 }

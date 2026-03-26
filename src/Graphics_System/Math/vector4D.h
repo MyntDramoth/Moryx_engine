@@ -6,7 +6,7 @@ class Vector4D {
 public:
     Vector4D() : x(0.0f),y(0.0f),z(0.0f),w(0.0f)
     {};
-    Vector4D(float X, float Y, float Z, float W) : x(X),y(Y),z(Z),w(W)
+    Vector4D(const float &X,const float &Y,const float &Z,const float &W) : x(X),y(Y),z(Z),w(W)
     {};
     Vector4D(const Vector4D &vector) : x(vector.x),y(vector.y),z(vector.z),w(vector.w)
     {};
@@ -14,7 +14,7 @@ public:
     {};
 
 
-    static Vector4D lerp(const Vector4D &start,const Vector4D &end, float step) {
+    static Vector4D lerp(const Vector4D &start,const Vector4D &end,const float &step) {
         Vector4D vect;
         vect.x = (float)((start.x * (1.0f - step)) + (end.x * (step)));
         vect.y = (float)((start.y * (1.0f - step)) + (end.y * (step)));

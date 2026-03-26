@@ -1,14 +1,14 @@
 #include "font_internal.h"
 #include "../render_system.h"
 
-Font_Internal::Font_Internal(const wchar_t* full_path,Render_System* render_system): render_system(render_system) {
+Font_Internal::Font_Internal(const wchar_t* full_path,const Render_System& render_system): m_renderer(render_system) {
    
-    font = std::make_unique<DirectX::DX11::SpriteFont>(render_system->device.Get(),full_path);
+    font = std::make_unique<DirectX::DX11::SpriteFont>(m_renderer.device.Get(),full_path);
     if(!font) {
        MORYX_ERROR("Failed to create Font!");
     }
 
-    auto context = render_system->device_context;
+    auto context = m_renderer.device_context;
     batch = std::make_unique<DirectX::DX11::SpriteBatch>(context->device_context.Get());
      if(!batch) {
         MORYX_ERROR("Failed to create Font!");

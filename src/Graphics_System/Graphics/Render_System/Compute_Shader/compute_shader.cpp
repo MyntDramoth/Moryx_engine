@@ -4,7 +4,7 @@
 
 #include "../render_system.h"
 
-Compute_Shader::Compute_Shader(const wchar_t* full_path, const char* entry_point, Render_System* system): render_system(system) {
+Compute_Shader::Compute_Shader(const wchar_t* full_path, const char* entry_point,const Render_System& system): m_renderer(system) {
     Microsoft::WRL::ComPtr<ID3DBlob> err_blob {nullptr};
     Microsoft::WRL::ComPtr<ID3DBlob> shader {nullptr};
 
@@ -18,7 +18,7 @@ Compute_Shader::Compute_Shader(const wchar_t* full_path, const char* entry_point
         MORYX_ERROR("Compute Shader" << full_path << " failed to compile!");
     }
 
-    hres = render_system->device->CreateComputeShader(shader->GetBufferPointer(),shader->GetBufferSize(),nullptr,&compute_shader);
+    hres = m_renderer.device->CreateComputeShader(shader->GetBufferPointer(),shader->GetBufferSize(),nullptr,&compute_shader);
     if(FAILED(hres)) {
         MORYX_ERROR("Failed to create Compute Shader!");
     }

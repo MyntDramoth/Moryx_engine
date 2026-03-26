@@ -26,15 +26,13 @@ class Mesh : public Resource
 {
 public:
     Mesh(const wchar_t* full_path, Resource_Manager* manager);
-    Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Material_Slot *material_slot_list, UINT slot_list_size, Resource_Manager* manager);
-    Mesh(const wchar_t* full_path, Resource_Manager* manager, Instance_Data *inst_list, UINT instance_list_size);
-    Mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Instance_Data *inst_list, UINT instance_list_size, Material_Slot *material_slot_list, UINT slot_list_size, Resource_Manager* manager);
-    
-    
+    Mesh(Vertex_Mesh *vert_list, const uint32_t& vert_list_size, uint32_t *index_list, const uint32_t& index_list_size, Material_Slot *material_slot_list, const uint32_t& slot_list_size, Resource_Manager* manager);
+    Mesh(const wchar_t* full_path, Resource_Manager* manager, Instance_Data *inst_list, const uint32_t& instance_list_size);
+    Mesh(Vertex_Mesh *vert_list, const uint32_t& vert_list_size, uint32_t *index_list, const uint32_t& index_list_size, Instance_Data *inst_list, const uint32_t& instance_list_size, Material_Slot *material_slot_list, const uint32_t& slot_list_size, Resource_Manager* manager);
     ~Mesh();
 
     
-    Material_Slot get_material_slot(UINT slot);
+    Material_Slot get_material_slot(const uint32_t& slot);
     Instance_Slot get_inst_slot() {return instance_slots;}
     instance_buffer_sptr get_inst_buff() {return inst_buffer;};
     size_t get_num_materials();

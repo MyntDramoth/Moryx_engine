@@ -14,12 +14,16 @@ Resource_Manager::~Resource_Manager() {
 
 }
 
-mesh_sptr Resource_Manager::create_custom_mesh( Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Material_Slot *material_slot_list, UINT slot_list_size) {
+mesh_sptr Resource_Manager::create_custom_mesh( Vertex_Mesh *vert_list, const uint32_t& vert_list_size, uint32_t *index_list, const uint32_t& index_list_size, Material_Slot *material_slot_list, const uint32_t& slot_list_size) {
     return std::make_shared<Mesh>(vert_list,vert_list_size,index_list,index_list_size,material_slot_list,slot_list_size,this);
 }
 
-mesh_sptr Resource_Manager::create_custom_mesh( Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Instance_Data *inst_list, UINT instance_list_size, Material_Slot *material_slot_list, UINT slot_list_size) {
+mesh_sptr Resource_Manager::create_custom_mesh( Vertex_Mesh *vert_list, const uint32_t& vert_list_size, uint32_t *index_list, const uint32_t& index_list_size, Instance_Data *inst_list, const uint32_t& instance_list_size, Material_Slot *material_slot_list, const uint32_t& slot_list_size) {
     return std::make_shared<Mesh>(vert_list,vert_list_size,index_list,index_list_size,inst_list,instance_list_size,material_slot_list,slot_list_size,this);
+}
+
+texture_sptr Resource_Manager::create_custom_texture(const Rect& size, Texture_Internal::Texture_Type tex_type, uint32_t array_size) {
+    return std::make_shared<Texture>(size,tex_type,this,array_size);
 }
 
 resource_sptr Resource_Manager::create_resource_from_file_concrete(const wchar_t *file_path)

@@ -23,11 +23,11 @@ public:
     void set_vertex_buffer(const vert_buffer_sptr& vertex_buffer);
     void set_instance_and_vertex_buffer(const vert_buffer_sptr& vertex_buffer,const instance_buffer_sptr& instance_buffer);
     void set_instance_buffer(const instance_buffer_sptr& instance_buffer);
-    void draw_triangle_list(UINT vertex_count, UINT start_index);
-    void draw_indexed_triangle_list(UINT index_count,UINT start_index, UINT vert_start_index);
-    void draw_triangle_strip(UINT vertex_count, UINT start_index);
-    void draw_indexed_instanced(UINT index_count, UINT instance_count, UINT start_index, INT base_vert_location, UINT start_instance_location);
-    void set_viewport_size(UINT width, UINT height);
+    void draw_triangle_list(const uint32_t &vertex_count,const uint32_t &start_index);
+    void draw_indexed_triangle_list(const uint32_t &index_count,const uint32_t &start_index,const uint32_t &vert_start_index);
+    void draw_triangle_strip(const uint32_t &vertex_count,const uint32_t &start_index);
+    void draw_indexed_instanced(const uint32_t &index_count,const uint32_t &instance_count,const uint32_t &start_index,const int32_t &base_vert_location,const uint32_t &start_instance_location);
+    void set_viewport_size(const uint32_t &width,const uint32_t &height);
 
     void set_index_buffer(const index_buffer_sptr& index_buffer);
 
@@ -35,7 +35,7 @@ public:
     void set_pixel_shader(const pix_shader_sptr& pixel_shader);
     void set_compute_shader(const comp_shader_sptr& compute_shader);
 
-    void set_texture(const texture_internal_sptr* texture, UINT num_textures);
+    void set_texture(const texture_internal_sptr* texture, const uint32_t &num_textures);
    
     void set_constant_buffer(const vert_shader_sptr& vertex_shader, const const_buffer_sptr& const_buffer);
     void set_constant_buffer(const pix_shader_sptr& pixel_shader, const const_buffer_sptr& const_buffer);

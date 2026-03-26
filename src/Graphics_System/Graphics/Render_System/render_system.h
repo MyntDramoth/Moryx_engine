@@ -35,18 +35,18 @@ public:
 
     device_context_sptr get_device_context();
 
-    swapchain_sptr create_swap_chain(HWND hwnd,UINT width, UINT height);
-    index_buffer_sptr create_index_buffer(void* indeces, UINT index_size);
-    const_buffer_sptr create_constant_buffer(void* buffer, UINT buffer_size);
-    vert_buffer_sptr create_vertex_buffer(void* vertices, UINT vertex_size, UINT vertex_num);
-    instance_buffer_sptr create_instance_buffer(void* instances, UINT inst_size, UINT inst_num);
+    swapchain_sptr create_swap_chain(const HWND& hwnd,const uint32_t& width, const uint32_t& height);
+    index_buffer_sptr create_index_buffer(void* indeces, const uint32_t& index_size);
+    const_buffer_sptr create_constant_buffer(void* buffer, const uint32_t& buffer_size);
+    vert_buffer_sptr create_vertex_buffer(void* vertices, const uint32_t& vertex_size, const uint32_t& vertex_num);
+    instance_buffer_sptr create_instance_buffer(void* instances, const uint32_t& inst_size, const uint32_t& inst_num);
     
     vert_shader_sptr create_vertex_shader(const wchar_t* full_path, const char* entry_point = "main");
     pix_shader_sptr create_pixel_shader(const wchar_t* full_path, const char* entry_point = "main");
     comp_shader_sptr create_compute_shader(const wchar_t* full_path, const char* entry_point = "main");
 
     texture_internal_sptr create_texture(const wchar_t* full_path);
-    texture_internal_sptr create_texture(const Rect& size, Texture_Internal::Texture_Type tex_type);
+    texture_internal_sptr create_texture(const Rect& size, Texture_Internal::Texture_Type tex_type, const uint32_t& array_size = 1);
 
     font_internal_sptr create_font(const wchar_t* file_path);
 
@@ -67,6 +67,7 @@ private:
 
     const wchar_t* vert_shader_path = L"../../src/shaders/vert_mesh_layout.hlsl";
     const wchar_t* inst_shader_path = L"../../src/shaders/inst_mesh_layout.hlsl";
+    //const wchar_t* inst_shader_path = L"../../src/shaders/kore_tile_layout.hlsl";
 
     void intit_rasterizer_state();
 

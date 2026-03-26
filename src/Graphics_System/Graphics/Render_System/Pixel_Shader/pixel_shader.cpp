@@ -4,7 +4,7 @@
 
 #include "../render_system.h"
 
-Pixel_Shader::Pixel_Shader(const wchar_t* full_path, const char* entry_point, Render_System* system) : render_system(system)
+Pixel_Shader::Pixel_Shader(const wchar_t* full_path, const char* entry_point, const Render_System& system) : m_renderer(system)
 {
     Microsoft::WRL::ComPtr<ID3DBlob> err_blob {nullptr};
     Microsoft::WRL::ComPtr<ID3DBlob> shader {nullptr};
@@ -19,7 +19,7 @@ Pixel_Shader::Pixel_Shader(const wchar_t* full_path, const char* entry_point, Re
         MORYX_ERROR("Pixel Shader" << full_path << " failed to compile!");
     }
 
-    hres = render_system->device->CreatePixelShader(shader->GetBufferPointer(),shader->GetBufferSize(),nullptr,&pixel_shader);
+    hres = m_renderer.device->CreatePixelShader(shader->GetBufferPointer(),shader->GetBufferSize(),nullptr,&pixel_shader);
     if(FAILED(hres)) {
         MORYX_ERROR("Failed to create Pixel Shader!");
     }

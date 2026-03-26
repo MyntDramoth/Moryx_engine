@@ -9,7 +9,7 @@
 class Font_Internal
 {
 public:
-    Font_Internal(const wchar_t* full_path,Render_System* render_system);
+    Font_Internal(const wchar_t* full_path,const Render_System& render_system);
     ~Font_Internal();
     Rect get_bounds(const wchar_t* text);
 
@@ -17,7 +17,7 @@ private:
     std::unique_ptr<DirectX::DX11::SpriteFont> font {nullptr};
     std::unique_ptr<DirectX::DX11::SpriteBatch> batch {nullptr};
 
-    Render_System* render_system {nullptr};
+    const Render_System& m_renderer;
 
     friend class Graphics_Engine;
 };

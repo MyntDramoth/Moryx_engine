@@ -8,12 +8,12 @@ class Vector3D {
 public:
     Vector3D() : x(0.0f),y(0.0f),z(0.0f)
     {};
-    Vector3D(float X, float Y, float Z) : x(X),y(Y),z(Z)
+    Vector3D(const float &X,const float &Y,const float &Z) : x(X),y(Y),z(Z)
     {};
     Vector3D(const Vector3D &vector) : x(vector.x),y(vector.y),z(vector.z)
     {};
 
-    static Vector3D lerp(const Vector3D &start,const Vector3D &end, float step) {
+    static Vector3D lerp(const Vector3D &start,const Vector3D &end,const float &step) {
         Vector3D vect;
         vect.x = (float)((start.x * (1.0f - step)) + (end.x * (step)));
         vect.y = (float)((start.y * (1.0f - step)) + (end.y * (step)));
@@ -49,16 +49,21 @@ public:
        memcpy((void*)&y,&in_vect.y,sizeof(float));
        memcpy((void*)&z,&in_vect.z,sizeof(float));
     };
+    bool operator ==(const Vector3D& in_vect) const {
+        if(in_vect.x == x && in_vect.y == y && in_vect.z == z) {
+            return true;
+        } else {return false; }
+    };
 
-    static Vector3D degrees_to_euler(float x, float y, float z) {
+    static Vector3D degrees_to_euler(const float &x,const float &y,const float &z) {
         
-        auto to_radians = M_PII/180.0f;
+        float to_radians = M_PII/180.0f;
        
         return Vector3D(x * to_radians, y * to_radians, z * to_radians);
     };
 
     static Vector3D degrees_to_euler(const Vector3D& in_vect) {
-        auto to_radians = M_PII/180.0f;
+        float to_radians = M_PII/180.0f;
         return in_vect*to_radians;
     };
 
@@ -76,7 +81,7 @@ public:
         z - in_vect.z);
     };
 
-    Vector3D operator *(float num) const {
+    Vector3D operator *(const float &num) const {
         //Vector3D vect;
         
         return Vector3D(x * num,
@@ -92,7 +97,7 @@ public:
         z * in_vect.z);
     };
 
-    float operator [](int num) const {
+    float operator [](const int &num) const {
         //Vector3D vect;
         if(num == 0) {return x;}
         if(num == 1) {return y;}

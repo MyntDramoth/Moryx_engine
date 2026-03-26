@@ -20,9 +20,9 @@ public:
     }
 
 
-    mesh_sptr create_custom_mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Material_Slot *material_slot_list, UINT slot_list_size);
-    mesh_sptr create_custom_mesh(Vertex_Mesh *vert_list, UINT vert_list_size, UINT *index_list, UINT index_list_size, Instance_Data *inst_list, UINT instance_list_size, Material_Slot *material_slot_list, UINT slot_list_size);
-
+    mesh_sptr create_custom_mesh(Vertex_Mesh *vert_list, const uint32_t& vert_list_size, uint32_t *index_list, const uint32_t& index_list_size, Material_Slot *material_slot_list, const uint32_t& slot_list_size);
+    mesh_sptr create_custom_mesh(Vertex_Mesh *vert_list, const uint32_t& vert_list_size, uint32_t *index_list, const uint32_t& index_list_size, Instance_Data *inst_list, const uint32_t& instance_list_size, Material_Slot *material_slot_list, const uint32_t& slot_list_size);
+    texture_sptr Resource_Manager::create_custom_texture(const Rect& size, Texture_Internal::Texture_Type tex_type, uint32_t array_size = 1);
     Game* get_game() {return game;}
 
   

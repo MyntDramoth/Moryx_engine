@@ -9,19 +9,19 @@
 class Vertex_Buffer
 {
 public:
-    Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, Render_System* system);
-    Vertex_Buffer(void* vertices, UINT vertex_size, UINT vertex_num, Render_System* system, D3D11_BUFFER_DESC buffer_desc);
+    Vertex_Buffer(void* vertices, const uint32_t &vertex_size, const uint32_t &vertex_num, const Render_System& system);
+    Vertex_Buffer(void* vertices, const uint32_t &vertex_size, const uint32_t &vertex_num, const Render_System& system, const D3D11_BUFFER_DESC &buffer_desc);
     ~Vertex_Buffer();
 
-    UINT get_num_vertices();
+    uint32_t get_num_vertices();
 
 private:
-    UINT vert_size;
-    UINT vert_num;
+    uint32_t vert_size;
+    uint32_t vert_num;
 
     Microsoft::WRL::ComPtr<ID3D11Buffer> buffer;
     Microsoft::WRL::ComPtr<ID3D11InputLayout> input_layout;
-    Render_System* render_system {nullptr};
+    const Render_System& m_renderer;
 
     friend class Device_Context;
 };

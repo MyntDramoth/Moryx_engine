@@ -42,8 +42,8 @@ void Device_Context::clear_depth_stencil(const swapchain_sptr &swapchain) {
 
 void Device_Context::set_vertex_buffer(const vert_buffer_sptr& vertex_buffer) {
 
-    UINT stride = vertex_buffer->vert_size;
-    UINT offset = 0;
+    uint32_t stride = vertex_buffer->vert_size;
+    uint32_t offset = 0;
 
     auto buffer = vertex_buffer->buffer.Get();
     auto layout = vertex_buffer->input_layout.Get();
@@ -56,8 +56,8 @@ void Device_Context::set_vertex_buffer(const vert_buffer_sptr& vertex_buffer) {
 }
 
 void Device_Context::set_instance_and_vertex_buffer(const vert_buffer_sptr &vertex_buffer, const instance_buffer_sptr &instance_buffer) {
-    UINT stride[2] = {vertex_buffer->vert_size,(instance_buffer->vert_size)};
-    UINT offset[2] = {0,0};
+    uint32_t stride[2] = {vertex_buffer->vert_size,(instance_buffer->vert_size)};
+    uint32_t offset[2] = {0,0};
 
     ID3D11Buffer* buffer[2] = {vertex_buffer->buffer.Get(),instance_buffer->buffer.Get()};
     ID3D11InputLayout* layouts[2] {vertex_buffer->input_layout.Get(),instance_buffer->input_layout.Get()};
@@ -68,8 +68,8 @@ void Device_Context::set_instance_and_vertex_buffer(const vert_buffer_sptr &vert
 }
 
 void Device_Context::set_instance_buffer(const instance_buffer_sptr &instance_buffer) {
-    UINT stride = instance_buffer->vert_size;
-    UINT offset = 0;
+    uint32_t stride = instance_buffer->vert_size;
+    uint32_t offset = 0;
 
     auto buffer = instance_buffer->buffer.Get();
     auto layout = instance_buffer->input_layout.Get();
@@ -79,7 +79,7 @@ void Device_Context::set_instance_buffer(const instance_buffer_sptr &instance_bu
     device_context->IASetInputLayout(layout);
 }
 
-void Device_Context::draw_triangle_list(UINT vertex_count, UINT start_index) {
+void Device_Context::draw_triangle_list(const uint32_t &vertex_count,const uint32_t &start_index) {
    
 
     device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -87,22 +87,22 @@ void Device_Context::draw_triangle_list(UINT vertex_count, UINT start_index) {
     device_context->Draw(vertex_count,start_index);
 }
 
-void Device_Context::draw_indexed_triangle_list(UINT index_count, UINT start_index, UINT vert_start_index) {
+void Device_Context::draw_indexed_triangle_list(const uint32_t &index_count,const uint32_t &start_index,const uint32_t &vert_start_index) {
     device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     device_context->DrawIndexed(index_count,start_index,vert_start_index);
 }
 
-void Device_Context::draw_triangle_strip(UINT vertex_count, UINT start_index) {
+void Device_Context::draw_triangle_strip(const uint32_t &vertex_count,const uint32_t &start_index) {
     device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
     device_context->Draw(vertex_count,start_index);
 }
 
-void Device_Context::draw_indexed_instanced(UINT index_count, UINT instance_count, UINT start_index, INT base_vert_location, UINT start_instance_location) {
+void Device_Context::draw_indexed_instanced(const uint32_t &index_count,const uint32_t &instance_count,const uint32_t &start_index,const int32_t &base_vert_location,const uint32_t &start_instance_location) {
     //device_context->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
     device_context->DrawIndexedInstanced(index_count, instance_count, start_index, base_vert_location, start_instance_location);
 }
 
-void Device_Context::set_viewport_size(UINT width, UINT height) {
+void Device_Context::set_viewport_size(const uint32_t &width,const uint32_t &height) {
     D3D11_VIEWPORT viewport = {};
     viewport.Width = width;
     viewport.Height = height;
@@ -133,10 +133,10 @@ void Device_Context::set_compute_shader(const comp_shader_sptr& compute_shader) 
      device_context->CSSetShader(shader,nullptr,0);
 }
 
-void Device_Context::set_texture(const texture_internal_sptr* texture, UINT num_textures) {
+void Device_Context::set_texture(const texture_internal_sptr* texture, const uint32_t &num_textures) {
     ID3D11ShaderResourceView* views[32];
     ID3D11SamplerState* samplers[32];
-    for(UINT i = 0; i < num_textures;i++) {
+    for(uint32_t i = 0; i < num_textures;i++) {
         views[i] = texture[i]->shader_view.Get();
         samplers[i] = texture[i]->sampler_state.Get();
     }

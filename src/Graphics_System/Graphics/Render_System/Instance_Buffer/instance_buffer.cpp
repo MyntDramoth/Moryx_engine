@@ -4,7 +4,7 @@
 
 #include "../render_system.h"
 
-Instance_Buffer::Instance_Buffer(void* instances, UINT inst_size, UINT inst_num, Render_System* system) : input_layout(0), buffer(0), render_system(system) {
+Instance_Buffer::Instance_Buffer(void* instances, const uint32_t &inst_size, const uint32_t &inst_num, const Render_System& system) : input_layout(0), buffer(0), m_renderer(system) {
    
     D3D11_BUFFER_DESC buffer_desc = {};
     buffer_desc.Usage = D3D11_USAGE_DYNAMIC; //default alows read and write operations by both CPU and GPU
@@ -20,7 +20,7 @@ Instance_Buffer::Instance_Buffer(void* instances, UINT inst_size, UINT inst_num,
     vert_size = inst_size;
     vert_num = inst_num;
 
-    HRESULT hres = render_system->device->CreateBuffer(&buffer_desc,&init_data,&buffer);
+    HRESULT hres = m_renderer.device->CreateBuffer(&buffer_desc,&init_data,&buffer);
 
     if(FAILED(hres)) {
         MORYX_ERROR("Failed to create Intance Buffer!");
@@ -45,15 +45,15 @@ Instance_Buffer::Instance_Buffer(void* instances, UINT inst_size, UINT inst_num,
         
     };
 
-    UINT layout_size = ARRAYSIZE(layout);
+    uint32_t layout_size = ARRAYSIZE(layout);
 
-    hres = render_system->device->CreateInputLayout(layout,layout_size,render_system->instance_mesh_layout_bytecode,render_system->instance_mesh_layout_size,&input_layout);
+    hres = m_renderer.device->CreateInputLayout(layout,layout_size,m_renderer.instance_mesh_layout_bytecode,m_renderer.instance_mesh_layout_size,&input_layout);
     if(FAILED(hres)) {
        MORYX_ERROR("Failed to create Instance Input Layout!");
     }
 }
 
-Instance_Buffer::Instance_Buffer(void *instances, UINT inst_size, UINT inst_num, Render_System *system, D3D11_BUFFER_DESC buffer_desc) {
+Instance_Buffer::Instance_Buffer(void *instances, const uint32_t &inst_size, const uint32_t &inst_num, const Render_System &system,const D3D11_BUFFER_DESC &buffer_desc) :  m_renderer(system) {
      D3D11_SUBRESOURCE_DATA init_data = {};
     init_data.pSysMem = instances;
 
@@ -61,7 +61,7 @@ Instance_Buffer::Instance_Buffer(void *instances, UINT inst_size, UINT inst_num,
     vert_size = inst_size;
     vert_num = inst_num;
 
-    HRESULT hres = render_system->device->CreateBuffer(&buffer_desc,&init_data,&buffer);
+    HRESULT hres = m_renderer.device->CreateBuffer(&buffer_desc,&init_data,&buffer);
 
     if(FAILED(hres)) {
         MORYX_ERROR("Failed to create Intance Buffer!");
@@ -86,15 +86,15 @@ Instance_Buffer::Instance_Buffer(void *instances, UINT inst_size, UINT inst_num,
         
     };
 
-    UINT layout_size = ARRAYSIZE(layout);
+    uint32_t layout_size = ARRAYSIZE(layout);
 
-    hres = render_system->device->CreateInputLayout(layout,layout_size,render_system->instance_mesh_layout_bytecode,render_system->instance_mesh_layout_size,&input_layout);
+    hres = m_renderer.device->CreateInputLayout(layout,layout_size,m_renderer.instance_mesh_layout_bytecode,m_renderer.instance_mesh_layout_size,&input_layout);
     if(FAILED(hres)) {
        MORYX_ERROR("Failed to create Instance Input Layout!");
     }
 }
 
-void Instance_Buffer::UpdateInstanceBuffer(device_context_sptr context,  std::vector<Instance_Data> data) {
+void Instance_Buffer::UpdateInstanceBuffer(const device_context_sptr &context,const  std::vector<Instance_Data> &data) {
 
     //MORYX_INFO("data sample: " << data[0].atlas_offset.y);
 

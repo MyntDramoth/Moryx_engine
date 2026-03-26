@@ -3,7 +3,7 @@
 #include "../render_system.h"
 #include <exception>
 
-Constant_Buffer::Constant_Buffer(void* buffer, UINT buffer_size, Render_System *system) : render_system(system) {
+Constant_Buffer::Constant_Buffer(void* buffer, const uint32_t &buffer_size, const Render_System &system) : m_renderer(system) {
    
 
     D3D11_BUFFER_DESC buffer_desc = {};
@@ -17,7 +17,7 @@ Constant_Buffer::Constant_Buffer(void* buffer, UINT buffer_size, Render_System *
     init_data.pSysMem = buffer;
 
 
-    HRESULT hres = render_system->device->CreateBuffer(&buffer_desc,&init_data,&this->i_buffer);
+    HRESULT hres = m_renderer.device->CreateBuffer(&buffer_desc,&init_data,&this->i_buffer);
 
     if(FAILED(hres)) {
         MORYX_ERROR("Failed to create Constant Buffer!");

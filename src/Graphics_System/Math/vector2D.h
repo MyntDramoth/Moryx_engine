@@ -4,7 +4,7 @@ class Vector2D {
 public:
     Vector2D() : x(0),y(0) 
     {};
-    Vector2D(float X, float Y) : x(X),y(Y) 
+    Vector2D(const float &X,const float &Y) : x(X),y(Y) 
     {};
     Vector2D(const Vector2D &vect) : x(vect.x),y(vect.y) 
     {};
@@ -25,7 +25,7 @@ public:
         y - in_vect.y);
     };
 
-    Vector2D operator *(float num) const {
+    Vector2D operator *(const float &num) const {
         //Vector3D vect;
         
         return Vector2D(x * num,
@@ -39,7 +39,7 @@ public:
         y * in_vect.y);
     };
 
-    float operator [](int num) const {
+    float operator [](const int &num) const {
         //Vector3D vect;
         if(num == 0) {return x;}
         if(num == 1) {return y;}
